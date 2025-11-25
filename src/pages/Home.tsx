@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
 export default function Home() {
   return (
@@ -9,9 +9,10 @@ export default function Home() {
         <h1 className="text-5xl md:text-6xl font-extrabold mb-12 drop-shadow-lg">
           Dongeons & Dragons Créateur de personnages
         </h1>
-        
+
         <p className="text-lg md:text-xl text-gray-300 mb-8 mx-8">
-          Crée ton héros sur mesure pour partir à l’aventure : choisis une race, une classe, des caractéristiques et bien plus.
+          Crée ton héros sur mesure pour partir à l'aventure : choisis une race,
+          une classe, des caractéristiques et bien plus.
         </p>
 
         <Link
@@ -20,6 +21,10 @@ export default function Home() {
         >
           Commencer la création
         </Link>
+
+        <div className="mt-16 text-sm text-gray-400">
+          <p>Créé par Thomas Carreau et Simon Bihais à partir des règles DND 2024</p>
+        </div>
       </div>
     </main>
   )

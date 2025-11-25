@@ -29,19 +29,17 @@ export default function BackgroundSelection({
         <Box className="basis-1/6 h-full bg-black/30 gap-2 flex flex-col overflow-auto">
           {BACKGROUNDS.map((background, index) => {
             return (
-              <>
-                <PageLink
-                  key={"bg-link-" + index}
-                  href={"#" + background.name}
-                  className={`rounded-lg p-2 cursor-pointer ${
-                    selectedBg === index
-                      ? "bg-red-500/30 hover:bg-red-500/60"
-                      : "bg-gray-500/30 hover:bg-gray-500/60"
-                  }`}
-                >
-                  {background.name}
-                </PageLink>
-              </>
+              <PageLink
+                key={"bg-link-" + index}
+                href={"#" + background.name}
+                className={`rounded-lg p-2 cursor-pointer ${
+                  selectedBg === index
+                    ? "bg-red-500/30 hover:bg-red-500/60"
+                    : "bg-gray-500/30 hover:bg-gray-500/60"
+                }`}
+              >
+                {background.name}
+              </PageLink>
             )
           })}
         </Box>
@@ -49,42 +47,38 @@ export default function BackgroundSelection({
         <Box className="basis-5/6 flex bg-black/30 flex-col items-center overflow-auto gap-2 pb-4">
           {BACKGROUNDS.map((background, index) => {
             return (
-              <>
-                <div
-                  key={"bg-" + index}
-                  id={background.name}
-                  onClick={() => setSelectedBg(index)}
-                  className={`flex flex-row rounded-lg bg-gray-500/30 border-2 cursor-pointer relative ${
-                    selectedBg === index
-                      ? "border-red-800/60 text-red-800"
-                      : "border-gray-500/30 text-white"
-                  }`}
-                >
-                  <div className="w-1/2 flex flex-col p-2">
-                    <h3
-                      className={"text-3xl font-bold mb-6"}
-                      key={"bg-name-" + index}
-                    >
-                      {background.name}
-                    </h3>
-                    <p className="text-white" key={"bg-desc-" + index}>
-                      {background.description}
-                    </p>
-                  </div>
-
-                  <img
-                    key={"bg-img-" + index}
-                    src={background.image}
-                    alt={background.name}
-                    className="w-1/2 object-cover object-center rounded-r-lg"
-                  />
-                  <div className="absolute top-1 right-1">
-                    <AddButton
-                      onClick={() => setDetailsBackground(background)}
-                    />
-                  </div>
+              <div
+                key={"bg-" + index}
+                id={background.name}
+                onClick={() => setSelectedBg(index)}
+                className={`flex flex-row rounded-lg bg-gray-500/30 border-2 cursor-pointer relative ${
+                  selectedBg === index
+                    ? "border-red-800/60 text-red-800"
+                    : "border-gray-500/30 text-white"
+                }`}
+              >
+                <div className="w-1/2 flex flex-col p-2">
+                  <h3
+                    className={"text-3xl font-bold mb-6"}
+                    key={"bg-name-" + index}
+                  >
+                    {background.name}
+                  </h3>
+                  <p className="text-white" key={"bg-desc-" + index}>
+                    {background.description}
+                  </p>
                 </div>
-              </>
+
+                <img
+                  key={"bg-img-" + index}
+                  src={background.image}
+                  alt={background.name}
+                  className="w-1/2 object-cover object-center rounded-r-lg"
+                />
+                <div className="absolute top-1 right-1">
+                  <AddButton onClick={() => setDetailsBackground(background)} />
+                </div>
+              </div>
             )
           })}
           <div className="absolute bottom-10">
