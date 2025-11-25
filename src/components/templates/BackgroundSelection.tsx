@@ -10,7 +10,7 @@ import PageLink from "../atoms/PageLink"
 import type { Background } from "../../types/data/background"
 import PrimaryButton from "../atoms/PrimaryButton"
 import AddButton from "../atoms/AddButton"
-import BackgroundDetails from "../atoms/BackgroundDetails"
+import BackgroundDetails from "../organisms/BackgroundDetails"
 
 export default function BackgroundSelection({
   setBackground,
@@ -56,13 +56,20 @@ export default function BackgroundSelection({
                   onClick={() => setSelectedBg(index)}
                   className={`flex flex-row rounded-lg bg-gray-500/30 border-2 cursor-pointer relative ${
                     selectedBg === index
-                      ? "border-red-500/30"
-                      : "border-gray-500/30"
+                      ? "border-red-800/60 text-red-800"
+                      : "border-gray-500/30 text-white"
                   }`}
                 >
                   <div className="w-1/2 flex flex-col p-2">
-                    <h3 key={"bg-name-" + index}>{background.name}</h3>
-                    <p key={"bg-desc-" + index}>{background.description}</p>
+                    <h3
+                      className={"text-3xl font-bold mb-6"}
+                      key={"bg-name-" + index}
+                    >
+                      {background.name}
+                    </h3>
+                    <p className="text-white" key={"bg-desc-" + index}>
+                      {background.description}
+                    </p>
                   </div>
 
                   <img
@@ -73,10 +80,7 @@ export default function BackgroundSelection({
                   />
                   <div className="absolute top-1 right-1">
                     <AddButton
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setDetailsBackground(background)
-                      }}
+                      onClick={() => setDetailsBackground(background)}
                     />
                   </div>
                 </div>

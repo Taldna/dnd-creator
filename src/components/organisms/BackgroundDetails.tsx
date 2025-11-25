@@ -1,5 +1,5 @@
 import type { Background } from "../../types/data/background"
-import Box from "./Box"
+import Box from "../atoms/Box"
 
 export default function BackgroundDetails({
   backgroundItem,
@@ -23,7 +23,7 @@ export default function BackgroundDetails({
 
       <div className="space-y-4">
         <div>
-          <h3 className="text-xl font-semibold text-red-400 mb-2">
+          <h3 className="text-xl font-semibold text-white mb-2">
             Scores de Caractéristique
           </h3>
           <div className="flex gap-2 flex-wrap">
@@ -41,14 +41,12 @@ export default function BackgroundDetails({
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-red-400 mb-2">Don</h3>
+          <h3 className="text-xl font-semibold text-white mb-2">Don</h3>
           <p className="text-gray-300">{backgroundItem.feat.name}</p>
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-red-400 mb-2">
-            Compétences
-          </h3>
+          <h3 className="text-xl font-semibold text-white mb-2">Compétences</h3>
           <div className="flex gap-2 flex-wrap">
             {backgroundItem.proficiencies
               .filter(Boolean)
@@ -64,16 +62,14 @@ export default function BackgroundDetails({
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-red-400 mb-2">
+          <h3 className="text-xl font-semibold text-white mb-2">
             Maîtrise d'Outil
           </h3>
           <p className="text-gray-300">{backgroundItem.toolProficiency}</p>
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-red-400 mb-2">
-            Équipement
-          </h3>
+          <h3 className="text-xl font-semibold text-white mb-2">Équipement</h3>
           <ul className="list-disc list-inside text-gray-300 space-y-1">
             {backgroundItem.equipment.map((item, index) => (
               <li key={index}>{item}</li>
