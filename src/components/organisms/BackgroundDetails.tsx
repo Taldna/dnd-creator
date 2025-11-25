@@ -24,7 +24,7 @@ export default function BackgroundDetails({
       <div className="space-y-4">
         <div>
           <h3 className="text-xl font-semibold text-white mb-2">
-            Scores de Caractéristique
+            Valeurs de Caractéristique
           </h3>
           <div className="flex gap-2 flex-wrap">
             {backgroundItem.abilityScore
