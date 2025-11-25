@@ -81,18 +81,20 @@ export default function BackgroundSelection({
               </div>
             )
           })}
-          <div className="absolute bottom-10">
-            <PrimaryButton
-              onClick={() => {
-                console.info(
-                  `Historique "${BACKGROUNDS[selectedBg].name}" sélectionné !`
-                )
-                setBackground(BACKGROUNDS[selectedBg])
-              }}
-            >
-              Choisir
-            </PrimaryButton>
-          </div>
+          {selectedBg !== -1 && (
+            <div className="absolute bottom-10">
+              <PrimaryButton
+                onClick={() => {
+                  console.info(
+                    `Historique "${BACKGROUNDS[selectedBg].name}" sélectionné !`
+                  )
+                  setBackground(BACKGROUNDS[selectedBg])
+                }}
+              >
+                Choisir
+              </PrimaryButton>
+            </div>
+          )}
         </Box>
       </div>
 
