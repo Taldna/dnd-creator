@@ -12,11 +12,11 @@ import { FEATS } from "./feats"
  * @returns 
  */
 function findAndModifyFeat(feats: Feat[], name: string, newName: string): Feat  {
-    let feat: Feat = feats.find((e) => e.name == name)!
+    const feat: Feat = feats.find((e) => e.name == name)!
     return {...feat, name: newName}
 }
 
-let rawBackgrounds: Background[] = [
+const rawBackgrounds: Background[] = [
     {
         name: "Acolyte",
         abilityScore: ["Intelligence", "Sagesse", "Charisme"],

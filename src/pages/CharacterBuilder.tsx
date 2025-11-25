@@ -27,3 +27,4 @@ export default function CharacterBuilder() {
         <div className="text-black">Class selected: {dndClass.name}, Background selected: {background.name}, Species selected: {species.name}</div>
     )
 }
+
