@@ -1,5 +1,6 @@
 import type { Background } from "../types/data/background"
 import type { Feat } from "../types/data/feat"
+import { ABILITIES } from "./abilities"
 
 import { FEATS } from "./feats"
 
@@ -19,7 +20,7 @@ function findAndModifyFeat(feats: Feat[], name: string, newName: string): Feat  
 const rawBackgrounds: Background[] = [
     {
         name: "Acolyte",
-        abilityScore: ["Intelligence", "Sagesse", "Charisme"],
+        abilityScore: [ABILITIES.Intelligence, ABILITIES.Sagesse, ABILITIES.Charisme],
         feat: findAndModifyFeat(FEATS, "Initié à la magie", "Initié à la magie (Clerc)"),
         proficiencies: ["Intuition", "Religion"],
         toolProficiency: "Matériel de calligraphe",
