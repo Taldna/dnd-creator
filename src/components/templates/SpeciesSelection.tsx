@@ -24,11 +24,13 @@ export default function SpeciesSelection({
       <div className="size-9/10 flex flex-row gap-8 justify-center">
         <Box className="w-2/5 flex gap-4 flex-wrap flex-start content-start relative">
           {SPECIES.map((species) => (
-            <Box key={species.name} className="size-[5em]">
-              <div 
-                className="size-full bg-red-500"
-                onClick={() => setSelectedSpecies(species)}  
-              ></div>
+            <Box key={species.name} className="w-1/5 flex grow hover:bg-red-800 justify-center">
+              <img 
+                src={species.icon}
+                alt={species.name}
+                className="rounded-lg cursor-pointer"
+                onClick={() => setSelectedSpecies(species)}
+              />
             </Box>
           ))}
 
@@ -41,7 +43,7 @@ export default function SpeciesSelection({
         
         <Box className="w-3/5 flex flex-col gap-4 overflow-auto">
           <img
-            src={selectedSpecies.image}
+            src={selectedSpecies.fullImage}
             alt={selectedSpecies.name}
             className="rounded-lg"
           />

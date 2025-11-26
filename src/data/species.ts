@@ -83,23 +83,35 @@ let rawSpecies: Species[] = [
   }
 ];
 
-const images = import.meta.glob("../assets/species/*.{png,jpg}", {
+const fullImages = import.meta.glob("../assets/species/*.{png,jpg}", {
   eager: true,
   import: "default",
 }) as Record<string, string>;
 
-const speciesImages: Record<string, string> = {};
+const iconImages = import.meta.glob("../assets/species/icons/*.{png,jpg,jpeg}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
 
-const regex = /\/((?:\p{L}|\s|-|')+)\.(png|jpg)$/u;
+const speciesImages: Record<string, string> = {}; 
+const speciesIcons: Record<string, string> = {};
 
-for (const path in images) {
+const regex = /\/((?:\p{L}|\s|-|')+)\.(png|jpg|jpeg)$/u;
+
+for (const path in fullImages) {
   const match = path.match(regex);
-  if (match) speciesImages[match[1]] = images[path];
+  if (match) speciesImages[match[1]] = fullImages[path];
 }
 
-export const SPECIES: (Species & { image?: string })[] = rawSpecies.map(
+for (const path in iconImages) {
+  const match = path.match(regex);
+  if (match) speciesIcons[match[1]] = iconImages[path];
+}
+
+export const SPECIES = rawSpecies.map(
   (species) => ({
     ...species,
-    image: speciesImages[species.name],
+    fullImage: speciesImages[species.name],
+    icon: speciesIcons[species.name],
   })
 );
