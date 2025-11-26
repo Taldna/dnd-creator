@@ -22,9 +22,9 @@ export default function SpeciesSelection({
     <main className="h-screen w-screen flex flex-col items-center text-white p-4 bg-[url(/background_scale.png)] bg-cover overflow-auto">
       <Title name="Sélection de l'espèce" />
       <div className="size-9/10 flex flex-row gap-8 justify-center">
-        <Box className="w-2/5 flex gap-4 flex-wrap flex-start content-start relative">
+        <Box className="w-2/5 flex gap-4 flex-wrap flex-start content-start overflow-auto relative">
           {SPECIES.map((species) => (
-            <Box key={species.name} className="w-1/5 flex grow hover:bg-red-800 justify-center">
+            <Box key={species.name} className="w-1/5 flex grow min-w-3xs hover:bg-red-800 justify-center">
               <img 
                 src={species.icon}
                 alt={species.name}
@@ -34,7 +34,7 @@ export default function SpeciesSelection({
             </Box>
           ))}
 
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+          <div className="sticky bottom-0 left-1/2 transform -translate-x-1/2">
             <PrimaryButton onClick={() => setSpecies(SPECIES[0])}>
               Choisir cette espèce
             </PrimaryButton>
