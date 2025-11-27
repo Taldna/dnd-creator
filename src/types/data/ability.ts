@@ -4,4 +4,5 @@ export type Ability = {
     historyBonus: number
     finalValue: number
     modifier: number
+    description: string
 }

@@ -63,6 +63,8 @@ export default function AbilitiesSelection({
 }) {
   const [selectedAb, setSelectedAb] =
     useState<Record<string, Ability>>(ABILITIES)
+  const [hoveredAbility, setHoveredAbility] = useState<string | null>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     if (!dndClass) {
@@ -119,7 +121,17 @@ export default function AbilitiesSelection({
           {Object.values(selectedAb).map((ability, index) => (
             <div key={ability.name}>
               <div className="grid grid-cols-5 items-center text-center">
-                <div className="text-left text-lg font-bold">
+                <div
+                  className="text-left text-lg font-bold cursor-help"
+                  onMouseEnter={(e) => {
+                    setHoveredAbility(ability.name)
+                    setMousePosition({ x: e.clientX, y: e.clientY })
+                  }}
+                  onMouseMove={(e) => {
+                    setMousePosition({ x: e.clientX, y: e.clientY })
+                  }}
+                  onMouseLeave={() => setHoveredAbility(null)}
+                >
                   {ability.name}
                 </div>
 
@@ -225,12 +237,16 @@ export default function AbilitiesSelection({
                       )
                     }
                     className={`scale-50 transition ease-in hover:scale-60 pb-1.5 ${
-                      totalHistoryBonus >= 3 || !isAbilityAllowed(ability.name)
+                      totalHistoryBonus >= 3 ||
+                      !isAbilityAllowed(ability.name) ||
+                      ability.historyBonus >= 2
                         ? "opacity-30 cursor-not-allowed"
                         : ""
                     }`}
                     disabled={
-                      totalHistoryBonus >= 3 || !isAbilityAllowed(ability.name)
+                      totalHistoryBonus >= 3 ||
+                      !isAbilityAllowed(ability.name) ||
+                      ability.historyBonus >= 2
                     }
                   />
                 </div>
@@ -269,6 +285,19 @@ export default function AbilitiesSelection({
           </PrimaryButton>
         </div>
       </Box>
+
+      {hoveredAbility && (
+        <div
+          className="fixed pointer-events-none z-50 max-w-xs p-4 bg-black border-2 border-gray-500 rounded-lg text-white text-sm shadow-lg"
+          style={{
+            left: `${mousePosition.x + 10}px`,
+            top: `${mousePosition.y + 10}px`,
+          }}
+        >
+          <div className="font-bold mb-2">{hoveredAbility}</div>
+          <div>{selectedAb[hoveredAbility]?.description}</div>
+        </div>
+      )}
     </main>
   )
 }

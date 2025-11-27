@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import type { Class } from "../types/data/class"
 import type { Background } from "../types/data/background"
@@ -11,8 +11,6 @@ import BackgroundSelection from "../components/templates/BackgroundSelection"
 import SpeciesSelection from "../components/templates/SpeciesSelection"
 import type { Ability } from "../types/data/ability"
 import AbilitiesSelection from "../components/templates/AbilitiesSelection"
-import { CLASSES } from "../data/classes"
-import { BACKGROUNDS } from "../data/backgrounds"
 import { SPECIES } from "../data/species"
 
 export default function CharacterBuilder() {
@@ -21,25 +19,38 @@ export default function CharacterBuilder() {
   const [species, setSpecies] = useState<Species | null>(null)
   const [abilities, setAbilities] = useState<Ability[] | null>(null)
 
-  useEffect(() => {
-    setDndClass(CLASSES[0])
-    setBackground(BACKGROUNDS[0])
+  if (dndClass === null) {
+    return <ClassSelection setDndClass={setDndClass} />
+  } else if (background === null) {
+    return <BackgroundSelection setBackground={setBackground} />
+  } else if (species === null) {
     setSpecies(SPECIES[0])
-  }, [])
+    return <SpeciesSelection setSpecies={setSpecies} />
+  } else if (abilities === null) {
+    return (
+      <AbilitiesSelection
+        setAbilities={setAbilities}
+        dndClass={dndClass}
+        background={background}
+      />
+    )
+  }
 
-  // if (dndClass === null) {
-  //     return( <ClassSelection setDndClass={setDndClass} />)
-  // } else if (background === null) {
-  //     return( <BackgroundSelection setBackground={setBackground} />)
-  // } else if (species === null) {
-  //     return( <SpeciesSelection setSpecies={setSpecies} />)
-  // } else if( abilities === null) {
-  //     return( <AbilitiesSelection setAbilities={setAbilities} />)
-  // }
-
-  return <AbilitiesSelection setAbilities={setAbilities} dndClass={dndClass} background={background} />
-
-  // return (
-  //     <div className="text-black">Class selected: {dndClass.name}, Background selected: {background.name}, Species selected: {species.name}</div>
-  // )
+  return (
+    <div className="text-black">
+      <div>Class selected: {dndClass.name}</div>
+      <div>Background selected: {background.name}</div>
+      <div>Species selected: {species.name}</div>
+      <div>Abilities selected:</div>
+      {Object.values(abilities).map((ability, index) => (
+        <div key={index}>
+          <div>- {ability.name}</div>
+          <div> Raw Value: {ability.rawValue}</div>
+          <div> History Bonus: {ability.historyBonus}</div>
+          <div> Final Value: {ability.finalValue}</div>
+          <div> Modifier: {ability.modifier}</div>
+        </div>
+      ))}
+    </div>
+  )
 }
