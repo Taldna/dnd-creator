@@ -11,13 +11,17 @@ import BackgroundSelection from "../components/templates/BackgroundSelection"
 import SpeciesSelection from "../components/templates/SpeciesSelection"
 import type { Ability } from "../types/data/ability"
 import AbilitiesSelection from "../components/templates/AbilitiesSelection"
+import ProficienciesSelection from "../components/templates/ProficienciesSelection"
 import { SPECIES } from "../data/species"
 
 export default function CharacterBuilder() {
   const [dndClass, setDndClass] = useState<Class | null>(null)
   const [background, setBackground] = useState<Background | null>(null)
   const [species, setSpecies] = useState<Species | null>(null)
-  const [abilities, setAbilities] = useState<Ability[] | null>(null)
+  const [abilities, setAbilities] = useState<Record<string, Ability> | null>(
+    null
+  )
+  const [showProficiencies, setShowProficiencies] = useState(false)
 
   if (dndClass === null) {
     return <ClassSelection setDndClass={setDndClass} />
@@ -26,12 +30,22 @@ export default function CharacterBuilder() {
   } else if (species === null) {
     setSpecies(SPECIES[0])
     return <SpeciesSelection setSpecies={setSpecies} />
-  } else if (abilities === null) {
+  } else if (abilities === null || !showProficiencies) {
     return (
       <AbilitiesSelection
         setAbilities={setAbilities}
+        abilities={abilities}
         dndClass={dndClass}
         background={background}
+        onNext={() => setShowProficiencies(true)}
+      />
+    )
+  } else if (showProficiencies) {
+    return (
+      <ProficienciesSelection
+        setProficiency={() => {}}
+        selectedAb={abilities}
+        onBack={() => setShowProficiencies(false)}
       />
     )
   }
@@ -42,15 +56,16 @@ export default function CharacterBuilder() {
       <div>Background selected: {background.name}</div>
       <div>Species selected: {species.name}</div>
       <div>Abilities selected:</div>
-      {Object.values(abilities).map((ability, index) => (
-        <div key={index}>
-          <div>- {ability.name}</div>
-          <div> Raw Value: {ability.rawValue}</div>
-          <div> History Bonus: {ability.historyBonus}</div>
-          <div> Final Value: {ability.finalValue}</div>
-          <div> Modifier: {ability.modifier}</div>
-        </div>
-      ))}
+      {abilities &&
+        Object.values(abilities).map((ability, index) => (
+          <div key={index}>
+            <div>- {ability.name}</div>
+            <div> Raw Value: {ability.rawValue}</div>
+            <div> History Bonus: {ability.historyBonus}</div>
+            <div> Final Value: {ability.finalValue}</div>
+            <div> Modifier: {ability.modifier}</div>
+          </div>
+        ))}
     </div>
   )
 }
