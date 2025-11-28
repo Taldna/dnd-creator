@@ -24,7 +24,7 @@ export default function BackgroundSelection({
 
   return (
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-auto relative">
-      <Title className="h-1/10" name="Sélection des Historiques" />
+      <Title name="Sélection des Historiques" />
       <div className="size-9/10 flex flex-row gap-2">
         <Box className="basis-1/6 h-full bg-black/30 gap-2 flex flex-col overflow-auto">
           {BACKGROUNDS.map((background, index) => {
