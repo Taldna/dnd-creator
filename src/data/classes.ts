@@ -1,5 +1,6 @@
 import type { Class } from "../types/data/class"
 import { ABILITIES } from "./abilities"
+import { SKILLS } from "./skills"
 
 /**
  * Raw data. This is what you want to modify to add/correct/delete a class
@@ -16,13 +17,12 @@ const rawClasses: Class[] = [
     primaryAbility: [ABILITIES.Force],
     hitDice: "d12",
     savingThrows: [ABILITIES.Force, ABILITIES.Constitution],
-    skillProficiencies: [
-      "Athlétisme",
-      "Dressage",
-      "Intimidation",
-      "Nature",
-      "Perception",
-      "Survie",
+    skillProficiencies: [SKILLS.Athlétisme,
+      SKILLS.Dressage,
+      SKILLS.Intimidation,
+      SKILLS.Nature,
+      SKILLS.Perception,
+      SKILLS.Survie,
     ],
     weaponProficiencies: "Armes courantes et armes de guerre",
     armorTraining: ["Légères", "Intermédiaires", "Boucliers"],

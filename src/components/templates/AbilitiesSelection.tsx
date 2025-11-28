@@ -1,6 +1,6 @@
 "use client"
 
-import SecondaryButton from "../atoms/SecondaryButton"
+import SquareButton from "../atoms/SquareButton"
 import Box from "../atoms/Box"
 import PrimaryButton from "../atoms/PrimaryButton"
 import SquareBox from "../atoms/SquareBox"
@@ -75,79 +75,66 @@ export default function AbilitiesSelection({
                     </div>
 
                     <div className="flex justify-center items-center">
-                      <SecondaryButton
+                      <SquareButton
                         name="-"
                         onClick={() =>
                           updateAbility(ability.name, {
                             rawValue: ability.rawValue - 1,
                           })
                         }
-                        className={`scale-50 transition ease-in hover:scale-60 pb-1.5 ${
-                          !canDecreaseRawValue(ability)
-                            ? "opacity-30 cursor-not-allowed"
-                            : ""
-                        }`}
+                        className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                         disabled={!canDecreaseRawValue(ability)}
                       />
                       <SquareBox
                         text={`${ability.rawValue}`}
-                        className="bg-gray-700 border-2 border-gray-500"
+                        className="bg-gray-700 border-2 border-gray-500 text-white text-2xl font-bold"
                       />
-                      <SecondaryButton
+                      <SquareButton
                         name="+"
                         onClick={() =>
                           updateAbility(ability.name, {
                             rawValue: ability.rawValue + 1,
                           })
                         }
-                        className={`scale-50 transition ease-in hover:scale-60 pb-1.5 ${
-                          !canIncreaseRawValue(ability)
-                            ? "opacity-30 cursor-not-allowed"
-                            : ""
-                        }`}
+                        className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                         disabled={!canIncreaseRawValue(ability)}
                       />
                     </div>
 
                     <div className="flex justify-center items-center">
-                      <SecondaryButton
+                      <SquareButton
                         name="-"
                         onClick={() =>
                           updateAbility(ability.name, {
                             historyBonus: ability.historyBonus - 1,
                           })
                         }
-                        className={`scale-50 transition ease-in hover:scale-60 pb-1.5 ${
-                          !canDecreaseHistoryBonus(ability)
-                            ? "opacity-30 cursor-not-allowed"
-                            : ""
-                        }`}
+                        className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                         disabled={!canDecreaseHistoryBonus(ability)}
                       />
                       <SquareBox
                         text={`${ability.historyBonus}`}
-                        className={`bg-gray-700 border-2 border-gray-500 ${
+                        className={`bg-gray-700 border-2 border-gray-500 text-white text-2xl font-bold ${
                           !isAbilityAllowed(ability.name) ? "opacity-30" : ""
                         }`}
                       />
-                      <SecondaryButton
+                      <SquareButton
                         name="+"
                         onClick={() =>
                           updateAbility(ability.name, {
                             historyBonus: ability.historyBonus + 1,
                           })
                         }
-                        className={`scale-50 transition ease-in hover:scale-60 pb-1.5 ${
-                          !canIncreaseHistoryBonus(ability)
-                            ? "opacity-30 cursor-not-allowed"
-                            : ""
-                        }`}
+                        className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                         disabled={!canIncreaseHistoryBonus(ability)}
                       />
                     </div>
 
                     <div className="mx-auto">
-                      <SquareBox text={`${ability.finalValue}`} />
+                      <SquareBox
+                        text={`${ability.finalValue}`}
+                        className="text-white text-2xl font-bold"
+                      />
                     </div>
                     <div className="mx-auto relative w-fit h-fit">
                       <img
@@ -162,6 +149,7 @@ export default function AbilitiesSelection({
                               ? `+${ability.modifier}`
                               : ability.modifier
                           }`}
+                          className="text-white text-2xl font-bold"
                         />
                       </div>
                     </div>

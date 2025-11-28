@@ -1,8 +1,6 @@
-/**
- * Represents a skill in D&D 5e 2024.
- * @deprecated
- */
-export const SKILLS = [
+import type { Skill } from "../types/data/skill"
+
+const rawSkills: Skill[] = [
   {
     name: "Athlétisme",
     ability: "Force",
@@ -112,3 +110,24 @@ export const SKILLS = [
       "Utilisé pour cacher la vérité par des mots ou des actions. Couvre le mensonge, le déguisement, l'ambiguïté et autres formes de duperie.",
   },
 ]
+
+export const SKILLS: Record<string, Skill> = {
+  Athlétisme: rawSkills[0],
+  Acrobaties: rawSkills[1],
+  Discrétion: rawSkills[2],
+  Escamotage: rawSkills[3],
+  Arcanes: rawSkills[4],
+  Histoire: rawSkills[5],
+  Investigation: rawSkills[6],
+  Nature: rawSkills[7],
+  Religion: rawSkills[8],
+  Dressage: rawSkills[9],
+  Intuition: rawSkills[10],
+  Médecine: rawSkills[11],
+  Perception: rawSkills[12],
+  Survie: rawSkills[13],
+  Intimidation: rawSkills[14],
+  Persuasion: rawSkills[15],
+  Représentation: rawSkills[16],
+  Tromperie: rawSkills[17],
+}

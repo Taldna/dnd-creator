@@ -13,12 +13,16 @@ import type { Ability } from "../types/data/ability"
 import AbilitiesSelection from "../components/templates/AbilitiesSelection"
 import ProficienciesSelection from "../components/templates/ProficienciesSelection"
 import { SPECIES } from "../data/species"
+import type { Skill } from "../types/data/skill"
 
 export default function CharacterBuilder() {
   const [dndClass, setDndClass] = useState<Class | null>(null)
   const [background, setBackground] = useState<Background | null>(null)
   const [species, setSpecies] = useState<Species | null>(null)
   const [abilities, setAbilities] = useState<Record<string, Ability> | null>(
+    null
+  )
+  const [proficiencies, setProficiencies] = useState<Skill[] | null>(
     null
   )
   const [showProficiencies, setShowProficiencies] = useState(false)
@@ -43,8 +47,10 @@ export default function CharacterBuilder() {
   } else if (showProficiencies) {
     return (
       <ProficienciesSelection
-        setProficiency={() => {}}
-        selectedAb={abilities}
+        setProficiencies={setProficiencies}
+        proficiencies={proficiencies}
+        dndClass={dndClass}
+        background={background}
         onBack={() => setShowProficiencies(false)}
       />
     )

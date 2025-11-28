@@ -1,19 +1,5 @@
-export type Skill = 
-    | "Athlétisme"
-    | "Acrobaties"
-    | "Discrétion"
-    | "Escamotage"
-    | "Arcanes"
-    | "Histoire"
-    | "Investigation"
-    | "Nature"
-    | "Religion"
-    | "Dressage"
-    | "Intuition"
-    | "Médecine"
-    | "Perception"
-    | "Survie"
-    | "Intimidation"
-    | "Persuasion"
-    | "Représentation"
-    | "Tromperie";
+export type Skill = {
+  name: string
+  ability: string
+  description: string
+}
