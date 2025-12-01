@@ -18,7 +18,7 @@ export default function ClassSelection({
   const [selectedClass, setSelectedClass] = useState<Class | null>(null)
 
   return (
-    <main className="h-screen w-screen flex flex-col items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-auto">
+    <main className="h-screen w-screen flex flex-col items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-hidden">
       <Title name="Sélection de la Classe" />
 
       {selectedClass === null ? (

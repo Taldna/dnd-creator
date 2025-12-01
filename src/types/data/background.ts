@@ -9,7 +9,7 @@ export type Background = {
     name: string
     abilityScore: [Ability?, Ability?, Ability?]
     feat: Feat
-    proficiencies: [Skill?, Skill?]
+    proficiencies: Skill[]
     toolProficiency: string
     equipment: string[]
     description: string

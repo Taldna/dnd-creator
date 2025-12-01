@@ -7,11 +7,16 @@ import type { TabItem } from "../../types/utility/TabItem"
  * @prop activeTab: the index of the current active tab to hide the others
  */
 export default function TabContent({items, activeTab}: {items: TabItem[], activeTab: number}) {
-    return(
-        <div id="Tab-content" className="flex-1 p-3 overflow-scroll">
-            <div className={"size-full flex" + ((items[activeTab].isRow)? " flex-row" : " flex-col")}>
-                {items[activeTab].content}
-            </div>
+    return (
+      <div id="Tab-content" className="flex-1 p-3 overflow-y-auto overflow-x-hidden">
+        <div
+          className={
+            "size-full flex" +
+            (items[activeTab].isRow ? " flex-row" : " flex-col")
+          }
+        >
+          {items[activeTab].content}
         </div>
+      </div>
     )
 }

@@ -1,7 +1,8 @@
-export type Ability = 
-    | "Force"
-    | "Dextérité"
-    | "Constitution"
-    | "Intelligence"
-    | "Sagesse"
-    | "Charisme";
+export type Ability = {
+    name: string
+    rawValue: number
+    historyBonus: number
+    finalValue: number
+    modifier: number
+    description: string
+}

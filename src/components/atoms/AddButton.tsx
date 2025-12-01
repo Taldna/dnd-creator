@@ -1,10 +1,19 @@
-export default function AddButton({ onClick }: { onClick: () => void }) {
+import SquareButton from "./SquareButton"
+
+export default function AddButton({
+  onClick,
+  className,
+}: {
+  onClick: () => void
+  className?: string
+}) {
   return (
-    <button
+    <SquareButton
+      name="+"
       onClick={onClick}
-      className="w-12 h-12 rounded-lg bg-gray-700 border-2 border-gray-500 text-3xl text-white font-bold transition ease-in hover:bg-gray-600 hover:scale-90 cursor-pointer flex items-center justify-center leading-none pb-1.5"
-    >
-      +
-    </button>
+      className={`bg-gray-700 border-gray-500 text-white font-bold text-3xl transition ease-in hover:bg-gray-600 hover:scale-90 pb-1.5 ${
+        className ?? ""
+      }`}
+    />
   )
 }

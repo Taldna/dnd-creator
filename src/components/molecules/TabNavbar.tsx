@@ -8,15 +8,22 @@ import type { TabItem } from "../../types/utility/TabItem"
  * @prop onTabClick: the function describing the action happening when clicking on an element of the navbar
  */
 export default function TabNavbar({items, activeTab, onTabClick}: {items: TabItem[], activeTab: number, onTabClick: (nextIndex: number) => void}) {
-    return(
-        <div id="Tab-navbar" className="w-full flex p-2 gap-4">
-            {
-                items.map((item, index) => { return(
-                    <div key={index} className={"p-2 cursor-pointer border-b-3 transition ease-in hover:bg-white/30 hover:scale-110" + ((activeTab == index)? " border-red-800": "")} onClick={() => onTabClick(index)}>
-                        <h4 className="text-xl font-semibold">{item.name}</h4>
-                    </div>
-                )})
-            }
-        </div>
+    return (
+      <div id="Tab-navbar" className="w-full flex p-2 gap-4 overflow-hidden">
+        {items.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className={
+                "p-2 cursor-pointer border-b-3 transition ease-in hover:bg-white/30 hover:scale-110" +
+                (activeTab == index ? " border-red-800" : "")
+              }
+              onClick={() => onTabClick(index)}
+            >
+              <h4 className="text-xl font-semibold">{item.name}</h4>
+            </div>
+          )
+        })}
+      </div>
     )
 }

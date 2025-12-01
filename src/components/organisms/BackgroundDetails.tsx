@@ -9,7 +9,7 @@ export default function BackgroundDetails({
   onClose: () => void
 }) {
   return (
-    <Box className="max-w-2xl w-full max-h-[80vh] bg-black overflow-auto relative">
+    <Box className="max-w-2xl w-full max-h-[80vh] overflow-auto relative">
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-4xl font-bold text-gray-400 hover:text-white transition rotate-45"
@@ -34,7 +34,7 @@ export default function BackgroundDetails({
                   key={index}
                   className="bg-gray-700 px-3 py-1 rounded-full text-sm"
                 >
-                  {ability}
+                  {ability?.name}
                 </span>
               ))}
           </div>
@@ -55,7 +55,7 @@ export default function BackgroundDetails({
                   key={index}
                   className="bg-gray-700 px-3 py-1 rounded-full text-sm"
                 >
-                  {skill}
+                  {skill.name}
                 </span>
               ))}
           </div>
