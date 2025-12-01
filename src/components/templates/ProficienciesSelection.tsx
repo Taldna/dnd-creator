@@ -16,13 +16,17 @@ export default function ProficienciesSelection({
   proficiencies,
   dndClass,
   background,
+  isAbilitiesSelectionValid,
   onBack,
+  onNext,
 }: {
   setProficiencies: (proficiencies: Skill[] | null) => void
   proficiencies: Skill[] | null
   dndClass: Class | null
   background: Background | null
+  isAbilitiesSelectionValid: boolean
   onBack: () => void
+  onNext: () => void
 }) {
   const [selectedPf, setSelectedPf] = useState<Skill[]>(
     background?.proficiencies || []
@@ -45,7 +49,7 @@ export default function ProficienciesSelection({
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-auto relative">
       <Title name="Sélection des Maîtrises" />
       <div className="relative w-full flex justify-center px-20">
-        <div className="w-[50%] relative">
+        <div className="w-[50%] h-[100%] relative">
           <TfiArrowCircleLeft
             className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-5xl text-gray-500 transition ease-in cursor-pointer drop-shadow-md hover:text-white hover:-translate-x-2 hover:-translate-y-1/2"
             onClick={() => {
@@ -53,7 +57,7 @@ export default function ProficienciesSelection({
               onBack()
             }}
           />
-          <Box className="flex flex-col gap-6 bg-black/30">
+          <Box className="flex flex-col gap-6">
             {/* Contours*/}
             <div className="flex gap-6">
               {/* Section gauche: 70% */}
@@ -130,8 +134,9 @@ export default function ProficienciesSelection({
                 onClick={() => {
                   setProficiencies(selectedPf)
                   console.log("Proficiencies validated")
+                  onNext()
                 }}
-                disabled={false}
+                disabled={!isAbilitiesSelectionValid || remainingSkills !== 0}
               >
                 Valider
               </PrimaryButton>

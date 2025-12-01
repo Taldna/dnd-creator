@@ -25,76 +25,80 @@ export default function BackgroundSelection({
   return (
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-auto relative">
       <Title name="Sélection des Historiques" />
-      <div className="size-9/10 flex flex-row gap-2">
-        <Box className="basis-1/6 h-full bg-black/30 gap-2 flex flex-col overflow-auto">
-          {BACKGROUNDS.map((background, index) => {
-            return (
-              <PageLink
-                key={"bg-link-" + index}
-                href={"#" + background.name}
-                className={`rounded-lg p-2 cursor-pointer ${
-                  selectedBg === index
-                    ? "bg-red-500/30 hover:bg-red-500/60"
-                    : "bg-gray-500/30 hover:bg-gray-500/60"
-                }`}
-              >
-                {background.name}
-              </PageLink>
-            )
-          })}
-        </Box>
-
-        <Box className="basis-5/6 flex bg-black/30 flex-col items-center overflow-auto gap-2 pb-4">
-          {BACKGROUNDS.map((background, index) => {
-            return (
-              <div
-                key={"bg-" + index}
-                id={background.name}
-                onClick={() => setSelectedBg(index)}
-                className={`flex flex-row rounded-lg bg-gray-500/30 border-2 cursor-pointer relative ${
-                  selectedBg === index
-                    ? "border-red-800/60 text-red-800"
-                    : "border-gray-500/30 text-white"
-                }`}
-              >
-                <div className="w-1/2 flex flex-col p-2">
-                  <h3
-                    className={"text-3xl font-bold mb-6"}
-                    key={"bg-name-" + index}
-                  >
-                    {background.name}
-                  </h3>
-                  <p className="text-white" key={"bg-desc-" + index}>
-                    {background.description}
-                  </p>
-                </div>
-
-                <img
-                  key={"bg-img-" + index}
-                  src={background.image}
-                  alt={background.name}
-                  className="w-1/2 object-cover object-center rounded-r-lg"
-                />
-                <div className="absolute top-1 right-1">
-                  <AddButton onClick={() => setDetailsBackground(background)} />
-                </div>
-              </div>
-            )
-          })}
-          <div className="absolute bottom-10">
-            <PrimaryButton
-              onClick={() => {
-                console.info(
-                  `Historique "${BACKGROUNDS[selectedBg].name}" sélectionné !`
-                )
-                setBackground(BACKGROUNDS[selectedBg])
-              }}
-            >
-              Choisir
-            </PrimaryButton>
+      <Box className="size-9/10">
+        <div className="flex flex-row gap-2 w-full h-full">
+          <div className="basis-1/6 bg-black/30 gap-2 flex flex-col overflow-auto rounded-lg border-3 border-gray-500/30 p-2">
+            {BACKGROUNDS.map((background, index) => {
+              return (
+                <PageLink
+                  key={"bg-link-" + index}
+                  href={"#" + background.name}
+                  className={`rounded-lg p-2 cursor-pointer ${
+                    selectedBg === index
+                      ? "bg-red-500/30 hover:bg-red-500/60"
+                      : "bg-gray-500/30 hover:bg-gray-500/60"
+                  }`}
+                >
+                  {background.name}
+                </PageLink>
+              )
+            })}
           </div>
-        </Box>
-      </div>
+
+          <div className="basis-5/6 flex bg-black/30 flex-col items-center overflow-auto gap-2 pb-4 rounded-lg border-3 border-gray-500/30 p-2">
+            {BACKGROUNDS.map((background, index) => {
+              return (
+                <div
+                  key={"bg-" + index}
+                  id={background.name}
+                  onClick={() => setSelectedBg(index)}
+                  className={`flex flex-row rounded-lg bg-gray-500/30 border-2 cursor-pointer relative ${
+                    selectedBg === index
+                      ? "border-red-800/60 text-red-800"
+                      : "border-gray-500/30 text-white"
+                  }`}
+                >
+                  <div className="w-1/2 flex flex-col p-2">
+                    <h3
+                      className={"text-3xl font-bold mb-6"}
+                      key={"bg-name-" + index}
+                    >
+                      {background.name}
+                    </h3>
+                    <p className="text-white" key={"bg-desc-" + index}>
+                      {background.description}
+                    </p>
+                  </div>
+
+                  <img
+                    key={"bg-img-" + index}
+                    src={background.image}
+                    alt={background.name}
+                    className="w-1/2 object-cover object-center rounded-r-lg"
+                  />
+                  <div className="absolute top-1 right-1">
+                    <AddButton
+                      onClick={() => setDetailsBackground(background)}
+                    />
+                  </div>
+                </div>
+              )
+            })}
+            <div className="absolute bottom-10">
+              <PrimaryButton
+                onClick={() => {
+                  console.info(
+                    `Historique "${BACKGROUNDS[selectedBg].name}" sélectionné !`
+                  )
+                  setBackground(BACKGROUNDS[selectedBg])
+                }}
+              >
+                Choisir
+              </PrimaryButton>
+            </div>
+          </div>
+        </div>
+      </Box>
 
       {detailsBackground && (
         <>
