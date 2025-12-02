@@ -8,18 +8,19 @@ import type { Subclass } from "./subclass";
  * Class (Classe)
  */
 export type Class = {
-    name: string
-    short_desc: string
-    description: string[]
-    primaryAbility: Ability[]
-    hitDice: string
-    savingThrows: [Ability, Ability]
-    skillProficiencies: Skill[]
-    weaponProficiencies: string
-    armorTraining: ArmorTraining[]
-    equipment: [string, string]
-    features: Feature[]
-    subclasses: Subclass[]
-    full_img?: string
-    cut_img?: string
-};
+  name: string
+  short_desc: string
+  description: string[]
+  primaryAbility: Ability[]
+  hitDice: string
+  savingThrows: [Ability, Ability]
+  skillProficiencies: Skill[]
+  skillProficienciesNumber: number
+  weaponProficiencies: string
+  armorTraining: ArmorTraining[]
+  equipment: [string, string]
+  features: Feature[]
+  subclasses: Subclass[]
+  full_img?: string
+  cut_img?: string
+}
