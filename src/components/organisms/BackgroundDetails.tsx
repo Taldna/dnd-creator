@@ -9,7 +9,7 @@ export default function BackgroundDetails({
   onClose: () => void
 }) {
   return (
-    <Box className="max-w-2xl w-full max-h-[80vh] overflow-auto relative">
+    <Box className="max-w-2xl w-full max-h-[80vh] overflow-auto relative" backgroundColor="black">
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-4xl font-bold text-gray-400 hover:text-white transition rotate-45"
