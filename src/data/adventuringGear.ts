@@ -595,6 +595,62 @@ const rawAdventuringGear: AdventuringGear[] = [
     price: { po: 2, pa: 0, pc: 0 },
     weight: 2,
   },
+  {
+    name: "Sac d'explorateur",
+    category: "Équipement d'aventurier",
+    price: { po: 10, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Sac à dos, sac de couchage, gamelle, boite d'allume-feu, 10 torches, 10 jours de rations, gourde, corde en chanvre (15 m)",
+  },
+  {
+    name: "Sac d'artiste",
+    category: "Équipement d'aventurier",
+    price: { po: 40, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Sac à dos, sac de couchage, 2 costumes, 5 bougies, 5 jours de rations, gourde, kit de déguisement",
+  },
+  {
+    name: "Sac d'ecclésiastique",
+    category: "Équipement d'aventurier",
+    price: { po: 19, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Sac à dos, couverture, 10 bougies, boite d'allume-feu, 2 jours de rations, gourde",
+  },
+  {
+    name: "Sac d'exploration souterraine",
+    category: "Équipement d'aventurier",
+    price: { po: 12, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Sac à dos, pied-de-biche, marteau, 10 pitons, 10 torches, boite d'allume-feu, 10 jours de rations, gourde, corde en chanvre (15 m)",
+  },
+  {
+    name: "Sac d'érudit",
+    category: "Équipement d'aventurier",
+    price: { po: 40, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Sac à dos, livre, encre (bouteille de 30 ml), plume d'écriture, 10 parchemins",
+  },
+  {
+    name: "Sac de cambrioleur",
+    category: "Équipement d'aventurier",
+    price: { po: 16, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Sac à dos, sac de 1000 billes, chaîne (3 m), cloche, 5 bougies, pied-de-biche, marteau, 10 pitons, lanterne à capote, 2 fioles d'huile, 5 jours de rations, boite d'allume-feu, gourde, corde en chanvre (15 m)",
+  },
+  {
+    name: "Sac de diplomate",
+    category: "Équipement d'aventurier",
+    price: { po: 39, pa: 0, pc: 0 },
+    weight: 0,
+    description:
+      "Coffre, 2 étuis à cartes ou parchemins, vêtements fins, encre (bouteille de 30 ml), plume d'écriture, lampe, 2 fioles d'huile, 5 feuilles de papier, parfum (fiole), cire à cacheter, savon",
+  },
 ]
 
 export const ADVENTURING_GEAR: Record<string, AdventuringGear> = {
@@ -697,4 +753,11 @@ export const ADVENTURING_GEAR: Record<string, AdventuringGear> = {
   "Vêtements, costume": rawAdventuringGear[96],
   "Vêtements, fins": rawAdventuringGear[97],
   "Vêtements, voyage": rawAdventuringGear[98],
+  "Sac d'explorateur": rawAdventuringGear[99],
+  "Sac d'artiste": rawAdventuringGear[100],
+  "Sac d'ecclésiastique": rawAdventuringGear[101],
+  "Sac d'exploration souterraine": rawAdventuringGear[102],
+  "Sac d'érudit": rawAdventuringGear[103],
+  "Sac de cambrioleur": rawAdventuringGear[104],
+  "Sac de diplomate": rawAdventuringGear[105],
 }

@@ -63,6 +63,7 @@ export type AdventuringGear = {
   category: "Équipement d'aventurier"
   price: Currency
   weight: number
+  description?: string
 }
 
 export type Tool = {
@@ -112,6 +113,12 @@ export type Trinket = {
   description: string
 }
 
+export type Money = {
+  name: string
+  category: "Argent"
+  amount: Currency
+}
+
 export type Equipment =
   | Weapon
   | Armor
@@ -122,3 +129,4 @@ export type Equipment =
   | Boat
   | TradeGood
   | Trinket
+  | Money

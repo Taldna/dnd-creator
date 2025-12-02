@@ -1,6 +1,19 @@
 import type { Class } from "../types/data/class"
 import { ABILITIES } from "./abilities"
 import { SKILLS } from "./skills"
+import { WEAPONS } from "./weapons"
+import { ARMORS } from "./armors"
+import { ADVENTURING_GEAR } from "./adventuringGear"
+import { TOOLS } from "./tools"
+import {
+  PACK_ARTISTE,
+  PACK_CAMBRIOLEUR,
+  PACK_ECCLESIASTIQUE,
+  PACK_ERUDIT,
+  PACK_EXPLORATEUR,
+  PACK_EXPLORATION_SOUTERRAINE,
+} from "./packs"
+import { createGold } from "./money"
 
 /**
  * Raw data. This is what you want to modify to add/correct/delete a class
@@ -29,8 +42,16 @@ const rawClasses: Class[] = [
     weaponProficiencies: "Armes courantes et armes de guerre",
     armorTraining: ["Légères", "Intermédiaires", "Boucliers"],
     equipment: [
-      "Hache à deux mains, 4 hachettes, paquetage d'explorateur et 15 po",
-      "75 po",
+      [
+        WEAPONS["Hache à deux mains"],
+        WEAPONS.Hachette,
+        WEAPONS.Hachette,
+        WEAPONS.Hachette,
+        WEAPONS.Hachette,
+        ...PACK_EXPLORATEUR,
+        createGold(15),
+      ],
+      [createGold(75)],
     ],
     features: [
       {
@@ -80,7 +101,17 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 3,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS.Cuir,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        TOOLS.Luth, // Instrument de musique au choix
+        ...PACK_ARTISTE,
+        createGold(19),
+      ],
+      [createGold(90)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -102,7 +133,17 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS["Chemise de mailles"],
+        ARMORS.Bouclier,
+        WEAPONS["Masse d'armes"],
+        ADVENTURING_GEAR["Symbole sacré - Amulette"], // Symbole sacré au choix
+        ...PACK_ECCLESIASTIQUE,
+        createGold(7),
+      ],
+      [createGold(110)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -127,7 +168,18 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS.Cuir,
+        ARMORS.Bouclier,
+        WEAPONS.Serpe,
+        ADVENTURING_GEAR["Focaliseur druidique - Bâton"],
+        ...PACK_EXPLORATEUR,
+        TOOLS["Kit d'herboriste"],
+        createGold(9),
+      ],
+      [createGold(50)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -150,7 +202,17 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        WEAPONS.Lance,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        ADVENTURING_GEAR["Focaliseur arcanique - Boule de cristal"],
+        ...PACK_EXPLORATION_SOUTERRAINE,
+        createGold(28),
+      ],
+      [createGold(50)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -174,7 +236,34 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS["Cotte de mailles"],
+        WEAPONS["Épée à deux mains"],
+        WEAPONS["Fléau d'armes"],
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        ...PACK_EXPLORATION_SOUTERRAINE,
+        createGold(4),
+      ],
+      [
+        ARMORS["Cuir clouté"],
+        WEAPONS.Cimeterre,
+        WEAPONS["Épée courte"],
+        WEAPONS["Arc long"],
+        ADVENTURING_GEAR["Munitions - Flèches (20)"],
+        ADVENTURING_GEAR.Carquois,
+        ...PACK_EXPLORATION_SOUTERRAINE,
+        createGold(11),
+      ],
+      [createGold(155)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -198,7 +287,18 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        ADVENTURING_GEAR["Focaliseur arcanique - Bâton"],
+        ADVENTURING_GEAR.Robes,
+        ADVENTURING_GEAR.Grimoire,
+        ...PACK_ERUDIT,
+        createGold(5),
+      ],
+      [createGold(55)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -221,7 +321,20 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        WEAPONS.Lance,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        TOOLS["Outils de charpentier"], // Outils d'artisan ou instrument de musique au choix
+        ...PACK_EXPLORATEUR,
+        createGold(11),
+      ],
+      [createGold(50)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -244,7 +357,19 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS.Cuir,
+        WEAPONS.Serpe,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        ADVENTURING_GEAR["Focaliseur arcanique - Orbe"],
+        ADVENTURING_GEAR.Livre, // Livre (savoir occulte)
+        ...PACK_ERUDIT,
+        createGold(15),
+      ],
+      [createGold(100)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -267,7 +392,23 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 2,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS["Cotte de mailles"],
+        ARMORS.Bouclier,
+        WEAPONS["Épée longue"],
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        WEAPONS.Javeline,
+        ADVENTURING_GEAR["Symbole sacré - Amulette"], // Symbole sacré au choix
+        ...PACK_ECCLESIASTIQUE,
+        createGold(9),
+      ],
+      [createGold(150)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -292,7 +433,20 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 3,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS["Cuir clouté"],
+        WEAPONS.Cimeterre,
+        WEAPONS["Épée courte"],
+        WEAPONS["Arc long"],
+        ADVENTURING_GEAR["Munitions - Flèches (20)"],
+        ADVENTURING_GEAR.Carquois,
+        ADVENTURING_GEAR["Focaliseur druidique - Branche de gui"],
+        ...PACK_EXPLORATEUR,
+        createGold(7),
+      ],
+      [createGold(150)],
+    ],
     features: [],
     subclasses: [],
   },
@@ -319,7 +473,21 @@ const rawClasses: Class[] = [
     skillProficienciesNumber: 4,
     weaponProficiencies: "",
     armorTraining: [],
-    equipment: ["", ""],
+    equipment: [
+      [
+        ARMORS.Cuir,
+        WEAPONS.Dague,
+        WEAPONS.Dague,
+        WEAPONS["Épée courte"],
+        WEAPONS["Arc court"],
+        ADVENTURING_GEAR["Munitions - Flèches (20)"],
+        ADVENTURING_GEAR.Carquois,
+        TOOLS["Outils de voleur"],
+        ...PACK_CAMBRIOLEUR,
+        createGold(8),
+      ],
+      [createGold(100)],
+    ],
     features: [],
     subclasses: [],
   },

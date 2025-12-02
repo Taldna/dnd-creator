@@ -1,13 +1,29 @@
 import type { Class } from "../../types/data/class"
+import type { Equipment } from "../../types/data/equipment"
 
 import { RxCross2 } from "react-icons/rx"
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi"
 
 import { CLASSES } from "../../data/classes"
+import { formatMoney } from "../../data/money"
 
 import P from "../atoms/P"
 import Tab from "./Tab"
 import Box from "../atoms/Box"
+
+/**
+ * Helper function to format equipment list for display
+ */
+const formatEquipment = (equipment: Equipment[]): string => {
+  return equipment
+    .map((item) => {
+      if (item.category === "Argent") {
+        return formatMoney(item)
+      }
+      return item.name
+    })
+    .join(", ")
+}
 
 export default function ClassDetails({
   dndClass,
@@ -96,10 +112,27 @@ export default function ClassDetails({
                         </P>
                         <P>
                           <b>Équipement de départ :</b>{" "}
-                          <span className="italic">Choisissez A ou B :</span>{" "}
-                          (A) {dndClass.equipment[0]} ;{" "}
-                          <span className="italic">ou</span> (B){" "}
-                          {dndClass.equipment[1]}
+                          <span className="italic">
+                            Choisissez{" "}
+                            {dndClass.equipment.length === 3
+                              ? "A, B ou C"
+                              : "A ou B"}{" "}
+                            :
+                          </span>{" "}
+                          {dndClass.equipment.map((option, index) => (
+                            <span key={index}>
+                              ({String.fromCharCode(65 + index)}){" "}
+                              {formatEquipment(option)}
+                              {index < dndClass.equipment.length - 1 && (
+                                <span className="italic">
+                                  {" "}
+                                  {index === dndClass.equipment.length - 2
+                                    ? "ou"
+                                    : ";"}{" "}
+                                </span>
+                              )}
+                            </span>
+                          ))}
                         </P>
                       </>
                     ),
