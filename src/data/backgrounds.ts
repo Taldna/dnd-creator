@@ -144,11 +144,11 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Scribe",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Dextérité, ABILITIES.Intelligence, ABILITIES.Sagesse],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
-    proficiencies: [],
+    proficiencies: [SKILLS.Investigation, SKILLS.Perception],
     toolProficiency: "",
     equipment: [],
   },

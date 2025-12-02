@@ -10,7 +10,7 @@ import type { Class } from "../../types/data/class"
 import type { Ability } from "../../types/data/ability"
 import { useState } from "react"
 import { TfiArrowCircleRight } from "react-icons/tfi"
-import { useAbilitySelection } from "../../hooks/useAbilitySelection"
+import { useAbilitiesSelection } from "../../hooks/useAbilitiesSelection"
 import { ABILITIES } from "../../data/abilities"
 
 export default function AbilitiesSelection({
@@ -42,7 +42,7 @@ export default function AbilitiesSelection({
     canIncreaseHistoryBonus,
     canDecreaseHistoryBonus,
     isValid,
-  } = useAbilitySelection(abilities, dndClass, background)
+  } = useAbilitiesSelection(abilities, dndClass, background)
 
   return (
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-y-auto overflow-x-hidden relative">
