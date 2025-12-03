@@ -5,7 +5,7 @@ export default function RectangleButton({
   disabled,
 }: {
   name: string
-  onClick: () => void
+  onClick?: () => void
   className?: string
   disabled?: boolean
 }) {
