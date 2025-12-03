@@ -30,6 +30,7 @@ export default function AbilitiesSelection({
   setIsAbilitiesSelectionValid: (isValid: boolean) => void
 }) {
   const [hoveredAbility, setHoveredAbility] = useState<string | null>(null)
+  const [showValidationDetails, setShowValidationDetails] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const {
@@ -44,6 +45,24 @@ export default function AbilitiesSelection({
     canDecreaseHistoryBonus,
     isValid,
   } = useAbilitiesSelection(abilities, dndClass, background)
+
+  const getValidationErrors = (): string[] => {
+    const errors: string[] = []
+
+    if (totalPointCost !== 27) {
+      errors.push(
+        `Points de caractéristiques : ${totalPointCost}/27 (doivent être à 27/27)`
+      )
+    }
+
+    if (totalHistoryBonus !== 3) {
+      errors.push(
+        `Bonus d'historique : ${totalHistoryBonus}/3 (doivent être à 3/3)`
+      )
+    }
+
+    return errors
+  }
 
   return (
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-y-auto overflow-x-hidden relative">
@@ -174,16 +193,31 @@ export default function AbilitiesSelection({
               </div>
 
               <div className="flex justify-center mt-6 pb-4">
-                <PrimaryButton
-                  onClick={() => {
-                    setAbilities(selectedAb)
-                    console.log(selectedAb)
-                    onNext()
+                <div
+                  onMouseEnter={(e) => {
+                    if (!isValid) {
+                      setShowValidationDetails(true)
+                      setMousePosition({ x: e.clientX, y: e.clientY })
+                    }
                   }}
-                  disabled={!isValid}
+                  onMouseMove={(e) => {
+                    if (!isValid) {
+                      setMousePosition({ x: e.clientX, y: e.clientY })
+                    }
+                  }}
+                  onMouseLeave={() => setShowValidationDetails(false)}
                 >
-                  Valider
-                </PrimaryButton>
+                  <PrimaryButton
+                    onClick={() => {
+                      setAbilities(selectedAb)
+                      console.log(selectedAb)
+                      onNext()
+                    }}
+                    disabled={!isValid}
+                  >
+                    Valider
+                  </PrimaryButton>
+                </div>
               </div>
             </div>
           </Box>
@@ -202,6 +236,16 @@ export default function AbilitiesSelection({
       {hoveredAbility && (
         <HoverDescription
           text={`${hoveredAbility}\n\n${selectedAb[hoveredAbility]?.description}`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
+      )}
+
+      {showValidationDetails && !isValid && (
+        <HoverDescription
+          text={`Validation impossible :\n\n${getValidationErrors()
+            .map((error) => `• ${error}`)
+            .join("\n")}`}
           mouseX={mousePosition.x}
           mouseY={mousePosition.y}
         />
