@@ -5,6 +5,7 @@ import Box from "../atoms/Box"
 import PrimaryButton from "../atoms/PrimaryButton"
 import SquareBox from "../atoms/SquareBox"
 import Title from "../atoms/Title"
+import HoverDescription from "../atoms/HoverDescription"
 import type { Background } from "../../types/data/background"
 import type { Class } from "../../types/data/class"
 import type { Ability } from "../../types/data/ability"
@@ -199,16 +200,11 @@ export default function AbilitiesSelection({
       </div>
 
       {hoveredAbility && (
-        <div
-          className="fixed pointer-events-none z-50 max-w-xs p-4 bg-black border-2 border-gray-500 rounded-lg text-white text-sm shadow-lg"
-          style={{
-            left: `${mousePosition.x + 10}px`,
-            top: `${mousePosition.y + 10}px`,
-          }}
-        >
-          <div className="font-bold mb-2">{hoveredAbility}</div>
-          <div>{selectedAb[hoveredAbility]?.description}</div>
-        </div>
+        <HoverDescription
+          text={`${hoveredAbility}\n\n${selectedAb[hoveredAbility]?.description}`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
       )}
     </main>
   )

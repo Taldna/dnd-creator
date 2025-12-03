@@ -1,29 +1,14 @@
 import type { Class } from "../../types/data/class"
-import type { Equipment } from "../../types/data/equipment"
 
 import { RxCross2 } from "react-icons/rx"
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi"
 
 import { CLASSES } from "../../data/classes"
-import { formatMoney } from "../../data/money"
 
 import P from "../atoms/P"
 import Tab from "./Tab"
 import Box from "../atoms/Box"
-
-/**
- * Helper function to format equipment list for display
- */
-const formatEquipment = (equipment: Equipment[]): string => {
-  return equipment
-    .map((item) => {
-      if (item.category === "Argent") {
-        return formatMoney(item)
-      }
-      return item.name
-    })
-    .join(", ")
-}
+import EquipmentList from "../molecules/EquipmentList"
 
 export default function ClassDetails({
   dndClass,
@@ -80,7 +65,8 @@ export default function ClassDetails({
                           <b>Caractéristique(s) principale(s) :</b>{" "}
                           {dndClass.primaryAbility.map(
                             (item, index, array) =>
-                              item + (index + 1 < array.length ? " et " : "")
+                              item.name +
+                              (index + 1 < array.length ? " et " : "")
                           )}
                         </P>
                         <P>
@@ -89,14 +75,14 @@ export default function ClassDetails({
                         </P>
                         <P>
                           <b>Jets de sauvegarde :</b>{" "}
-                          {`${dndClass.savingThrows[0]} et ${dndClass.savingThrows[1]}`}
+                          {`${dndClass.savingThrows[0].name} et ${dndClass.savingThrows[1].name}`}
                         </P>
                         <P>
                           <b>Maîtrises de compétence :</b>{" "}
                           <span className="italic">2 au choix parmi :</span>{" "}
                           {dndClass.skillProficiencies.map(
                             (item, index, array) =>
-                              item + (index + 1 < array.length ? ", " : "")
+                              item.name + (index + 1 < array.length ? ", " : "")
                           )}
                         </P>
                         <P>
@@ -122,7 +108,7 @@ export default function ClassDetails({
                           {dndClass.equipment.map((option, index) => (
                             <span key={index}>
                               ({String.fromCharCode(65 + index)}){" "}
-                              {formatEquipment(option)}
+                              <EquipmentList equipment={option} />
                               {index < dndClass.equipment.length - 1 && (
                                 <span className="italic">
                                   {" "}

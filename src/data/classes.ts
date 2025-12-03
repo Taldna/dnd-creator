@@ -5,14 +5,6 @@ import { WEAPONS } from "./weapons"
 import { ARMORS } from "./armors"
 import { ADVENTURING_GEAR } from "./adventuringGear"
 import { TOOLS } from "./tools"
-import {
-  PACK_ARTISTE,
-  PACK_CAMBRIOLEUR,
-  PACK_ECCLESIASTIQUE,
-  PACK_ERUDIT,
-  PACK_EXPLORATEUR,
-  PACK_EXPLORATION_SOUTERRAINE,
-} from "./packs"
 import { createGold } from "./money"
 
 /**
@@ -48,7 +40,7 @@ const rawClasses: Class[] = [
         WEAPONS.Hachette,
         WEAPONS.Hachette,
         WEAPONS.Hachette,
-        ...PACK_EXPLORATEUR,
+        ADVENTURING_GEAR["Sac d'explorateur"],
         createGold(15),
       ],
       [createGold(75)],
@@ -107,7 +99,7 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         WEAPONS.Dague,
         TOOLS.Luth, // Instrument de musique au choix
-        ...PACK_ARTISTE,
+        ADVENTURING_GEAR["Sac d'artiste"],
         createGold(19),
       ],
       [createGold(90)],
@@ -139,7 +131,7 @@ const rawClasses: Class[] = [
         ARMORS.Bouclier,
         WEAPONS["Masse d'armes"],
         ADVENTURING_GEAR["Symbole sacré - Amulette"], // Symbole sacré au choix
-        ...PACK_ECCLESIASTIQUE,
+        ADVENTURING_GEAR["Sac d'ecclésiastique"],
         createGold(7),
       ],
       [createGold(110)],
@@ -174,7 +166,7 @@ const rawClasses: Class[] = [
         ARMORS.Bouclier,
         WEAPONS.Serpe,
         ADVENTURING_GEAR["Focaliseur druidique - Bâton"],
-        ...PACK_EXPLORATEUR,
+        ADVENTURING_GEAR["Sac d'explorateur"],
         TOOLS["Kit d'herboriste"],
         createGold(9),
       ],
@@ -208,7 +200,7 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         WEAPONS.Dague,
         ADVENTURING_GEAR["Focaliseur arcanique - Boule de cristal"],
-        ...PACK_EXPLORATION_SOUTERRAINE,
+        ADVENTURING_GEAR["Sac d'exploration souterraine"],
         createGold(28),
       ],
       [createGold(50)],
@@ -249,7 +241,7 @@ const rawClasses: Class[] = [
         WEAPONS.Javeline,
         WEAPONS.Javeline,
         WEAPONS.Javeline,
-        ...PACK_EXPLORATION_SOUTERRAINE,
+        ADVENTURING_GEAR["Sac d'exploration souterraine"],
         createGold(4),
       ],
       [
@@ -259,7 +251,7 @@ const rawClasses: Class[] = [
         WEAPONS["Arc long"],
         ADVENTURING_GEAR["Munitions - Flèches (20)"],
         ADVENTURING_GEAR.Carquois,
-        ...PACK_EXPLORATION_SOUTERRAINE,
+        ADVENTURING_GEAR["Sac d'exploration souterraine"],
         createGold(11),
       ],
       [createGold(155)],
@@ -294,7 +286,7 @@ const rawClasses: Class[] = [
         ADVENTURING_GEAR["Focaliseur arcanique - Bâton"],
         ADVENTURING_GEAR.Robes,
         ADVENTURING_GEAR.Grimoire,
-        ...PACK_ERUDIT,
+        ADVENTURING_GEAR["Sac d'érudit"],
         createGold(5),
       ],
       [createGold(55)],
@@ -330,7 +322,7 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         WEAPONS.Dague,
         TOOLS["Outils de charpentier"], // Outils d'artisan ou instrument de musique au choix
-        ...PACK_EXPLORATEUR,
+        ADVENTURING_GEAR["Sac d'explorateur"],
         createGold(11),
       ],
       [createGold(50)],
@@ -365,7 +357,7 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         ADVENTURING_GEAR["Focaliseur arcanique - Orbe"],
         ADVENTURING_GEAR.Livre, // Livre (savoir occulte)
-        ...PACK_ERUDIT,
+        ADVENTURING_GEAR["Sac d'érudit"],
         createGold(15),
       ],
       [createGold(100)],
@@ -404,7 +396,7 @@ const rawClasses: Class[] = [
         WEAPONS.Javeline,
         WEAPONS.Javeline,
         ADVENTURING_GEAR["Symbole sacré - Amulette"], // Symbole sacré au choix
-        ...PACK_ECCLESIASTIQUE,
+        ADVENTURING_GEAR["Sac d'ecclésiastique"],
         createGold(9),
       ],
       [createGold(150)],
@@ -442,7 +434,7 @@ const rawClasses: Class[] = [
         ADVENTURING_GEAR["Munitions - Flèches (20)"],
         ADVENTURING_GEAR.Carquois,
         ADVENTURING_GEAR["Focaliseur druidique - Branche de gui"],
-        ...PACK_EXPLORATEUR,
+        ADVENTURING_GEAR["Sac d'explorateur"],
         createGold(7),
       ],
       [createGold(150)],
@@ -483,7 +475,7 @@ const rawClasses: Class[] = [
         ADVENTURING_GEAR["Munitions - Flèches (20)"],
         ADVENTURING_GEAR.Carquois,
         TOOLS["Outils de voleur"],
-        ...PACK_CAMBRIOLEUR,
+        ADVENTURING_GEAR["Sac de cambrioleur"],
         createGold(8),
       ],
       [createGold(100)],

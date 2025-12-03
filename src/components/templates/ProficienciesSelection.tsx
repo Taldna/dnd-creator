@@ -3,6 +3,7 @@
 import { TfiArrowCircleLeft } from "react-icons/tfi"
 import Title from "../atoms/Title"
 import Box from "../atoms/Box"
+import HoverDescription from "../atoms/HoverDescription"
 import type { Background } from "../../types/data/background"
 import type { Class } from "../../types/data/class"
 import RectangleBox from "../atoms/RectangleBox"
@@ -194,48 +195,21 @@ export default function ProficienciesSelection({
       </div>
 
       {showSkilledDetails && (
-        <div
-          className="fixed pointer-events-none z-50 max-w-md p-4 bg-black border-2 border-gray-500 rounded-lg text-white text-sm shadow-lg"
-          style={{
-            left: `${mousePosition.x + 10}px`,
-            top: `${mousePosition.y + 10}px`,
-          }}
-        >
-          <p className="text-gray-300">
-            Le don "Doué" vous permet de choisir entre :<br />
-            <span className="text-white">
-              • 3 maîtrises de compétences supplémentaires
-            </span>{" "}
-            (case cochée)
-            <br />
-            <span className="text-white">
-              • 3 maîtrises d'outils supplémentaires
-            </span>{" "}
-            (case décochée)
-            <br />
-            <br />
-            Ce choix impactera vos options d'équipement à l'écran suivant.
-          </p>
-        </div>
+        <HoverDescription
+          text={`Le don "Doué" vous permet de choisir entre :\n\n• 3 maîtrises de compétences supplémentaires (case cochée)\n\n• 3 maîtrises d'outils supplémentaires (case décochée)\n\nCe choix impactera vos options d'équipement à l'écran suivant.`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
       )}
 
       {showValidationDetails && isButtonDisabled && (
-        <div
-          className="fixed pointer-events-none z-50 max-w-md p-4 bg-black border-2 border-red-500 rounded-lg text-white text-sm shadow-lg"
-          style={{
-            left: `${mousePosition.x + 10}px`,
-            top: `${mousePosition.y + 10}px`,
-          }}
-        >
-          <p className="font-bold text-red-500 mb-2">Validation impossible :</p>
-          <ul className="list-disc list-inside space-y-1">
-            {getValidationErrors().map((error, index) => (
-              <li key={index} className="text-red-300">
-                {error}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <HoverDescription
+          text={`Validation impossible :\n\n${getValidationErrors()
+            .map((error) => `• ${error}`)
+            .join("\n")}`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
       )}
     </main>
   )

@@ -19,7 +19,7 @@ export type Class = {
   skillProficienciesNumber: number
   weaponProficiencies: string
   armorTraining: ArmorTraining[]
-  equipment: Equipment[][] // Array of equipment options (usually 2, sometimes 3 for Fighter)
+  equipment: Equipment[][] 
   features: Feature[]
   subclasses: Subclass[]
   full_img?: string

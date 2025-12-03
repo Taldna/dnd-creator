@@ -1,5 +1,6 @@
 import type { Background } from "../../types/data/background"
 import Box from "../atoms/Box"
+import EquipmentList from "../molecules/EquipmentList"
 
 export default function BackgroundDetails({
   backgroundItem,
@@ -9,7 +10,10 @@ export default function BackgroundDetails({
   onClose: () => void
 }) {
   return (
-    <Box className="max-w-2xl w-full max-h-[80vh] overflow-auto relative" backgroundColor="black">
+    <Box
+      className="max-w-2xl w-full max-h-[80vh] overflow-auto relative"
+      backgroundColor="black"
+    >
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-4xl font-bold text-gray-400 hover:text-white transition rotate-45"
@@ -70,11 +74,24 @@ export default function BackgroundDetails({
 
         <div>
           <h3 className="text-xl font-semibold text-white mb-2">Équipement</h3>
-          <ul className="list-disc list-inside text-gray-300 space-y-1">
-            {backgroundItem.equipment.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
+          <span className="italic">
+            Choisissez{" "}
+            {backgroundItem.equipment.length === 3 ? "A, B ou C" : "A ou B"} :
+          </span>{" "}
+          {backgroundItem.equipment.map((option, index) => (
+            <span key={index}>
+              ({String.fromCharCode(65 + index)}){" "}
+              <EquipmentList equipment={option} />
+              {index < backgroundItem.equipment.length - 1 && (
+                <span className="italic">
+                  {" "}
+                  {index === backgroundItem.equipment.length - 2
+                    ? "ou"
+                    : ";"}{" "}
+                </span>
+              )}
+            </span>
+          ))}
         </div>
       </div>
     </Box>
