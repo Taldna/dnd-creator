@@ -15,6 +15,7 @@ import ProficienciesSelection from "../components/templates/ProficienciesSelecti
 import { SPECIES } from "../data/species"
 import type { Skill } from "../types/data/skill"
 import EquipmentSelection from "../components/templates/EquipmentSelection"
+import type { Equipment } from "../types/data/equipment"
 
 export default function CharacterBuilder() {
   const [dndClass, setDndClass] = useState<Class | null>(null)
@@ -23,11 +24,12 @@ export default function CharacterBuilder() {
   const [abilities, setAbilities] = useState<Record<string, Ability> | null>(
     null
   )
+  const [equipment, setEquipment] = useState<Equipment | null>(null)
   const [proficiencies, setProficiencies] = useState<Skill[] | null>(null)
   const [showProficiencies, setShowProficiencies] = useState(false)
   const [showEquipment, setShowEquipment] = useState(false)
   const [isAbilitiesSelectionValid, setIsAbilitiesSelectionValid] =
-    useState(false)
+    useState(true)// à mettre à false
 
   if (dndClass === null) {
     return <ClassSelection setDndClass={setDndClass} />
@@ -48,7 +50,13 @@ export default function CharacterBuilder() {
       />
     )
   } else if (showEquipment && proficiencies !== null) {
-    return <EquipmentSelection />
+    return (
+      <EquipmentSelection
+        dndClass={dndClass}
+        background={background}
+        setEquipment={setEquipment}
+      />
+    )
   } else if (showProficiencies) {
     return (
       <ProficienciesSelection
@@ -61,6 +69,8 @@ export default function CharacterBuilder() {
         onNext={() => setShowEquipment(true)}
       />
     )
+  } else if (equipment !== null) {
+    // page des sorts
   }
 
   return (

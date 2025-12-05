@@ -96,30 +96,12 @@ export default function ClassDetails({
                               item + (index + 1 < array.length ? ", " : "")
                           )}
                         </P>
-                        <P>
+                        <div className="pl-4">
                           <b>Équipement de départ :</b>{" "}
-                          <span className="italic">
-                            Choisissez{" "}
-                            {dndClass.equipment.length === 3
-                              ? "A, B ou C"
-                              : "A ou B"}{" "}
-                            :
-                          </span>{" "}
-                          {dndClass.equipment.map((option, index) => (
-                            <span key={index}>
-                              ({String.fromCharCode(65 + index)}){" "}
-                              <EquipmentList equipment={option} />
-                              {index < dndClass.equipment.length - 1 && (
-                                <span className="italic">
-                                  {" "}
-                                  {index === dndClass.equipment.length - 2
-                                    ? "ou"
-                                    : ";"}{" "}
-                                </span>
-                              )}
-                            </span>
-                          ))}
-                        </P>
+                          <EquipmentList
+                            equipmentOptions={dndClass.equipment}
+                          />
+                        </div>
                       </>
                     ),
                   },
