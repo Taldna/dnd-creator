@@ -6,11 +6,13 @@ import HoverDescription from "./HoverDescription"
 interface EquipmentProps {
   equipment: EquipmentType[]
   className?: string
+  onSelect?: (equipment: EquipmentType[]) => void
 }
 
 export default function EquipmentCard({
   equipment,
   className,
+  onSelect,
 }: EquipmentProps) {
   const [hoveredDescription, setHoveredDescription] = useState<string | null>(
     null
@@ -74,7 +76,7 @@ export default function EquipmentCard({
 
   return (
     <>
-      <div className={className}>
+      <div className={className} onClick={() => onSelect && onSelect(equipment)}>
         {items.map((item, index) => (
           <div key={index}>
             <span

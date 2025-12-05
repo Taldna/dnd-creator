@@ -10,6 +10,7 @@ import Title from "../atoms/Title"
 import PrimaryButton from "../atoms/PrimaryButton"
 import EquipmentList from "../molecules/EquipmentList"
 import EquipmentCard from "../atoms/Equipment"
+import Shop from "../organisms/Shop"
 
 export default function EquipmentSelection({
   setEquipment,
@@ -26,6 +27,7 @@ export default function EquipmentSelection({
   const [selectedClassEq, setSelectedClassEq] = useState<Equipment[] | null>(
     null
   )
+  const [showShop, setShowShop] = useState(false)
 
   const selectedEq =
     selectedBackgroundEq || selectedClassEq
@@ -78,7 +80,7 @@ export default function EquipmentSelection({
                 </div>
               </div>
 
-              <div className="flex justify-center mt-4 pb-4">
+              <div className="flex items-center z-50 justify-center mt-4 pb-4">
                 <PrimaryButton
                   onClick={() => {
                     // TODO: Handle equipment submission
@@ -88,12 +90,27 @@ export default function EquipmentSelection({
                 >
                   Valider
                 </PrimaryButton>
+                <RectangleButton
+                  name="Shop"
+                  className="ms-4"
+                  onClick={() => setShowShop(true)}
+                />
               </div>
             </div>
           </Box>
-          <RectangleButton name="Shop" />
         </div>
       </div>
+
+      {showShop && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Shop
+            money={
+              selectedEq?.filter((item) => item.category === "Argent") 
+            }
+            onClose={() => setShowShop(false)}
+          />
+        </div>
+      )}
     </main>
   )
 }
