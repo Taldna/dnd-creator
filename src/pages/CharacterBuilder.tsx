@@ -24,7 +24,7 @@ export default function CharacterBuilder() {
   const [abilities, setAbilities] = useState<Record<string, Ability> | null>(
     null
   )
-  const [equipment, setEquipment] = useState<Equipment | null>(null)
+  const [equipment, setEquipment] = useState<Equipment[] | null>(null)
   const [proficiencies, setProficiencies] = useState<Skill[] | null>(null)
   const [showProficiencies, setShowProficiencies] = useState(false)
   const [showEquipment, setShowEquipment] = useState(false)

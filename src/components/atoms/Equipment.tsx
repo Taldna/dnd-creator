@@ -40,7 +40,8 @@ export default function EquipmentCard({
         { po: 0, pa: 0, pc: 0 }
       )
 
-      // Create a single merged gold item only if there's any currency
+      // Create a single merged gold item only if there's any positive currency
+      // (exclude if all values are 0 or negative)
       if (
         totalCurrency.po > 0 ||
         totalCurrency.pa > 0 ||
@@ -53,6 +54,8 @@ export default function EquipmentCard({
         }
         return [...nonGoldItems, mergedGold]
       }
+      // If total is 0 or negative, return only non-gold items
+      return nonGoldItems
     }
 
     return equipment
@@ -76,7 +79,10 @@ export default function EquipmentCard({
 
   return (
     <>
-      <div className={className} onClick={() => onSelect && onSelect(equipment)}>
+      <div
+        className={className}
+        onClick={() => onSelect && onSelect(equipment)}
+      >
         {items.map((item, index) => (
           <div key={index}>
             <span

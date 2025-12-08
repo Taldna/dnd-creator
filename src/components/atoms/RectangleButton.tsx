@@ -3,11 +3,13 @@ export default function RectangleButton({
   onClick,
   className,
   disabled,
+  image,
 }: {
   name: string
   onClick?: () => void
   className?: string
   disabled?: boolean
+  image?: string
 }) {
   return (
     <button
@@ -17,6 +19,7 @@ export default function RectangleButton({
         disabled ? "opacity-30 cursor-not-allowed" : ""
       } ${className ?? ""}`}
     >
+      {image && <img src={image} alt={name} />}
       {name}
     </button>
   )
