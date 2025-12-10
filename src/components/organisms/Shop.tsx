@@ -137,8 +137,8 @@ export default function Shop({
                   onClose()
                 }}
                 disabled={!selectedEq || selectedEq.length === 0}
+                text="Valider"
               >
-                Valider
               </PrimaryButton>
             </div>
           </div>

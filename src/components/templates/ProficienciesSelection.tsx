@@ -81,7 +81,6 @@ export default function ProficienciesSelection({
                           <RectangleBox
                             key={"pf-bg-" + index}
                             text={proficiency.name}
-                            className="bg-gray-700 border-2 border-gray-500"
                           />
                         )
                     )}
@@ -100,7 +99,6 @@ export default function ProficienciesSelection({
                           name={skillProficiency.name}
                           onClick={() => addSkill(skillProficiency)}
                           disabled={isDisabled}
-                          className="bg-gray-700 border-2 border-gray-500"
                         />
                       )
                     })}
@@ -120,14 +118,12 @@ export default function ProficienciesSelection({
                       <RectangleBox
                         key={"pf-selected-" + index}
                         text={proficiency.name}
-                        className="bg-gray-700 border-2 border-gray-500"
                       />
                     ) : (
                       <RectangleButton
                         key={"pf-selected-" + index}
                         name={proficiency.name}
                         onClick={() => removeSkill(proficiency)}
-                        className="bg-gray-700 border-2 border-gray-500"
                       />
                     )
                   })}
@@ -185,8 +181,8 @@ export default function ProficienciesSelection({
                     onNext()
                   }}
                   disabled={isButtonDisabled}
+                  text="Valider"
                 >
-                  Valider
                 </PrimaryButton>
               </div>
             </div>

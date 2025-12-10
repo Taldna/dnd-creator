@@ -87,6 +87,8 @@ export const useEquipmentSelection = () => {
   const openShop = () => setShowShop(true)
   const closeShop = () => setShowShop(false)
 
+  const isValid = !(selectedBackgroundEq && selectedClassEq)
+
   return {
     selectedBackgroundEq,
     selectedClassEq,
@@ -99,5 +101,6 @@ export const useEquipmentSelection = () => {
     handleReset,
     openShop,
     closeShop,
+    isValid,
   }
 }

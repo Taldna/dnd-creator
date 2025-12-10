@@ -1,4 +1,4 @@
-import SquareButton from "./SquareButton"
+import SquareButton from "./DiamondButton"
 
 export default function AddButton({
   onClick,
@@ -11,7 +11,7 @@ export default function AddButton({
     <SquareButton
       name="+"
       onClick={onClick}
-      className={`bg-gray-700 border-gray-500 text-white font-bold text-3xl transition ease-in hover:bg-gray-600 hover:scale-90 pb-1.5 ${
+      className={`text-white font-bold text-3xl transition ease-in hover:scale-90 ${
         className ?? ""
       }`}
     />

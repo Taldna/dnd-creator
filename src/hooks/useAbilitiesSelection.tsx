@@ -48,7 +48,8 @@ const calculateTotalPointCost = (
 export function useAbilitiesSelection(
   abilities: Record<string, Ability> | null,
   dndClass: Class | null,
-  background: Background | null
+  background: Background | null,
+  setIsAbilitiesSelectionValid?: (isValid: boolean) => void
 ) {
   const [selectedAb, setSelectedAb] =
     useState<Record<string, Ability>>(ABILITIES)
@@ -137,6 +138,13 @@ export function useAbilitiesSelection(
   }
 
   const isValid = totalHistoryBonus === 3 && totalPointCost === 27
+
+  // Synchroniser isAbilitiesSelectionValid en temps réel
+  useEffect(() => {
+    if (setIsAbilitiesSelectionValid) {
+      setIsAbilitiesSelectionValid(isValid)
+    }
+  }, [isValid, setIsAbilitiesSelectionValid])
 
   return {
     selectedAb,

@@ -11,6 +11,9 @@ import EquipmentList from "../molecules/EquipmentList"
 import EquipmentCard from "../atoms/Equipment"
 import Shop from "../organisms/Shop"
 import { useEquipmentSelection } from "../../hooks/useEquipmentSelection"
+import { useState } from "react"
+import HoverDescription from "../atoms/HoverDescription"
+import ShopButton from "../atoms/ShopButton"
 
 export default function EquipmentSelection({
   setEquipment,
@@ -21,6 +24,10 @@ export default function EquipmentSelection({
   dndClass: Class
   background: Background
 }) {
+  const [hoveredRestart, setHoveredRestart] = useState<boolean>(false)
+  const [showValidationDetails, setShowValidationDetails] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
   const {
     selectedBackgroundEq,
     selectedClassEq,
@@ -33,6 +40,7 @@ export default function EquipmentSelection({
     handleReset,
     openShop,
     closeShop,
+    isValid,
   } = useEquipmentSelection()
 
   return (
@@ -55,7 +63,7 @@ export default function EquipmentSelection({
                     Équipement d'historique
                     {shopPurchases.length > 0 && (
                       <span className="text-sm text-red-400 block mt-1">
-                        (Désactivé - achats effectués)
+                        (Achats effectués)
                       </span>
                     )}
                   </h2>
@@ -79,7 +87,7 @@ export default function EquipmentSelection({
                     Équipement de classe
                     {shopPurchases.length > 0 && (
                       <span className="text-sm text-red-400 block mt-1">
-                        (Désactivé - achats effectués)
+                        (Achats effectués)
                       </span>
                     )}
                   </h2>
@@ -103,15 +111,28 @@ export default function EquipmentSelection({
               </div>
 
               <div className="flex items-center z-50 justify-center mt-4 pb-4">
-                <PrimaryButton
-                  onClick={() => {
-                    setEquipment(selectedEq ? selectedEq : null)
+                <div
+                  onMouseEnter={() => {
+                    setShowValidationDetails(true)
                   }}
-                  disabled={!(selectedBackgroundEq && selectedClassEq)}
+                  onMouseLeave={() => {
+                    setShowValidationDetails(false)
+                  }}
+                  onMouseMove={(
+                    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+                  ) => {
+                    setMousePosition({ x: e.clientX, y: e.clientY })
+                  }}
                 >
-                  Valider
-                </PrimaryButton>
-                <RectangleButton
+                  <PrimaryButton
+                    onClick={() => {
+                      setEquipment(selectedEq ? selectedEq : null)
+                    }}
+                    disabled={!(selectedBackgroundEq && selectedClassEq)}
+                    text="Valider"
+                  />
+                </div>
+                <ShopButton
                   name="Shop"
                   className="ms-4"
                   onClick={openShop}
@@ -122,6 +143,13 @@ export default function EquipmentSelection({
                   className="ms-4"
                   disabled={shopPurchases.length === 0}
                   onClick={handleReset}
+                  onMouseEnter={() => setHoveredRestart(true)}
+                  onMouseLeave={() => setHoveredRestart(false)}
+                  onMouseMove={(
+                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                  ) => {
+                    setMousePosition({ x: e.clientX, y: e.clientY })
+                  }}
                 />
               </div>
             </div>
@@ -137,6 +165,24 @@ export default function EquipmentSelection({
             onClose={closeShop}
           />
         </div>
+      )}
+
+      {hoveredRestart && (
+        <HoverDescription
+          text={"Achats effectués, cliquez pour réinitialiser la sélection"}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
+      )}
+
+      {showValidationDetails && isValid && (
+        <HoverDescription
+          text={
+            "Validation impossible : les deux options ne sont pas sélectionnées."
+          }
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
       )}
     </main>
   )

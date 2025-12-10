@@ -29,7 +29,7 @@ export default function CharacterBuilder() {
   const [showProficiencies, setShowProficiencies] = useState(false)
   const [showEquipment, setShowEquipment] = useState(false)
   const [isAbilitiesSelectionValid, setIsAbilitiesSelectionValid] =
-    useState(true)// à mettre à false
+    useState(false)
 
   if (dndClass === null) {
     return <ClassSelection setDndClass={setDndClass} />

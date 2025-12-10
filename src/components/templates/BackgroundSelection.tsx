@@ -85,7 +85,7 @@ export default function BackgroundSelection({
               )
             })}
             {selectedBg !== -1 && (
-            <div className="absolute bottom-10">
+            <div className="absolute bottom-12">
               <PrimaryButton
                 onClick={() => {
                   console.info(
@@ -93,8 +93,8 @@ export default function BackgroundSelection({
                   )
                   setBackground(BACKGROUNDS[selectedBg])
                 }}
+                text="Choisir"
               >
-                Choisir
               </PrimaryButton>
             </div>
             )}

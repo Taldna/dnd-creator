@@ -1,9 +1,9 @@
 "use client"
 
-import SquareButton from "../atoms/SquareButton"
+import SquareButton from "../atoms/DiamondButton"
 import Box from "../atoms/Box"
 import PrimaryButton from "../atoms/PrimaryButton"
-import SquareBox from "../atoms/SquareBox"
+import SquarBox from "../atoms/DiamondBox"
 import Title from "../atoms/Title"
 import HoverDescription from "../atoms/HoverDescription"
 import type { Background } from "../../types/data/background"
@@ -44,7 +44,12 @@ export default function AbilitiesSelection({
     canIncreaseHistoryBonus,
     canDecreaseHistoryBonus,
     isValid,
-  } = useAbilitiesSelection(abilities, dndClass, background)
+  } = useAbilitiesSelection(
+    abilities,
+    dndClass,
+    background,
+    setIsAbilitiesSelectionValid
+  )
 
   const getValidationErrors = (): string[] => {
     const errors: string[] = []
@@ -108,9 +113,9 @@ export default function AbilitiesSelection({
                           className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                           disabled={!canDecreaseRawValue(ability)}
                         />
-                        <SquareBox
+                        <SquarBox
                           text={`${ability.rawValue}`}
-                          className="bg-gray-700 border-2 border-gray-500 text-white text-2xl font-bold"
+                          className="text-white text-2xl font-bold"
                         />
                         <SquareButton
                           name="+"
@@ -135,9 +140,9 @@ export default function AbilitiesSelection({
                           className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                           disabled={!canDecreaseHistoryBonus(ability)}
                         />
-                        <SquareBox
+                        <SquarBox
                           text={`${ability.historyBonus}`}
-                          className={`bg-gray-700 border-2 border-gray-500 text-white text-2xl font-bold ${
+                          className={`text-white text-2xl font-bold ${
                             !isAbilityAllowed(ability.name) ? "opacity-30" : ""
                           }`}
                         />
@@ -154,10 +159,11 @@ export default function AbilitiesSelection({
                       </div>
 
                       <div className="mx-auto">
-                        <SquareBox
-                          text={`${ability.finalValue}`}
-                          className="text-white text-2xl font-bold"
-                        />
+                        <div
+                          className={`w-12 h-12 flex text-white text-2xl font-bold items-center justify-center leading-none relative`}
+                        >
+                          {`${ability.finalValue}`}
+                        </div>
                       </div>
                       <div className="mx-auto relative w-fit h-fit">
                         <img
@@ -166,14 +172,15 @@ export default function AbilitiesSelection({
                           className="w-14 h-auto object-contain"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <SquareBox
-                            text={`${
+                          <div
+                            className={`w-12 h-12 flex text-white text-2xl font-bold items-center justify-center leading-none relative`}
+                          >
+                            {`${
                               ability.modifier >= 0
                                 ? `+${ability.modifier}`
                                 : ability.modifier
                             }`}
-                            className="text-white text-2xl font-bold"
-                          />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -194,10 +201,9 @@ export default function AbilitiesSelection({
 
               <div className="flex justify-center mt-6 pb-4">
                 <div
-                  onMouseEnter={(e) => {
+                  onMouseEnter={() => {
                     if (!isValid) {
                       setShowValidationDetails(true)
-                      setMousePosition({ x: e.clientX, y: e.clientY })
                     }
                   }}
                   onMouseMove={(e) => {
@@ -214,9 +220,8 @@ export default function AbilitiesSelection({
                       onNext()
                     }}
                     disabled={!isValid}
-                  >
-                    Valider
-                  </PrimaryButton>
+                    text="Valider"
+                  ></PrimaryButton>
                 </div>
               </div>
             </div>
