@@ -16,6 +16,8 @@ import { SPECIES } from "../data/species"
 import type { Skill } from "../types/data/skill"
 import EquipmentSelection from "../components/templates/EquipmentSelection"
 import type { Equipment } from "../types/data/equipment"
+import PersonalizationCompletion from "../components/templates/PersonalizationCompletion"
+import type { Personalization } from "../types/data/personalization"
 
 export default function CharacterBuilder() {
   const [dndClass, setDndClass] = useState<Class | null>(null)
@@ -26,6 +28,8 @@ export default function CharacterBuilder() {
   )
   const [equipment, setEquipment] = useState<Equipment[] | null>(null)
   const [proficiencies, setProficiencies] = useState<Skill[] | null>(null)
+  const [personalization, setPersonalization] = useState<Personalization | null>(null)
+
   const [showProficiencies, setShowProficiencies] = useState(false)
   const [showEquipment, setShowEquipment] = useState(false)
   const [isAbilitiesSelectionValid, setIsAbilitiesSelectionValid] =
@@ -49,15 +53,7 @@ export default function CharacterBuilder() {
         setIsAbilitiesSelectionValid={setIsAbilitiesSelectionValid}
       />
     )
-  } else if (showEquipment && proficiencies !== null) {
-    return (
-      <EquipmentSelection
-        dndClass={dndClass}
-        background={background}
-        setEquipment={setEquipment}
-      />
-    )
-  } else if (showProficiencies) {
+  } else if (showProficiencies && !showEquipment && equipment === null) {
     return (
       <ProficienciesSelection
         setProficiencies={setProficiencies}
@@ -69,8 +65,19 @@ export default function CharacterBuilder() {
         onNext={() => setShowEquipment(true)}
       />
     )
+  } else if (showEquipment && equipment === null && proficiencies !== null) {
+    return (
+      <EquipmentSelection
+        dndClass={dndClass}
+        background={background}
+        setEquipment={setEquipment}
+      />
+    )
   } else if (equipment !== null) {
-    // page des sorts
+    // à faire une fois que les spells et la personnalisation seront implémentés
+    return (
+      <PersonalizationCompletion setPersonalization={setPersonalization}/>
+    )
   }
 
   return (
