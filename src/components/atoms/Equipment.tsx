@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Equipment as EquipmentType } from "../../types/data/equipment"
-import { formatEquipmentArray } from "../../data/equipments"
+import { formatEquipmentArray } from "../../utils/equipmentUtils"
 import HoverDescription from "./HoverDescription"
 
 interface EquipmentProps {
@@ -19,49 +19,8 @@ export default function EquipmentCard({
   )
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  // Merge gold amounts before formatting
-  const mergedEquipment = (() => {
-    const goldItems = equipment.filter((item) => item.category === "Argent")
-    const nonGoldItems = equipment.filter((item) => item.category !== "Argent")
-
-    if (goldItems.length > 0) {
-      // Sum all currency amounts
-      const totalCurrency = goldItems.reduce(
-        (sum, item) => {
-          if (item.category === "Argent") {
-            return {
-              po: sum.po + (item.amount.po || 0),
-              pa: sum.pa + (item.amount.pa || 0),
-              pc: sum.pc + (item.amount.pc || 0),
-            }
-          }
-          return sum
-        },
-        { po: 0, pa: 0, pc: 0 }
-      )
-
-      // Create a single merged gold item only if there's any positive currency
-      // (exclude if all values are 0 or negative)
-      if (
-        totalCurrency.po > 0 ||
-        totalCurrency.pa > 0 ||
-        totalCurrency.pc > 0
-      ) {
-        const mergedGold: EquipmentType = {
-          name: "Or",
-          category: "Argent",
-          amount: totalCurrency,
-        }
-        return [...nonGoldItems, mergedGold]
-      }
-      // If total is 0 or negative, return only non-gold items
-      return nonGoldItems
-    }
-
-    return equipment
-  })()
-
-  const items = formatEquipmentArray(mergedEquipment)
+  // Format equipment for display with quantities
+  const items = formatEquipmentArray(equipment)
 
   const handleMouseEnter = (description: string | undefined) => {
     if (description) {

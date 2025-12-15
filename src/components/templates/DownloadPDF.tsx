@@ -2,10 +2,12 @@ import type { Ability } from "../../types/data/ability"
 import type { Background } from "../../types/data/background"
 import type { Class } from "../../types/data/class"
 import type { Equipment } from "../../types/data/equipment"
+import type { Personalization } from "../../types/data/personalization"
 import type { Skill } from "../../types/data/skill"
 import type { Species } from "../../types/data/species"
 import D20 from "../atoms/D20"
 import { PDFDocument } from "pdf-lib"
+import { formatEquipmentToString } from "../../utils/equipmentUtils"
 
 type DownloadPDFType = {
   dndClass: Class | null
@@ -15,7 +17,7 @@ type DownloadPDFType = {
   equipment: Equipment[] | null
   proficiencies: Skill[] | null
   spells: boolean | null
-  personalization: boolean | null
+  personalization: Personalization | null
 }
 
 export default function DownloadPDF({
@@ -108,16 +110,17 @@ export default function DownloadPDF({
 
     //champs relatifs à l'équipement
     if (equipment) {
-      const equipmentNames = equipment.map((eq) => eq.name).join(", ")
-      set("equipment", equipmentNames)  // à modifier pour l'argent et les quantités
-    }
+      const equipmentNames = formatEquipmentToString(equipment)
+      set("equipment", equipmentNames)
+    } // manque l'or regarder bas de 2e page
 
     //champs relatifs aux sorts
 
     //champs relatifs à la personnalisation
-    set("appearance", "apparence")
-    set("charactername", "nom") 
-    set("backstory", "histoire")
+    set("appearance", personalization?.appearance)
+    set("size", personalization?.height + " m")     // ne s'affiche plus ?
+    set("charactername", personalization?.characterName)
+    set("backstory", personalization?.backstory)
 
     const out = await pdfDoc.save()
     const blob = new Blob([out as BlobPart], { type: "application/pdf" })

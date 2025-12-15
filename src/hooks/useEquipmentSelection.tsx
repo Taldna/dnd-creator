@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import type { Equipment } from "../types/data/equipment"
+import { mergeMoneyInEquipment } from "../utils/equipmentUtils"
 
 export const useEquipmentSelection = () => {
   const [selectedBackgroundEq, setSelectedBackgroundEq] = useState<
@@ -21,46 +22,8 @@ export const useEquipmentSelection = () => {
 
     if (baseEquipment.length > 0 || shopPurchases.length > 0) {
       const allEquipment = [...baseEquipment, ...shopPurchases]
-
-      // Convert money to proper denominations
-      const moneyItems = allEquipment.filter(
-        (item) => item.category === "Argent"
-      )
-      const nonMoneyItems = allEquipment.filter(
-        (item) => item.category !== "Argent"
-      )
-
-      if (moneyItems.length > 0) {
-        // Calculate total in copper pieces
-        const totalInPc = moneyItems.reduce((sum, item) => {
-          if (item.category === "Argent") {
-            return (
-              sum +
-              (item.amount.po || 0) * 100 +
-              (item.amount.pa || 0) * 10 +
-              (item.amount.pc || 0)
-            )
-          }
-          return sum
-        }, 0)
-
-        // Convert back to po, pa, pc
-        const po = Math.floor(totalInPc / 100)
-        const remainingAfterPo = totalInPc % 100
-        const pa = Math.floor(remainingAfterPo / 10)
-        const pc = remainingAfterPo % 10
-
-        // Create converted money item
-        const convertedMoney: Equipment = {
-          name: "Or",
-          category: "Argent",
-          amount: { po, pa, pc },
-        }
-
-        setSelectedEq([...nonMoneyItems, convertedMoney])
-      } else {
-        setSelectedEq(allEquipment)
-      }
+      const mergedEquipment = mergeMoneyInEquipment(allEquipment)
+      setSelectedEq(mergedEquipment.length > 0 ? mergedEquipment : null)
     } else {
       setSelectedEq(null)
     }

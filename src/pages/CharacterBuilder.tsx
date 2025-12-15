@@ -55,7 +55,6 @@ export default function CharacterBuilder() {
       />
     )
   } else if (showProficiencies && !showEquipment && equipment === null) {
-  } else if (showProficiencies && !showEquipment && equipment === null) {
     return (
       <ProficienciesSelection
         setProficiencies={setProficiencies}
@@ -75,16 +74,11 @@ export default function CharacterBuilder() {
         setEquipment={setEquipment}
       />
     )
-  } else if (showEquipment && equipment === null && proficiencies !== null) {
+  } else if (equipment !== null && personalization === null) {
     return (
-      <EquipmentSelection
-        dndClass={dndClass}
-        background={background}
-        setEquipment={setEquipment}
-      />
+      <PersonalizationCompletion setPersonalization={setPersonalization} />
     )
-  } else if (equipment !== null) {
-    // à faire une fois que les spells et la personnalisation seront implémentés
+  } else if (personalization !== null) {
     return (
       <DownloadPDF
         dndClass={dndClass}
@@ -94,7 +88,7 @@ export default function CharacterBuilder() {
         equipment={equipment}
         proficiencies={proficiencies}
         spells={true}
-        personalization={true}
+        personalization={personalization}
       />
     )
   }
