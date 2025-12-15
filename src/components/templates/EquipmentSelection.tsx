@@ -127,6 +127,7 @@ export default function EquipmentSelection({
                   <PrimaryButton
                     onClick={() => {
                       setEquipment(selectedEq ? selectedEq : null)
+                      console.info("Équipement sélectionné : ", selectedEq)
                     }}
                     disabled={!(selectedBackgroundEq && selectedClassEq)}
                     text="Valider"
