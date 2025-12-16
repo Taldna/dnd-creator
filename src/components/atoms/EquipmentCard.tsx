@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Equipment as EquipmentType } from "../../types/data/equipment"
-import { formatEquipmentArray } from "../../utils/equipmentUtils"
+import { formatEquipmentArray } from "../../types/utility/equipmentUtils"
 import HoverDescription from "./HoverDescription"
 
 interface EquipmentProps {

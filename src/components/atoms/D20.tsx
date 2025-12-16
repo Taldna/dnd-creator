@@ -3,9 +3,10 @@ import styles from "./D20.module.scss"
 
 interface D20Props {
   autoRoll?: boolean
+  rollTo?: number
 }
 
-export default function D20({ autoRoll = false }: D20Props) {
+export default function D20({ autoRoll = false, rollTo = 0 }: D20Props) {
   const dieRef = useRef<HTMLDivElement>(null)
   const [isRolling, setIsRolling] = useState(false)
   const [currentFace, setCurrentFace] = useState<number | null>(1)
@@ -23,7 +24,7 @@ export default function D20({ autoRoll = false }: D20Props) {
     return face
   }
 
-  const rollTo = (face: number) => {
+  const rollToNumber = (face: number) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -40,7 +41,7 @@ export default function D20({ autoRoll = false }: D20Props) {
 
     timeoutRef.current = setTimeout(() => {
       setIsRolling(false)
-      rollTo(randomFace())
+      rollToNumber(randomFace())
     }, animationDuration)
   }
 
@@ -50,12 +51,18 @@ export default function D20({ autoRoll = false }: D20Props) {
         setIsRolling(true)
         timeoutRef.current = setTimeout(() => {
           setIsRolling(false)
-          rollTo(randomFace())
+          rollToNumber(randomFace())
         }, animationDuration)
       }
 
       startAutoRoll()
       intervalRef.current = setInterval(startAutoRoll, animationDuration + 500)
+    } else if (rollTo > 0) {
+      setIsRolling(true)
+      timeoutRef.current = setTimeout(() => {
+        setIsRolling(false)
+        rollToNumber(rollTo)
+      }, animationDuration)
     }
 
     return () => {
@@ -66,7 +73,7 @@ export default function D20({ autoRoll = false }: D20Props) {
         clearInterval(intervalRef.current)
       }
     }
-  }, [autoRoll])
+  }, [autoRoll, rollTo, randomFace])
 
   return (
     <div>

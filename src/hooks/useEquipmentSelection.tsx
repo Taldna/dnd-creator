@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import type { Equipment } from "../types/data/equipment"
-import { mergeMoneyInEquipment } from "../utils/equipmentUtils"
+import { mergeMoneyInEquipment } from "../types/utility/equipmentUtils"
 
 export const useEquipmentSelection = () => {
   const [selectedBackgroundEq, setSelectedBackgroundEq] = useState<
@@ -24,6 +24,7 @@ export const useEquipmentSelection = () => {
       const allEquipment = [...baseEquipment, ...shopPurchases]
       const mergedEquipment = mergeMoneyInEquipment(allEquipment)
       setSelectedEq(mergedEquipment.length > 0 ? mergedEquipment : null)
+      console.log("Merged EquipmentSelection:", mergedEquipment.length > 0 ? mergedEquipment : null)
     } else {
       setSelectedEq(null)
     }

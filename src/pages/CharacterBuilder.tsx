@@ -36,6 +36,19 @@ export default function CharacterBuilder() {
   const [isAbilitiesSelectionValid, setIsAbilitiesSelectionValid] =
     useState(false)
 
+  const handleReturnToHome = () => {
+    setDndClass(null)
+    setBackground(null)
+    setSpecies(null)
+    setAbilities(null)
+    setEquipment(null)
+    setProficiencies(null)
+    setPersonalization(null)
+    setShowProficiencies(false)
+    setShowEquipment(false)
+    setIsAbilitiesSelectionValid(false)
+  }
+
   if (dndClass === null) {
     return <ClassSelection setDndClass={setDndClass} />
   } else if (background === null) {
@@ -87,8 +100,8 @@ export default function CharacterBuilder() {
         abilities={abilities}
         equipment={equipment}
         proficiencies={proficiencies}
-        spells={true}
         personalization={personalization}
+        onReturn={handleReturnToHome}
       />
     )
   }

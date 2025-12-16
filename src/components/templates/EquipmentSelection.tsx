@@ -8,7 +8,7 @@ import RectangleButton from "../atoms/RectangleButton"
 import Title from "../atoms/Title"
 import PrimaryButton from "../atoms/PrimaryButton"
 import EquipmentList from "../molecules/EquipmentList"
-import EquipmentCard from "../atoms/Equipment"
+import EquipmentCard from "../atoms/EquipmentCard"
 import Shop from "../organisms/Shop"
 import { useEquipmentSelection } from "../../hooks/useEquipmentSelection"
 import { useState } from "react"
@@ -53,11 +53,10 @@ export default function EquipmentSelection({
               <div className="flex gap-4">
                 {/* Équipement d'historique */}
                 <div
-                  className={`flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 ${
-                    shopPurchases.length > 0
+                  className={`flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 ${shopPurchases.length > 0
                       ? "opacity-50 pointer-events-none"
                       : ""
-                  }`}
+                    }`}
                 >
                   <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
                     Équipement d'historique
@@ -77,11 +76,10 @@ export default function EquipmentSelection({
 
                 {/* Équipement de classe */}
                 <div
-                  className={`flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 ${
-                    shopPurchases.length > 0
+                  className={`flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 ${shopPurchases.length > 0
                       ? "opacity-50 pointer-events-none"
                       : ""
-                  }`}
+                    }`}
                 >
                   <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
                     Équipement de classe

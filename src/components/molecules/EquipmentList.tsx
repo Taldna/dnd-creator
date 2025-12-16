@@ -1,5 +1,5 @@
 import type { Equipment } from "../../types/data/equipment"
-import EquipmentCard from "../atoms/Equipment"
+import EquipmentCard from "../atoms/EquipmentCard"
 import SquareButton from "../atoms/SquareButton"
 
 interface EquipmentListProps {

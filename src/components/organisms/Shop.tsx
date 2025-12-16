@@ -8,7 +8,7 @@ import { VEHICLE_EQUIPMENT } from "../../data/vehicleEquipment"
 import { WEAPONS } from "../../data/weapons"
 import type { Money, Equipment } from "../../types/data/equipment"
 import Box from "../atoms/Box"
-import EquipmentCard from "../atoms/Equipment"
+import EquipmentCard from "../atoms/EquipmentCard"
 import PrimaryButton from "../atoms/PrimaryButton"
 import { useShop } from "../../hooks/useShop"
 
@@ -59,29 +59,27 @@ export default function Shop({
       <div
         key={index}
         onClick={() => addItemToCart(item)}
-        className={`px-2 transition flex justify-between items-center ${
-          affordable
+        className={`px-2 transition flex justify-between items-center ${affordable
             ? "cursor-pointer hover:bg-gray-700"
             : "opacity-50 cursor-not-allowed"
-        }`}
+          }`}
       >
         <EquipmentCard equipment={[item]} />
         {"price" in item && (
           <span
-            className={`font-semibold ml-4 whitespace-nowrap ${
-              !affordable
+            className={`font-semibold ml-4 whitespace-nowrap ${!affordable
                 ? "text-red-500"
                 : (item.price.po > 0 ? 1 : 0) +
-                    (item.price.pa > 0 ? 1 : 0) +
-                    (item.price.pc > 0 ? 1 : 0) >
+                  (item.price.pa > 0 ? 1 : 0) +
+                  (item.price.pc > 0 ? 1 : 0) >
                   1
-                ? "text-white"
-                : item.price.po > 0
-                ? "text-yellow-500"
-                : item.price.pa > 0
-                ? "text-gray-400"
-                : "text-orange-400"
-            }`}
+                  ? "text-white"
+                  : item.price.po > 0
+                    ? "text-yellow-500"
+                    : item.price.pa > 0
+                      ? "text-gray-400"
+                      : "text-orange-400"
+              }`}
           >
             {item.price.po > 0 && `${item.price.po} po `}
             {item.price.pa > 0 && `${item.price.pa} pa `}
@@ -111,8 +109,8 @@ export default function Shop({
               <span
                 className={
                   availableMoney.po < 0 ||
-                  availableMoney.pa < 0 ||
-                  availableMoney.pc < 0
+                    availableMoney.pa < 0 ||
+                    availableMoney.pc < 0
                     ? "text-red-500"
                     : "text-green-500"
                 }
@@ -165,11 +163,10 @@ export default function Shop({
                         {category.label}
                       </span>
                       <span
-                        className={`text-xs text-white transition-transform duration-300 ease-out ${
-                          expandedCategories[category.key]
+                        className={`text-xs text-white transition-transform duration-300 ease-out ${expandedCategories[category.key]
                             ? "rotate-0"
                             : "-rotate-180"
-                        }`}
+                          }`}
                       >
                         ▼
                       </span>
@@ -177,11 +174,10 @@ export default function Shop({
 
                     {/* Category Items */}
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-out ${
-                        expandedCategories[category.key]
+                      className={`overflow-hidden transition-all duration-300 ease-out ${expandedCategories[category.key]
                           ? "max-h-[2000px] opacity-100"
                           : "max-h-0 opacity-0"
-                      }`}
+                        }`}
                     >
                       <div className="px-2">
                         {category.items.map((item, index) => (
