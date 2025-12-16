@@ -20,33 +20,36 @@ export default function SpeciesSelection({
 
   return (
     <main className="h-screen w-screen flex flex-col items-center text-white p-4 bg-[url(/background_scale.png)] bg-cover overflow-auto">
-      <Title name="Sélection de l'espèce" />
-      <div className="size-9/10 flex flex-row gap-8 justify-center">
-        <Box className="w-2/5 flex gap-4 flex-wrap flex-start content-start overflow-auto relative">
-          {SPECIES.map((species) => (
-            <Box key={species.name} className="w-1/5 flex grow min-w-3xs hover:bg-red-800 justify-center">
-              <img 
-                src={species.icon}
-                alt={species.name}
-                className="rounded-lg cursor-pointer"
-                onClick={() => setSelectedSpecies(species)}
-              />
-            </Box>
-          ))}
-
-          <div className="sticky bottom-0 left-1/2 transform -translate-x-1/2">
+      <Title name="Sélection de l'espèce" className="pb-5"/>
+      <div className="size-9/10 flex flex-row gap-8 justify-center box-border">
+        <Box className="w-2/5 relative">
+          <div className="w-full grid grid-cols-4 gap-4">
+            {SPECIES.map((species) => (
+              <div key={species.name} className="cursor-pointer hover:scale-105 transition-transform hover:border-4 border-red-800 p-2 rounded-lg">
+                <img
+                  src={species.icon}
+                  alt={species.name}
+                  className="rounded-lg"
+                  onClick={() => setSelectedSpecies(species)}
+                />
+                <div className="text-center mt-2">{species.name}</div>
+              </div>
+            ))}
+          </div>
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
             <PrimaryButton onClick={() => setSpecies(SPECIES[0])}>
               Choisir cette espèce
             </PrimaryButton>
           </div>
         </Box>
         
-        <Box className="w-3/5 flex flex-col gap-4 overflow-auto">
-          <img
-            src={selectedSpecies.fullImage}
-            alt={selectedSpecies.name}
-            className="rounded-lg"
-          />
+        <Box className="w-3/5 flex flex-col gap-4 overflow-hidden">
+          <div className="size-full overflow-auto rounded-lg">
+            <img
+              src={selectedSpecies.fullImage}
+              alt={selectedSpecies.name}
+              className="rounded-lg"
+            />
             <div>
               <h2 className="text-2xl font-bold mb-2">{selectedSpecies.name}</h2>
               <p>{selectedSpecies.description}</p>
@@ -65,6 +68,7 @@ export default function SpeciesSelection({
                 ))}
               </ul>
             </div>
+          </div>
         </Box>
       </div>
     </main>
