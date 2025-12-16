@@ -18,26 +18,27 @@ export default function ClassSelection({
   const [selectedClass, setSelectedClass] = useState<Class | null>(null)
 
   return (
-    <main className="h-screen w-screen flex flex-col items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-hidden">
+    <main className="h-screen w-screen flex flex-col items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-hidden gap-6">
       <Title name="Sélection de la Classe" />
 
       {selectedClass === null ? (
         <ClassesGrid handleSelect={setSelectedClass} classList={CLASSES} />
       ) : (
         <>
-          <ClassDetails
-            dndClass={selectedClass!}
-            handleClick={setSelectedClass}
-          />
-          <div className="absolute bottom-6">
+          <div className="flex-1 w-full overflow-hidden">
+            <ClassDetails
+              dndClass={selectedClass!}
+              handleClick={setSelectedClass}
+            />
+          </div>
+          <div className="flex-shrink-0">
             <PrimaryButton
               onClick={() => {
                 console.info(`Classe "${selectedClass!.name}" sélectionnée !`)
                 setDndClass(selectedClass)
               }}
-            >
-              Choisir
-            </PrimaryButton>
+              text="Choisir"
+            ></PrimaryButton>
           </div>
         </>
       )}

@@ -1,16 +1,17 @@
 "use client"
 
-import SquareButton from "../atoms/SquareButton"
+import SquareButton from "../atoms/DiamondButton"
 import Box from "../atoms/Box"
 import PrimaryButton from "../atoms/PrimaryButton"
-import SquareBox from "../atoms/SquareBox"
+import SquarBox from "../atoms/DiamondBox"
 import Title from "../atoms/Title"
+import HoverDescription from "../atoms/HoverDescription"
 import type { Background } from "../../types/data/background"
 import type { Class } from "../../types/data/class"
 import type { Ability } from "../../types/data/ability"
 import { useState } from "react"
 import { TfiArrowCircleRight } from "react-icons/tfi"
-import { useAbilitySelection } from "../../hooks/useAbilitySelection"
+import { useAbilitiesSelection } from "../../hooks/useAbilitiesSelection"
 import { ABILITIES } from "../../data/abilities"
 
 export default function AbilitiesSelection({
@@ -29,6 +30,7 @@ export default function AbilitiesSelection({
   setIsAbilitiesSelectionValid: (isValid: boolean) => void
 }) {
   const [hoveredAbility, setHoveredAbility] = useState<string | null>(null)
+  const [showValidationDetails, setShowValidationDetails] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const {
@@ -42,7 +44,30 @@ export default function AbilitiesSelection({
     canIncreaseHistoryBonus,
     canDecreaseHistoryBonus,
     isValid,
-  } = useAbilitySelection(abilities, dndClass, background)
+  } = useAbilitiesSelection(
+    abilities,
+    dndClass,
+    background,
+    setIsAbilitiesSelectionValid
+  )
+
+  const getValidationErrors = (): string[] => {
+    const errors: string[] = []
+
+    if (totalPointCost !== 27) {
+      errors.push(
+        `Points de caractéristiques : ${totalPointCost}/27 (doivent être à 27/27)`
+      )
+    }
+
+    if (totalHistoryBonus !== 3) {
+      errors.push(
+        `Bonus d'historique : ${totalHistoryBonus}/3 (doivent être à 3/3)`
+      )
+    }
+
+    return errors
+  }
 
   return (
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-y-auto overflow-x-hidden relative">
@@ -88,9 +113,9 @@ export default function AbilitiesSelection({
                           className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                           disabled={!canDecreaseRawValue(ability)}
                         />
-                        <SquareBox
+                        <SquarBox
                           text={`${ability.rawValue}`}
-                          className="bg-gray-700 border-2 border-gray-500 text-white text-2xl font-bold"
+                          className="text-white text-2xl font-bold"
                         />
                         <SquareButton
                           name="+"
@@ -115,9 +140,9 @@ export default function AbilitiesSelection({
                           className="scale-50 text-white font-bold text-3xl transition ease-in hover:scale-60 pb-1.5"
                           disabled={!canDecreaseHistoryBonus(ability)}
                         />
-                        <SquareBox
+                        <SquarBox
                           text={`${ability.historyBonus}`}
-                          className={`bg-gray-700 border-2 border-gray-500 text-white text-2xl font-bold ${
+                          className={`text-white text-2xl font-bold ${
                             !isAbilityAllowed(ability.name) ? "opacity-30" : ""
                           }`}
                         />
@@ -134,10 +159,11 @@ export default function AbilitiesSelection({
                       </div>
 
                       <div className="mx-auto">
-                        <SquareBox
-                          text={`${ability.finalValue}`}
-                          className="text-white text-2xl font-bold"
-                        />
+                        <div
+                          className={`w-12 h-12 flex text-white text-2xl font-bold items-center justify-center leading-none relative`}
+                        >
+                          {`${ability.finalValue}`}
+                        </div>
                       </div>
                       <div className="mx-auto relative w-fit h-fit">
                         <img
@@ -146,14 +172,15 @@ export default function AbilitiesSelection({
                           className="w-14 h-auto object-contain"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <SquareBox
-                            text={`${
+                          <div
+                            className={`w-12 h-12 flex text-white text-2xl font-bold items-center justify-center leading-none relative`}
+                          >
+                            {`${
                               ability.modifier >= 0
                                 ? `+${ability.modifier}`
                                 : ability.modifier
                             }`}
-                            className="text-white text-2xl font-bold"
-                          />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -173,16 +200,29 @@ export default function AbilitiesSelection({
               </div>
 
               <div className="flex justify-center mt-6 pb-4">
-                <PrimaryButton
-                  onClick={() => {
-                    setAbilities(selectedAb)
-                    console.log(selectedAb)
-                    onNext()
+                <div
+                  onMouseEnter={() => {
+                    if (!isValid) {
+                      setShowValidationDetails(true)
+                    }
                   }}
-                  disabled={!isValid}
+                  onMouseMove={(e) => {
+                    if (!isValid) {
+                      setMousePosition({ x: e.clientX, y: e.clientY })
+                    }
+                  }}
+                  onMouseLeave={() => setShowValidationDetails(false)}
                 >
-                  Valider
-                </PrimaryButton>
+                  <PrimaryButton
+                    onClick={() => {
+                      setAbilities(selectedAb)
+                      console.log(selectedAb)
+                      onNext()
+                    }}
+                    disabled={!isValid}
+                    text="Valider"
+                  ></PrimaryButton>
+                </div>
               </div>
             </div>
           </Box>
@@ -199,16 +239,21 @@ export default function AbilitiesSelection({
       </div>
 
       {hoveredAbility && (
-        <div
-          className="fixed pointer-events-none z-50 max-w-xs p-4 bg-black border-2 border-gray-500 rounded-lg text-white text-sm shadow-lg"
-          style={{
-            left: `${mousePosition.x + 10}px`,
-            top: `${mousePosition.y + 10}px`,
-          }}
-        >
-          <div className="font-bold mb-2">{hoveredAbility}</div>
-          <div>{selectedAb[hoveredAbility]?.description}</div>
-        </div>
+        <HoverDescription
+          text={`${hoveredAbility}\n\n${selectedAb[hoveredAbility]?.description}`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
+      )}
+
+      {showValidationDetails && !isValid && (
+        <HoverDescription
+          text={`Validation impossible :\n\n${getValidationErrors()
+            .map((error) => `• ${error}`)
+            .join("\n")}`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
       )}
     </main>
   )

@@ -14,6 +14,10 @@ import AbilitiesSelection from "../components/templates/AbilitiesSelection"
 import ProficienciesSelection from "../components/templates/ProficienciesSelection"
 import type { Skill } from "../types/data/skill"
 import EquipmentSelection from "../components/templates/EquipmentSelection"
+import type { Equipment } from "../types/data/equipment"
+import PersonalizationCompletion from "../components/templates/PersonalizationCompletion"
+import type { Personalization } from "../types/data/personalization"
+import DownloadPDF from "../components/templates/DownloadPDF"
 
 export default function CharacterBuilder() {
   const [dndClass, setDndClass] = useState<Class | null>(null)
@@ -22,11 +26,27 @@ export default function CharacterBuilder() {
   const [abilities, setAbilities] = useState<Record<string, Ability> | null>(
     null
   )
+  const [equipment, setEquipment] = useState<Equipment[] | null>(null)
   const [proficiencies, setProficiencies] = useState<Skill[] | null>(null)
+  const [personalization, setPersonalization] = useState<Personalization | null>(null)
+
   const [showProficiencies, setShowProficiencies] = useState(false)
   const [showEquipment, setShowEquipment] = useState(false)
   const [isAbilitiesSelectionValid, setIsAbilitiesSelectionValid] =
     useState(false)
+
+  const handleReturnToHome = () => {
+    setDndClass(null)
+    setBackground(null)
+    setSpecies(null)
+    setAbilities(null)
+    setEquipment(null)
+    setProficiencies(null)
+    setPersonalization(null)
+    setShowProficiencies(false)
+    setShowEquipment(false)
+    setIsAbilitiesSelectionValid(false)
+  }
 
   if (dndClass === null) {
     return <ClassSelection setDndClass={setDndClass} />
@@ -46,9 +66,7 @@ export default function CharacterBuilder() {
         setIsAbilitiesSelectionValid={setIsAbilitiesSelectionValid}
       />
     )
-  } else if (showEquipment && proficiencies !== null) {
-    return <EquipmentSelection />
-  } else if (showProficiencies) {
+  } else if (showProficiencies && !showEquipment && equipment === null) {
     return (
       <ProficienciesSelection
         setProficiencies={setProficiencies}
@@ -58,6 +76,31 @@ export default function CharacterBuilder() {
         isAbilitiesSelectionValid={isAbilitiesSelectionValid}
         onBack={() => setShowProficiencies(false)}
         onNext={() => setShowEquipment(true)}
+      />
+    )
+  } else if (showEquipment && equipment === null && proficiencies !== null) {
+    return (
+      <EquipmentSelection
+        dndClass={dndClass}
+        background={background}
+        setEquipment={setEquipment}
+      />
+    )
+  } else if (equipment !== null && personalization === null) {
+    return (
+      <PersonalizationCompletion setPersonalization={setPersonalization} />
+    )
+  } else if (personalization !== null) {
+    return (
+      <DownloadPDF
+        dndClass={dndClass}
+        background={background}
+        species={species}
+        abilities={abilities}
+        equipment={equipment}
+        proficiencies={proficiencies}
+        personalization={personalization}
+        onReturn={handleReturnToHome}
       />
     )
   }

@@ -15,7 +15,7 @@ const POINT_BUY_COSTS: Record<number, number> = {
   15: 9,
 }
 
-const calculateAbilityValues = (
+const calculateAbilitiesValues = (
   abilities: Record<string, Ability>
 ): Record<string, Ability> => {
   const calculated: Record<string, Ability> = {}
@@ -45,10 +45,11 @@ const calculateTotalPointCost = (
   )
 }
 
-export function useAbilitySelection(
+export function useAbilitiesSelection(
   abilities: Record<string, Ability> | null,
   dndClass: Class | null,
-  background: Background | null
+  background: Background | null,
+  setIsAbilitiesSelectionValid?: (isValid: boolean) => void
 ) {
   const [selectedAb, setSelectedAb] =
     useState<Record<string, Ability>>(ABILITIES)
@@ -82,7 +83,7 @@ export function useAbilitySelection(
       }
     })
 
-    setSelectedAb(calculateAbilityValues(updatedAbilities))
+    setSelectedAb(calculateAbilitiesValues(updatedAbilities))
   }, [dndClass, abilities])
 
   const totalHistoryBonus = Object.values(selectedAb).reduce(
@@ -100,7 +101,7 @@ export function useAbilitySelection(
 
   const updateAbility = (abilityName: string, updates: Partial<Ability>) => {
     setSelectedAb(
-      calculateAbilityValues({
+      calculateAbilitiesValues({
         ...selectedAb,
         [abilityName]: {
           ...selectedAb[abilityName],
@@ -137,6 +138,13 @@ export function useAbilitySelection(
   }
 
   const isValid = totalHistoryBonus === 3 && totalPointCost === 27
+
+  // Synchroniser isAbilitiesSelectionValid en temps réel
+  useEffect(() => {
+    if (setIsAbilitiesSelectionValid) {
+      setIsAbilitiesSelectionValid(isValid)
+    }
+  }, [isValid, setIsAbilitiesSelectionValid])
 
   return {
     selectedAb,

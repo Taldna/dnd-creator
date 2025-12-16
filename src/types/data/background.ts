@@ -1,4 +1,5 @@
 import type { Ability } from "./ability"
+import type { Equipment } from "./equipment"
 import type { Feat } from "./feat"
 import type { Skill } from "./skill"
 
@@ -11,7 +12,7 @@ export type Background = {
     feat: Feat
     proficiencies: Skill[]
     toolProficiency: string
-    equipment: string[]
+    equipment: Equipment[][]
     description: string
     image?: string
 }

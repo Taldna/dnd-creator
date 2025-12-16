@@ -3,13 +3,15 @@
 import { TfiArrowCircleLeft } from "react-icons/tfi"
 import Title from "../atoms/Title"
 import Box from "../atoms/Box"
+import HoverDescription from "../atoms/HoverDescription"
 import type { Background } from "../../types/data/background"
 import type { Class } from "../../types/data/class"
 import RectangleBox from "../atoms/RectangleBox"
 import PrimaryButton from "../atoms/PrimaryButton"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import type { Skill } from "../../types/data/skill"
 import RectangleButton from "../atoms/RectangleButton"
+import { useProficienciesSelection } from "../../hooks/useProficienciesSelection"
 
 export default function ProficienciesSelection({
   setProficiencies,
@@ -28,22 +30,29 @@ export default function ProficienciesSelection({
   onBack: () => void
   onNext: () => void
 }) {
-  const [selectedPf, setSelectedPf] = useState<Skill[]>(
-    background?.proficiencies || []
+  const [showSkilledDetails, setShowSkilledDetails] = useState(false)
+  const [showValidationDetails, setShowValidationDetails] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const {
+    selectedPf,
+    useSkilledForSkills,
+    setUseSkilledForSkills,
+    maxSelectableSkills,
+    selectedFromClass,
+    remainingSkills,
+    availableSkills,
+    addSkill,
+    removeSkill,
+    isFromBackground,
+    getValidationErrors,
+    isButtonDisabled,
+  } = useProficienciesSelection(
+    proficiencies,
+    dndClass,
+    background,
+    isAbilitiesSelectionValid
   )
-
-  const maxSelectableSkills = background?.feat.name === "Doué" ? 3 : 2
-  const selectedFromClass = selectedPf.filter(
-    (skill) => !background?.proficiencies.some((bg) => bg.name === skill.name)
-  ).length
-  const remainingSkills = maxSelectableSkills - selectedFromClass
-
-  useEffect(() => {
-    if (proficiencies) {
-      setSelectedPf(proficiencies)
-      return
-    }
-  }, [proficiencies])
 
   return (
     <main className="h-screen w-screen flex flex-col gap-6 items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-auto relative">
@@ -64,9 +73,7 @@ export default function ProficienciesSelection({
               <div className="w-[60%] flex flex-col gap-6 items-center">
                 {/* 1er Block */}
                 <div className="w-full flex flex-col gap-4 items-center">
-                  <h2 className="text-xl font-bold">
-                    Compétences déjà maîtrisées
-                  </h2>
+                  <h2 className="text-xl font-bold">Maîtrises déjà acquises</h2>
                   <div className="flex flex-wrap gap-4 justify-center">
                     {background?.proficiencies.map(
                       (proficiency, index) =>
@@ -74,7 +81,6 @@ export default function ProficienciesSelection({
                           <RectangleBox
                             key={"pf-bg-" + index}
                             text={proficiency.name}
-                            className="bg-gray-700 border-2 border-gray-500"
                           />
                         )
                     )}
@@ -82,68 +88,125 @@ export default function ProficienciesSelection({
                 </div>
                 {/* 2e Block */}
                 <div className="w-full flex flex-col gap-4 items-center">
-                  <h2 className="text-xl font-bold">Compétences à maîtriser</h2>
+                  <h2 className="text-xl font-bold">Maîtrises à acquérir</h2>
                   <div className="flex flex-wrap gap-4 justify-center">
-                    {dndClass?.skillProficiencies.map(
-                      (skillProficiency, index) => {
-                        const isAlreadySelected = selectedPf.find(
-                          (p) => p.name === skillProficiency.name
-                        )
-                        const isDisabled =
-                          !isAlreadySelected && remainingSkills <= 0
+                    {availableSkills.map((skillProficiency, index) => {
+                      const isDisabled = remainingSkills <= 0
 
-                        return (
-                          <RectangleButton
-                            key={"pf-class-" + index}
-                            name={skillProficiency.name}
-                            onClick={() => {
-                              if (!isAlreadySelected) {
-                                setSelectedPf([...selectedPf, skillProficiency])
-                              }
-                            }}
-                            disabled={isDisabled}
-                            className="bg-gray-700 border-2 border-gray-500"
-                          />
-                        )
-                      }
-                    )}
+                      return (
+                        <RectangleButton
+                          key={"pf-class-" + index}
+                          name={skillProficiency.name}
+                          onClick={() => addSkill(skillProficiency)}
+                          disabled={isDisabled}
+                        />
+                      )
+                    })}
                   </div>
                   <h2 className="text-xl font-bold">
-                    Reste à sélectionner : {remainingSkills}/
+                    Maîtrises sélectionnées : {selectedFromClass} /{" "}
                     {maxSelectableSkills}
                   </h2>
                 </div>
               </div>
               {/* Section droite: 30% */}
               <div className="w-[40%] flex flex-col gap-4 items-center">
-                <h2 className="text-xl font-bold">Compétences totales</h2>
+                <h2 className="text-xl font-bold">Total des Maîtrises</h2>
                 <div className="w-[40%] flex flex-wrap gap-4 justify-center">
-                  {selectedPf?.map((proficiency, index) => (
-                    <RectangleBox
-                      key={"pf-selected-" + index}
-                      text={proficiency.name}
-                      className="bg-gray-700 border-2 border-gray-500"
-                    />
-                  ))}
+                  {selectedPf?.map((proficiency, index) => {
+                    return isFromBackground(proficiency) ? (
+                      <RectangleBox
+                        key={"pf-selected-" + index}
+                        text={proficiency.name}
+                      />
+                    ) : (
+                      <RectangleButton
+                        key={"pf-selected-" + index}
+                        name={proficiency.name}
+                        onClick={() => removeSkill(proficiency)}
+                      />
+                    )
+                  })}
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-center mt-6">
-              <PrimaryButton
-                onClick={() => {
-                  setProficiencies(selectedPf)
-                  console.log("Proficiencies validated")
-                  onNext()
+            {background?.feat.name === "Doué" && (
+              <div
+                className="relative flex items-center justify-center gap-3 mt-6 cursor-help"
+                onMouseEnter={(e) => {
+                  setShowSkilledDetails(true)
+                  setMousePosition({ x: e.clientX, y: e.clientY })
                 }}
-                disabled={!isAbilitiesSelectionValid || remainingSkills !== 0}
+                onMouseMove={(e) => {
+                  setMousePosition({ x: e.clientX, y: e.clientY })
+                }}
+                onMouseLeave={() => setShowSkilledDetails(false)}
               >
-                Valider
-              </PrimaryButton>
+                <label
+                  htmlFor="skilled-choice"
+                  className="text-lg cursor-pointer"
+                >
+                  Utiliser le don "Doué" pour 3 maîtrises supplémentaires
+                </label>
+                <input
+                  id="skilled-choice"
+                  type="checkbox"
+                  checked={useSkilledForSkills}
+                  onChange={(e) => setUseSkilledForSkills(e.target.checked)}
+                  className="w-5 h-5 cursor-pointer accent-primary"
+                />
+              </div>
+            )}
+
+            <div className="flex justify-center mt-6">
+              <div
+                onMouseEnter={(e) => {
+                  if (isButtonDisabled) {
+                    setShowValidationDetails(true)
+                    setMousePosition({ x: e.clientX, y: e.clientY })
+                  }
+                }}
+                onMouseMove={(e) => {
+                  if (isButtonDisabled) {
+                    setMousePosition({ x: e.clientX, y: e.clientY })
+                  }
+                }}
+                onMouseLeave={() => setShowValidationDetails(false)}
+              >
+                <PrimaryButton
+                  onClick={() => {
+                    setProficiencies(selectedPf)
+                    console.log("Proficiencies validated")
+                    onNext()
+                  }}
+                  disabled={isButtonDisabled}
+                  text="Valider"
+                >
+                </PrimaryButton>
+              </div>
             </div>
           </Box>
         </div>
       </div>
+
+      {showSkilledDetails && (
+        <HoverDescription
+          text={`Le don "Doué" vous permet de choisir entre :\n\n• 3 maîtrises de compétences supplémentaires (case cochée)\n\n• 3 maîtrises d'outils supplémentaires (case décochée)\n\nCe choix impactera vos options d'équipement à l'écran suivant.`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
+      )}
+
+      {showValidationDetails && isButtonDisabled && (
+        <HoverDescription
+          text={`Validation impossible :\n\n${getValidationErrors()
+            .map((error) => `• ${error}`)
+            .join("\n")}`}
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+        />
+      )}
     </main>
   )
 }
