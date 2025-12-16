@@ -5,17 +5,17 @@ import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 
 import { CLASSES } from "../../data/classes";
 
-import P from "../atoms/P"
-import Tab from "./Tab"
-import Box from "../atoms/Box"
-import EquipmentList from "../molecules/EquipmentList"
+import P from "../atoms/P";
+import Tab from "./Tab";
+import Box from "../atoms/Box";
+import EquipmentList from "../molecules/EquipmentList";
 
 export default function ClassDetails({
   dndClass,
   handleClick,
 }: {
-  dndClass: Class
-  handleClick: (classItem: Class | null) => void
+  dndClass: Class;
+  handleClick: (classItem: Class | null) => void;
 }) {
   return (
     <div
@@ -25,9 +25,9 @@ export default function ClassDetails({
       <TfiArrowCircleLeft
         className="m-auto text-5xl text-gray-500 cursor-pointer drop-shadow-md hover:text-white"
         onClick={() => {
-          let index = CLASSES.findIndex((e) => e === dndClass)
-          index = (index - 1 + CLASSES.length) % CLASSES.length
-          handleClick(CLASSES[index])
+          let index = CLASSES.findIndex((e) => e === dndClass);
+          index = (index - 1 + CLASSES.length) % CLASSES.length;
+          handleClick(CLASSES[index]);
         }}
       />
 
@@ -124,9 +124,13 @@ export default function ClassDetails({
                             <b>
                               Niveau {item.level} - {item.name} :
                             </b>{" "}
-                            {item.description.map((desc, i) => (
-                              <P key={i}>{desc}</P>
-                            ))}
+                            {Array.isArray(item.description) ? (
+                              item.description.map((desc, i) => (
+                                <P key={i}>{desc}</P>
+                              ))
+                            ) : (
+                              <P>{item.description}</P>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -156,7 +160,7 @@ export default function ClassDetails({
                               </h1>
                             </div>
                           </div>
-                        )
+                        );
                       })}
                     </>
                   ),
@@ -170,11 +174,11 @@ export default function ClassDetails({
       <TfiArrowCircleRight
         className="m-auto text-5xl text-gray-500 cursor-pointer drop-shadow-md hover:text-white"
         onClick={() => {
-          let index = CLASSES.findIndex((e) => e === dndClass)
-          index = (index + 1) % CLASSES.length
-          handleClick(CLASSES[index])
+          let index = CLASSES.findIndex((e) => e === dndClass);
+          index = (index + 1) % CLASSES.length;
+          handleClick(CLASSES[index]);
         }}
       />
     </div>
-  )
+  );
 }
