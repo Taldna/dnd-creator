@@ -12,7 +12,6 @@ import SpeciesSelection from "../components/templates/SpeciesSelection"
 import type { Ability } from "../types/data/ability"
 import AbilitiesSelection from "../components/templates/AbilitiesSelection"
 import ProficienciesSelection from "../components/templates/ProficienciesSelection"
-import { SPECIES } from "../data/species"
 import type { Skill } from "../types/data/skill"
 import EquipmentSelection from "../components/templates/EquipmentSelection"
 
@@ -34,7 +33,7 @@ export default function CharacterBuilder() {
   } else if (background === null) {
     return <BackgroundSelection setBackground={setBackground} />
   } else if (species === null) {
-    setSpecies(SPECIES[0])
+    // setSpecies(SPECIES[0])
     return <SpeciesSelection setSpecies={setSpecies} />
   } else if (abilities === null || !showProficiencies) {
     return (

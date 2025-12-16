@@ -1,9 +1,9 @@
-import type { Class } from "../../types/data/class"
+import type { Class } from "../../types/data/class";
 
-import { RxCross2 } from "react-icons/rx"
-import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi"
+import { RxCross2 } from "react-icons/rx";
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 
-import { CLASSES } from "../../data/classes"
+import { CLASSES } from "../../data/classes";
 
 import P from "../atoms/P"
 import Tab from "./Tab"
