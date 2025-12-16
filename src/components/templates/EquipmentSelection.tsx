@@ -138,7 +138,7 @@ export default function EquipmentSelection({
                 />
                 <RectangleButton
                   name=""
-                  image="/src/assets/equipments/restart.png"
+                  image="/dnd-creator/src/assets/equipments/restart.png"
                   className="ms-4"
                   disabled={shopPurchases.length === 0}
                   onClick={handleReset}

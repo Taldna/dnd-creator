@@ -53,7 +53,6 @@ export default function CharacterBuilder() {
   } else if (background === null) {
     return <BackgroundSelection setBackground={setBackground} />
   } else if (species === null) {
-    // setSpecies(SPECIES[0])
     return <SpeciesSelection setSpecies={setSpecies} />
   } else if (abilities === null || !showProficiencies) {
     return (

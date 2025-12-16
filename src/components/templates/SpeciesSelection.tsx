@@ -37,9 +37,7 @@ export default function SpeciesSelection({
             ))}
           </div>
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <PrimaryButton onClick={() => setSpecies(SPECIES[0])}>
-              Choisir cette espèce
-            </PrimaryButton>
+            <PrimaryButton text="Choisir cette espèce" onClick={() => setSpecies(selectedSpecies)}/>
           </div>
         </Box>
         

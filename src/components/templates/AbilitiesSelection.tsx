@@ -167,7 +167,7 @@ export default function AbilitiesSelection({
                       </div>
                       <div className="mx-auto relative w-fit h-fit">
                         <img
-                          src="/dice.png"
+                          src="/dnd-creator/dice.png"
                           alt="Modificateur"
                           className="w-14 h-auto object-contain"
                         />

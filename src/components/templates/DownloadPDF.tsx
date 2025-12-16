@@ -166,7 +166,7 @@ export default function DownloadPDF({
 
     hasDownloaded.current = true
     fillDndPdf({
-      pdfUrl: "/dnd_2024_editable.pdf",
+      pdfUrl: "/dnd-creator/dnd_2024_editable.pdf",
       dndClass,
       background,
       species,
