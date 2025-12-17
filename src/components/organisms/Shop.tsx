@@ -11,6 +11,7 @@ import Box from "../atoms/Box"
 import EquipmentCard from "../atoms/EquipmentCard"
 import PrimaryButton from "../atoms/PrimaryButton"
 import { useShop } from "../../hooks/useShop"
+import { formatEquipmentToString } from "../../types/utility/equipmentUtils"
 
 export default function Shop({
   money,
@@ -60,25 +61,25 @@ export default function Shop({
         key={index}
         onClick={() => addItemToCart(item)}
         className={`px-2 transition flex justify-between items-center ${affordable
-            ? "cursor-pointer hover:bg-gray-700"
-            : "opacity-50 cursor-not-allowed"
+          ? "cursor-pointer hover:bg-gray-700"
+          : "opacity-50 cursor-not-allowed"
           }`}
       >
         <EquipmentCard equipment={[item]} />
         {"price" in item && (
           <span
             className={`font-semibold ml-4 whitespace-nowrap ${!affordable
-                ? "text-red-500"
-                : (item.price.po > 0 ? 1 : 0) +
-                  (item.price.pa > 0 ? 1 : 0) +
-                  (item.price.pc > 0 ? 1 : 0) >
-                  1
-                  ? "text-white"
-                  : item.price.po > 0
-                    ? "text-yellow-500"
-                    : item.price.pa > 0
-                      ? "text-gray-400"
-                      : "text-orange-400"
+              ? "text-red-500"
+              : (item.price.po > 0 ? 1 : 0) +
+                (item.price.pa > 0 ? 1 : 0) +
+                (item.price.pc > 0 ? 1 : 0) >
+                1
+                ? "text-white"
+                : item.price.po > 0
+                  ? "text-yellow-500"
+                  : item.price.pa > 0
+                    ? "text-gray-400"
+                    : "text-orange-400"
               }`}
           >
             {item.price.po > 0 && `${item.price.po} po `}
@@ -124,8 +125,12 @@ export default function Shop({
           <div>
             <h3 className="text-xl font-semibold text-white mb-2">Panier :</h3>
             <div className="bg-gray-800 border-2 border-gray-600 rounded-lg p-4">
-              {selectedEq && selectedEq.length > 0 && (
-                <EquipmentCard equipment={selectedEq} />
+              {selectedEq && selectedEq.length > 0 ? (
+                <p className="text-white">
+                  {formatEquipmentToString(selectedEq)}
+                </p>
+              ) : (
+                <p className="text-gray-400 italic">Aucun item sélectionné</p>
               )}
             </div>
             <div className="mt-4 flex justify-center">
@@ -164,8 +169,8 @@ export default function Shop({
                       </span>
                       <span
                         className={`text-xs text-white transition-transform duration-300 ease-out ${expandedCategories[category.key]
-                            ? "rotate-0"
-                            : "-rotate-180"
+                          ? "rotate-0"
+                          : "-rotate-180"
                           }`}
                       >
                         ▼
@@ -175,8 +180,8 @@ export default function Shop({
                     {/* Category Items */}
                     <div
                       className={`overflow-hidden transition-all duration-300 ease-out ${expandedCategories[category.key]
-                          ? "max-h-[2000px] opacity-100"
-                          : "max-h-0 opacity-0"
+                        ? "max-h-[2000px] opacity-100"
+                        : "max-h-0 opacity-0"
                         }`}
                     >
                       <div className="px-2">

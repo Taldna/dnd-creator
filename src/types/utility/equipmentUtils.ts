@@ -63,6 +63,32 @@ export const formatEquipment = (equipment: Equipment[]): string => {
 }
 
 /**
+ * Normalise l'argent en convertissant tout en pièces de cuivre puis reconvertit
+ * Cela gère correctement les valeurs négatives et s'assure que tout est positif
+ */
+export const normalizeCurrency = (amount: {
+  po: number
+  pa: number
+  pc: number
+}): { po: number; pa: number; pc: number } => {
+  // Convert everything to copper pieces for accurate calculation
+  let totalInPc = amount.po * 100 + amount.pa * 10 + amount.pc
+
+  // Ensure it's not negative
+  if (totalInPc < 0) {
+    return { po: 0, pa: 0, pc: 0 }
+  }
+
+  // Convert back to po, pa, pc
+  const po = Math.floor(totalInPc / 100)
+  totalInPc = totalInPc % 100
+  const pa = Math.floor(totalInPc / 10)
+  const pc = totalInPc % 10
+
+  return { po, pa, pc }
+}
+
+/**
  * Formate l'argent en string avec construction po/pa/pc
  */
 const formatMoneyString = (amount: {
@@ -70,10 +96,11 @@ const formatMoneyString = (amount: {
   pa: number
   pc: number
 }): string => {
+  const normalized = normalizeCurrency(amount)
   const parts: string[] = []
-  if (amount.po > 0) parts.push(`${amount.po}po`)
-  if (amount.pa > 0) parts.push(`${amount.pa}pa`)
-  if (amount.pc > 0) parts.push(`${amount.pc}pc`)
+  if (normalized.po > 0) parts.push(`${normalized.po}po`)
+  if (normalized.pa > 0) parts.push(`${normalized.pa}pa`)
+  if (normalized.pc > 0) parts.push(`${normalized.pc}pc`)
   return parts.join(", ") || "0po"
 }
 
@@ -92,6 +119,7 @@ export const getMoneyDetails = (equipment: Equipment[]): string => {
 
 /**
  * Fusionne l'argent dans le tableau d'équipement (combine les Money items)
+ * Normalise les valeurs pour s'assurer qu'elles sont toutes positives
  */
 export const mergeMoneyInEquipment = (equipment: Equipment[]): Equipment[] => {
   const moneyItems = equipment.filter((item) => item.category === "Argent")
@@ -117,11 +145,14 @@ export const mergeMoneyInEquipment = (equipment: Equipment[]): Equipment[] => {
     { po: 0, pa: 0, pc: 0 }
   )
 
+  // Normalize the currency
+  const normalizedCurrency = normalizeCurrency(totalCurrency)
+
   // Create merged money item with proper Money type
   const mergedMoney: Money = {
-    name: formatMoneyString(totalCurrency),
+    name: formatMoneyString(normalizedCurrency),
     category: "Argent",
-    amount: totalCurrency,
+    amount: normalizedCurrency,
   }
 
   return [...nonMoneyItems, mergedMoney as Equipment]

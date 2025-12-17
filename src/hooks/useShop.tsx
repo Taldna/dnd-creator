@@ -1,5 +1,6 @@
 import { useState } from "react"
 import type { Money, Equipment } from "../types/data/equipment"
+import { normalizeCurrency } from "../types/utility/equipmentUtils"
 
 export const useShop = (money: Money[] | undefined) => {
   const [selectedEq, setSelectedEq] = useState<Equipment[] | null>(null)
@@ -36,9 +37,9 @@ export const useShop = (money: Money[] | undefined) => {
       (acc, item) => {
         if (item.category === "Argent") {
           return {
-            po: acc.po + Math.abs(item.amount.po || 0),
-            pa: acc.pa + Math.abs(item.amount.pa || 0),
-            pc: acc.pc + Math.abs(item.amount.pc || 0),
+            po: acc.po + (item.amount.po || 0),
+            pa: acc.pa + (item.amount.pa || 0),
+            pc: acc.pc + (item.amount.pc || 0),
           }
         }
         return acc
@@ -46,24 +47,14 @@ export const useShop = (money: Money[] | undefined) => {
       { po: 0, pa: 0, pc: 0 }
     ) || { po: 0, pa: 0, pc: 0 }
 
-    // Convert everything to copper pieces for accurate calculation
-    const totalAvailableInPc =
-      initialMoney.po * 100 + initialMoney.pa * 10 + initialMoney.pc
-    const totalCostInPc = cartCost.po * 100 + cartCost.pa * 10 + cartCost.pc
-
-    let remainingInPc = totalAvailableInPc - totalCostInPc
-
-    // Convert back to po, pa, pc
-    const remainingPo = Math.floor(remainingInPc / 100)
-    remainingInPc = remainingInPc % 100
-    const remainingPa = Math.floor(remainingInPc / 10)
-    const remainingPc = remainingInPc % 10
-
-    return {
-      po: remainingPo,
-      pa: remainingPa,
-      pc: remainingPc,
+    // Calculate remaining money and normalize it
+    const remaining = {
+      po: initialMoney.po + cartCost.po,
+      pa: initialMoney.pa + cartCost.pa,
+      pc: initialMoney.pc + cartCost.pc,
     }
+
+    return normalizeCurrency(remaining)
   }
 
   // Check if item is affordable
