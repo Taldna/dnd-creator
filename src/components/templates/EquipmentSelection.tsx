@@ -54,8 +54,8 @@ export default function EquipmentSelection({
                 {/* Équipement d'historique */}
                 <div
                   className={`flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 ${shopPurchases.length > 0
-                      ? "opacity-50 pointer-events-none"
-                      : ""
+                    ? "opacity-50 pointer-events-none"
+                    : ""
                     }`}
                 >
                   <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
@@ -77,8 +77,8 @@ export default function EquipmentSelection({
                 {/* Équipement de classe */}
                 <div
                   className={`flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 ${shopPurchases.length > 0
-                      ? "opacity-50 pointer-events-none"
-                      : ""
+                    ? "opacity-50 pointer-events-none"
+                    : ""
                     }`}
                 >
                   <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
@@ -104,7 +104,73 @@ export default function EquipmentSelection({
                   Équipement choisi
                 </h2>
                 <div className="flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4">
-                  <EquipmentCard equipment={selectedEq ? selectedEq : []} />
+                  {selectedEq && selectedEq.length > 0 ? (
+                    <EquipmentCard equipment={selectedEq} />
+                  ) : (
+                    <p className="text-gray-400 italic">Aucun item dans le panier</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Équipement équipé */}
+              <div className="bg-gray-800 border-2 border-gray-600 rounded-lg p-4 flex flex-col gap-4 mt-4">
+                <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
+                  Équipement équipé
+                </h2>
+                <div className="flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4">
+                  {selectedEq && selectedEq.length > 0 ? (
+                    <div className="space-y-3">
+                      {selectedEq
+                        .filter((item) => item.category === "Armures")
+                        .reduce((uniqueItems: Equipment[], item) => {
+                          // Only add if not already present by name
+                          if (!uniqueItems.some((existing) => existing.name === item.name)) {
+                            uniqueItems.push(item)
+                          }
+                          return uniqueItems
+                        }, [])
+                        .map((item, index) => (
+                          <label key={index} className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={"isEquipped" in item ? item.isEquipped : false}
+                              onChange={(e) => {
+                                if ("isEquipped" in item && selectedEq) {
+                                  const isShield = "armorClass" in item && item.armorClass.type === "shield"
+
+                                  // If checking the item
+                                  if (e.target.checked) {
+                                    // Uncheck other items of the same type (armor or shield)
+                                    selectedEq.forEach((otherItem) => {
+                                      if (
+                                        otherItem.category === "Armures" &&
+                                        "isEquipped" in otherItem &&
+                                        otherItem !== item &&
+                                        "armorClass" in otherItem
+                                      ) {
+                                        const otherIsShield = otherItem.armorClass.type === "shield"
+                                        // If same type as current item, uncheck it
+                                        if (otherIsShield === isShield) {
+                                          otherItem.isEquipped = false
+                                        }
+                                      }
+                                    })
+                                  }
+
+                                  // Update the current item
+                                  item.isEquipped = e.target.checked
+                                  setShopPurchases([...shopPurchases])
+                                }
+                              }}
+                              className="w-4 h-4 accent-primary"
+                            />
+                            <span className="text-white">{item.name}</span>
+                          </label>
+                        ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-400 italic">Aucun équipement à équiper</p>
+                  )}
                 </div>
               </div>
 
@@ -159,7 +225,11 @@ export default function EquipmentSelection({
       {showShop && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Shop
-            money={selectedEq?.filter((item) => item.category === "Argent")}
+            baseEquipment={[
+              ...(selectedBackgroundEq || []),
+              ...(selectedClassEq || []),
+            ]}
+            shopPurchases={shopPurchases}
             setShopPurchases={setShopPurchases}
             onClose={closeShop}
           />

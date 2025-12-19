@@ -24,7 +24,6 @@ export const useEquipmentSelection = () => {
       const allEquipment = [...baseEquipment, ...shopPurchases]
       const mergedEquipment = mergeMoneyInEquipment(allEquipment)
       setSelectedEq(mergedEquipment.length > 0 ? mergedEquipment : null)
-      console.log("Merged EquipmentSelection:", mergedEquipment.length > 0 ? mergedEquipment : null)
     } else {
       setSelectedEq(null)
     }

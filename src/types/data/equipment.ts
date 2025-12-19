@@ -47,11 +47,18 @@ export type Weapon = {
   properties: string[]
 }
 
+export type ArmorClassFormula =
+  | { type: "static"; value: number } // ex: 14
+  | { type: "dex"; base: number } // ex: 12 + Mod.Dex
+  | { type: "dex-capped"; base: number; maxDexBonus: number } // ex: 12 + Mod.Dex (max +2)
+  | { type: "shield"; bonus: number } // ex: +2
+
 export type Armor = {
   name: string
   category: "Armures"
   type: ArmorType
-  armorClass: string
+  armorClass: ArmorClassFormula
+  isEquipped: boolean
   strength?: number
   stealth: "Désavantage" | "Normal"
   weight: number
@@ -119,6 +126,12 @@ export type Money = {
   amount: Currency
 }
 
+export type Other = {
+  name: string
+  category: "Autre"
+  description?: string
+}
+
 export type Equipment =
   | Weapon
   | Armor
@@ -130,3 +143,4 @@ export type Equipment =
   | TradeGood
   | Trinket
   | Money
+  | Other

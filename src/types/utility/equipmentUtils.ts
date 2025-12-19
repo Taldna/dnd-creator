@@ -1,4 +1,6 @@
-import type { Equipment, Money } from "../data/equipment"
+import type { Ability } from "../data/ability"
+import type { Class } from "../data/class"
+import type { Armor, Equipment, Money } from "../data/equipment"
 
 /**
  * Formate le tableau d'équipement pour l'affichage
@@ -156,4 +158,76 @@ export const mergeMoneyInEquipment = (equipment: Equipment[]): Equipment[] => {
   }
 
   return [...nonMoneyItems, mergedMoney as Equipment]
+}
+
+export function calculateArmorClass(
+  abilities: Record<string, Ability> | null,
+  dndClass: Class | null,
+  equipment: Equipment[] | null
+): number {
+  const dexMod = abilities?.["Dextérité"].modifier ?? 0
+  const conMod = abilities?.["Constitution"].modifier ?? 0
+  const isBarbareMonk = dndClass?.name === "Barbare" || dndClass?.name === "Moine"
+
+  // Find equipped armor (excluding shields)
+  const equippedArmor = equipment?.find(
+    (item): item is Armor =>
+      item.category === "Armures" &&
+      ("isEquipped" in item ? item.isEquipped : false) &&
+      "type" in item &&
+      item.armorClass.type !== "shield"
+  )
+
+  // Find equipped shield
+  const equippedShield = equipment?.find(
+    (item): item is Armor =>
+      item.category === "Armures" &&
+      ("isEquipped" in item ? item.isEquipped : false) &&
+      "type" in item &&
+      item.armorClass.type === "shield"
+  )
+
+  let ac = 0
+
+  // If no armor equipped, use base AC
+  if (!equippedArmor) {
+    ac = 10 + dexMod
+    // Add Barbare Constitution bonus if no armor (even with just a shield)
+    if (isBarbareMonk) {
+      ac += conMod
+    }
+  } else {
+    // Calculate AC based on equipped armor type
+    console.log("Armor type:", equippedArmor.armorClass.type)
+    switch (equippedArmor.armorClass.type) {
+      case "static":
+        // Simple number: 14
+        ac = equippedArmor.armorClass.value
+        break
+
+      case "dex":
+        // base + Mod.Dex: 12 + Mod.Dex
+        ac = equippedArmor.armorClass.base + dexMod
+        break
+
+      case "dex-capped": {
+        // base + Mod.Dex (max bonus): 12 + Mod.Dex (max +2)
+        const cappedDex = Math.min(dexMod, equippedArmor.armorClass.maxDexBonus)
+        ac = equippedArmor.armorClass.base + cappedDex
+        break
+      }
+
+      case "shield":
+        // Shield only: 10 + Dex + shield bonus
+        ac = 10 + dexMod + equippedArmor.armorClass.bonus
+        break
+    }
+  }
+
+  // Add shield bonus if equipped and not already a shield
+  if (equippedShield && equippedShield.armorClass.type === "shield") {
+    ac += equippedShield.armorClass.bonus
+  }
+
+  return ac
 }

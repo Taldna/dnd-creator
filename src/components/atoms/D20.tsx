@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 import styles from "./D20.module.scss"
 
 interface D20Props {
@@ -16,13 +16,13 @@ export default function D20({ autoRoll = false, rollTo = 0 }: D20Props) {
   const sides = 20
   const animationDuration = 2000
 
-  const randomFace = () => {
+  const randomFace = useCallback(() => {
     const face = Math.floor(Math.random() * sides) + 1
     if (face === currentFace) {
       return randomFace()
     }
     return face
-  }
+  }, [sides, currentFace])
 
   const rollToNumber = (face: number) => {
     if (timeoutRef.current) {

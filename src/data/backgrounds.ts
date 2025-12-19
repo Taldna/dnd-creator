@@ -3,7 +3,7 @@ import { ABILITIES } from "./abilities"
 import { FEATS } from "./feats"
 import { SKILLS } from "./skills"
 import { WEAPONS } from "./weapons"
-import { ADVENTURING_GEAR } from "./adventuringGear"
+import { ADVENTURING_GEAR } from "./adventuringGears"
 import { TOOLS } from "./tools"
 import { createGold } from "./money"
 
@@ -17,11 +17,11 @@ const rawBackgrounds: Background[] = [
     ],
     feat: FEATS["Initié à la magie"],
     proficiencies: [SKILLS.Intuition, SKILLS.Religion],
-    toolProficiency: "Matériel de calligraphe",
+    toolProficiencies: [TOOLS["Matériel de calligraphe"].name],
     equipment: [
       [
         TOOLS["Matériel de calligraphe"],
-        ADVENTURING_GEAR.Livre, // Livre (prières)
+        ADVENTURING_GEAR.Livre,
         ADVENTURING_GEAR["Symbole sacré - Amulette"],
         ADVENTURING_GEAR["Parchemin (une feuille)"],
         ADVENTURING_GEAR["Parchemin (une feuille)"],
@@ -48,10 +48,10 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Façonneur,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
-        TOOLS["Outils de forgeron"], // Outillage artisanal au choix
+        { name: "Outillage artisanal au choix", category: "Autre" },
         ADVENTURING_GEAR.Sacoche,
         ADVENTURING_GEAR.Sacoche,
         ADVENTURING_GEAR["Vêtements, voyage"],
@@ -67,10 +67,10 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Musicien,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
-        TOOLS.Luth, // Instrument de musique au choix
+        { name: "Instrument de musique au choix", category: "Autre" },
         ADVENTURING_GEAR["Vêtements, costume"],
         ADVENTURING_GEAR["Vêtements, costume"],
         ADVENTURING_GEAR["Miroir en acier"],
@@ -88,7 +88,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         TOOLS["Kit de contrefaçon"],
@@ -106,7 +106,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Vigilant,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: ["Outils de voleur"],
     equipment: [
       [
         WEAPONS.Dague,
@@ -128,7 +128,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Guérisseur,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         TOOLS["Kit d'herboriste"],
@@ -145,10 +145,10 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Robuste,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
-        TOOLS["Outils de charpentier"], // Outils artisanaux au choix
+        { name: "Outillage artisanal au choix", category: "Autre" },
         ADVENTURING_GEAR["Vêtements, voyage"],
         createGold(20),
       ],
@@ -162,7 +162,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Vigilant,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [WEAPONS.Lance, ADVENTURING_GEAR["Vêtements, voyage"], createGold(18)],
       [createGold(50)],
@@ -175,7 +175,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Initié à la magie"],
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         TOOLS["Outils de cartographe"],
@@ -192,7 +192,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Chanceux,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         TOOLS["Outils de navigateur"],
@@ -211,7 +211,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Bagarreur de tavernes"],
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         WEAPONS.Dague,
@@ -230,10 +230,10 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
-        TOOLS["Jeu de cartes"], // Jeu au choix
+        { name: "Jeu au choix", category: "Autre" },
         ADVENTURING_GEAR["Vêtements, fins"],
         ADVENTURING_GEAR["Parfum (fiole)"],
         createGold(29),
@@ -248,12 +248,12 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Initié à la magie"],
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [TOOLS["Matériel de calligraphe"].name],
     equipment: [
       [
         WEAPONS.Bâton,
         TOOLS["Matériel de calligraphe"],
-        ADVENTURING_GEAR.Livre, // Livre d'histoire
+        ADVENTURING_GEAR.Livre,
         ADVENTURING_GEAR["Parchemin (une feuille)"],
         ADVENTURING_GEAR["Parchemin (une feuille)"],
         ADVENTURING_GEAR["Parchemin (une feuille)"],
@@ -279,7 +279,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
     proficiencies: [SKILLS.Investigation, SKILLS.Perception],
-    toolProficiency: "",
+    toolProficiencies: ["Un type de jeu"],
     equipment: [
       [
         TOOLS["Matériel de calligraphe"],
@@ -312,13 +312,13 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Sauvagerie martiale"],
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         WEAPONS.Lance,
         WEAPONS["Arc court"],
         ADVENTURING_GEAR["Munitions - Flèches (20)"],
-        TOOLS["Jeu de cartes"], // Jeu au choix
+        { name: "Jeu au choix", category: "Autre" },
         ADVENTURING_GEAR["Trousse de soins"],
         ADVENTURING_GEAR.Carquois,
         ADVENTURING_GEAR["Vêtements, voyage"],
@@ -334,13 +334,13 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Chanceux,
     proficiencies: [],
-    toolProficiency: "",
+    toolProficiencies: [],
     equipment: [
       [
         WEAPONS.Dague,
         WEAPONS.Dague,
         TOOLS["Outils de voleur"],
-        TOOLS["Jeu de cartes"], // Jeu au choix
+        { name: "Jeu au choix", category: "Autre" },
         ADVENTURING_GEAR["Sac à dos"],
         createGold(16),
       ],

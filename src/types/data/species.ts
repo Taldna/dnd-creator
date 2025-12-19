@@ -7,4 +7,5 @@ export type Species = {
   fullImage?: string;
   icon?: string;
   lineage?: string[]; // eg: "Drow", "High Elf", "Wood Elf"
+  speed: number;
 };

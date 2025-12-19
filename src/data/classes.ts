@@ -3,7 +3,7 @@ import { ABILITIES } from "./abilities"
 import { SKILLS } from "./skills"
 import { WEAPONS } from "./weapons"
 import { ARMORS } from "./armors"
-import { ADVENTURING_GEAR } from "./adventuringGear"
+import { ADVENTURING_GEAR } from "./adventuringGears"
 import { TOOLS } from "./tools"
 import { createGold } from "./money"
 
@@ -31,8 +31,9 @@ const rawClasses: Class[] = [
       SKILLS.Survie,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "Armes courantes et armes de guerre",
+    weaponProficiencies: ["Armes simples", "Armes de guerre"],
     armorTraining: ["Légères", "Intermédiaires", "Boucliers"],
+    toolProficiencies: [],
     equipment: [
       [
         WEAPONS["Hache à deux mains"],
@@ -50,27 +51,23 @@ const rawClasses: Class[] = [
         level: 1,
         name: "Rage",
         description: [
-          "PLACEHOLDER: Rage description",
-          "Cupcake ipsum dolor sit amet I love. Cupcake soufflé I love I love gingerbread I love jelly beans dragée cotton candy. Pie I love sesame snaps brownie jelly marshmallow cake muffin.",
-          "Bonbon jelly-o dragée powder powder carrot cake. Dessert I love topping sweet sweet roll marzipan candy. Pastry cotton candy powder I love powder.",
+          "Activable par une action Bonus, la Rage vous confère une puissance et une résilience extraordinaires. Vous gagnez une Résistance aux dégâts contondants, perforants et tranchants, ainsi qu'un bonus aux dégâts en attaque (Force).",
+          "Avantage en Force pour les jets et sauvegardes. Vous ne pouvez pas maintenir votre Concentration ni lancer de sorts. La Rage dure jusqu'à la fin de votre prochain tour et peut être prolongée en effectuant une attaque, forçant une sauvegarde ou renouvelant l'action Bonus. Nombre d'utilisations par Repos court, toutes récupérées au Repos long.",
         ],
       },
       {
         level: 1,
         name: "Botte d'arme",
         description: [
-          "PLACEHOLDER: Botte d'arme description",
-          "Cupcake ipsum dolor sit amet I love. Cupcake soufflé I love I love gingerbread I love jelly beans dragée cotton candy. Pie I love sesame snaps brownie jelly marshmallow cake muffin.",
-          "Bonbon jelly-o dragée powder powder carrot cake. Dessert I love topping sweet sweet roll marzipan candy. Pastry cotton candy powder I love powder.",
+          "Vous maîtrisez l'utilisation de deux types d'armes courantes ou de guerre de votre choix (ex: hache à deux mains, hachette). Au niveau supérieur, cette capacité augmente.",
+          "Lors d'un Repos long, vous pouvez vous entraîner et modifier l'une de vos armes choisies pour une autre.",
         ],
       },
       {
         level: 1,
         name: "Défense sans armure",
         description: [
-          "PLACEHOLDER: Défense sans armure description",
-          "Cupcake ipsum dolor sit amet I love. Cupcake soufflé I love I love gingerbread I love jelly beans dragée cotton candy. Pie I love sesame snaps brownie jelly marshmallow cake muffin.",
-          "Bonbon jelly-o dragée powder powder carrot cake. Dessert I love topping sweet sweet roll marzipan candy. Pastry cotton candy powder I love powder.",
+          "Tant que vous ne portez pas d'armure, votre classe d'armure de base est égale à 10 plus vos modificateurs de Dextérité et de Constitution. Vous pouvez utiliser un bouclier et bénéficier de cet avantage.",
         ],
       },
     ],
@@ -91,20 +88,44 @@ const rawClasses: Class[] = [
     savingThrows: [ABILITIES.Dextérité, ABILITIES.Charisme],
     skillProficiencies: Object.values(SKILLS),
     skillProficienciesNumber: 3,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: [
+      "Armes simples",
+      "Arbalète de poing",
+      "Épée courte",
+      "Rapière",
+      "Épée longue",
+    ],
+    armorTraining: ["Légères"],
+    toolProficiencies: ["3 instruments de musique"],
     equipment: [
       [
         ARMORS.Cuir,
         WEAPONS.Dague,
         WEAPONS.Dague,
-        TOOLS.Luth, // Instrument de musique au choix
+        { name: "Instrument de musique au choix", category: "Autre" },
         ADVENTURING_GEAR["Sac d'artiste"],
         createGold(19),
       ],
       [createGold(90)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Inspiration bardique",
+        description: [
+          "Par une action Bonus, inspirez une créature à portée (18m) que vous voyez ou entendez. Elle gagne un dé d'Inspiration (d6). Une fois dans l'heure, elle peut lancer ce dé et ajouter le résultat à un jet de d20 échoué pour potentiellement le transformer en succès.",
+          "Utilisations égales à votre modificateur de Charisme (minimum 1). Le dé augmente avec votre niveau: d8 au niveau 5, d10 au niveau 10, d12 au niveau 15. Toutes les utilisations se récupèrent au Repos long.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous connaissez 2 sorts mineurs de magicien (modifiables en montant de niveau). Le Charisme est votre caractéristique d'incantation, les instruments de musique servent de focaliseur.",
+          "Vous préparez 4 sorts de niveau 1+ de votre choix et avez des emplacements de sort selon votre niveau. Récupérez tous les emplacements au Repos long. Chaque montée de niveau, ajoutez des sorts à votre liste préparée jusqu'à atteindre le nombre indiqué dans la table.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -123,20 +144,37 @@ const rawClasses: Class[] = [
       SKILLS.Religion,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: ["Armes simples"],
+    armorTraining: ["Légères", "Intermédiaires", "Boucliers"],
+    toolProficiencies: [],
     equipment: [
       [
         ARMORS["Chemise de mailles"],
         ARMORS.Bouclier,
         WEAPONS["Masse d'armes"],
-        ADVENTURING_GEAR["Symbole sacré - Amulette"], // Symbole sacré au choix
+        { name: "Symbole sacré au choix", category: "Autre" },
         ADVENTURING_GEAR["Sac d'ecclésiastique"],
         createGold(7),
       ],
       [createGold(110)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous connaissez 3 sorts mineurs de clerc (modifiables en montant de niveau). La Sagesse est votre caractéristique d'incantation, les symboles sacrés servent de focaliseur.",
+          "Vous préparez 4 sorts de niveau 1+ de votre choix et avez des emplacements de sort selon votre niveau. Récupérez tous les emplacements au Repos long. Chaque Repos long, modifiez votre liste en remplaçant certains sorts par d'autres.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Ordre divin",
+        description: [
+          "Protecteur: Maîtrise des armes de guerre et formation aux armures lourdes. Thaumaturge: Connaissance d'un sort mineur supplémentaire, et bonus à vos jets d'Intelligence (Arcanes ou Religion) égal à votre modificateur de Sagesse (minimum +1).",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -158,8 +196,18 @@ const rawClasses: Class[] = [
       SKILLS.Survie,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: [
+      "Gourdin",
+      "Dague",
+      "Javelot",
+      "Masse",
+      "Bâton",
+      "Cimeterre",
+      "Serpe",
+      "Fronde",
+    ],
+    armorTraining: ["Légères", "Boucliers"],
+    toolProficiencies: ["Kit d'herboriste"],
     equipment: [
       [
         ARMORS.Cuir,
@@ -172,7 +220,31 @@ const rawClasses: Class[] = [
       ],
       [createGold(50)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous connaissez 2 sorts mineurs de druide (modifiables en montant de niveau). La Sagesse est votre caractéristique d'incantation, les focaliseurs druidiques servent de focaliseur.",
+          "Vous préparez 4 sorts de niveau 1+ de votre choix et avez des emplacements de sort selon votre niveau. Récupérez tous les emplacements au Repos long. Chaque Repos long, modifiez votre liste en remplaçant certains sorts par d'autres.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Druidique",
+        description: [
+          "Vous connaissez le druidique, la langue secrète des druides. Le sort communication avec les animaux est toujours préparé pour vous.",
+          "Vous pouvez laisser des messages cachés en druidique que seuls ceux qui connaissent cette langue détectent automatiquement. D'autres détectent la présence avec un jet d'Intelligence (Investigation) DD 15, mais ne peuvent le déchiffrer sans magie.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Ordre primitif",
+        description: [
+          "Mage: Connaissance d'un sort mineur supplémentaire, et bonus à vos jets d'Intelligence (Arcanes ou Nature) égal à votre modificateur de Sagesse (minimum +1). Gardien: Maîtrise des armes de guerre et formation aux armures intermédiaires.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -192,8 +264,9 @@ const rawClasses: Class[] = [
       SKILLS.Religion,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
+    weaponProficiencies: ["Dague", "Fronde", "Bâton", "Arbalète légère"],
     armorTraining: [],
+    toolProficiencies: [],
     equipment: [
       [
         WEAPONS.Lance,
@@ -205,7 +278,24 @@ const rawClasses: Class[] = [
       ],
       [createGold(50)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous connaissez 4 sorts mineurs d'ensorceleur (modifiables en montant de niveau). Le Charisme est votre caractéristique d'incantation, les focaliseurs arcanique servent de focaliseur.",
+          "Vous préparez 2 sorts de niveau 1+ de votre choix et avez des emplacements de sort selon votre niveau. Récupérez tous les emplacements au Repos long. Chaque montée de niveau, modifiez votre liste en remplaçant un sort par un autre.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Sorcellerie innée",
+        description: [
+          "Par une action Bonus, libérez votre magie innée pendant 1 minute. Pendant ce temps, le DD de sauvegarde de vos sorts augmente de 1, et vous avez Avantage aux jets d'attaque des sorts d'ensorceleur que vous lancez.",
+          "Utilisations: 2 par Repos long.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -226,8 +316,9 @@ const rawClasses: Class[] = [
       SKILLS.Survie,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: ["Armes simples", "Armes de guerre"],
+    armorTraining: ["Légères", "Intermédiaires", "Lourdes", "Boucliers"],
+    toolProficiencies: [],
     equipment: [
       [
         ARMORS["Cotte de mailles"],
@@ -256,7 +347,32 @@ const rawClasses: Class[] = [
       ],
       [createGold(155)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Style de combat",
+        description: [
+          "Vous avez perfectionné vos prouesses martiales et obtenez un don de Style de combat de votre choix (Défense recommandé). Chaque style accorde des bonus spécifiques au combat.",
+          "Lorsque vous gagnez un niveau de guerrier, vous pouvez remplacer le don choisi par un autre don de Style de combat.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Second souffle",
+        description: [
+          "Par une action Bonus, vous regagnez des points de vie égaux à 1d10 plus votre niveau de guerrier, puisant dans une réserve limitée d'endurance.",
+          "Vous pouvez utiliser cette capacité deux fois. Vous récupérez une utilisation au Repos court, et toutes les utilisations au Repos long.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Bottes d'arme",
+        description: [
+          "Votre entraînement vous permet d'utiliser la botte de trois types d'armes courantes ou de guerre de votre choix, augmentant vos dégâts et votre précision.",
+          "Lorsque vous terminez un Repos long, vous pouvez vous entraîner et modifier l'une de vos armes choisies.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -277,8 +393,15 @@ const rawClasses: Class[] = [
       SKILLS.Religion,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
+    weaponProficiencies: [
+      "Dague",
+      "Dard",
+      "Fronde",
+      "Bâton",
+      "Arbalète légère",
+    ],
     armorTraining: [],
+    toolProficiencies: [],
     equipment: [
       [
         WEAPONS.Dague,
@@ -291,7 +414,31 @@ const rawClasses: Class[] = [
       ],
       [createGold(55)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous connaissez 3 sorts mineurs de magicien (modifiables au Repos long). L'Intelligence est votre caractéristique d'incantation, les focaliseurs arcanique ou votre grimoire servent de focaliseur.",
+          "Votre grimoire contient 6 sorts de niveau 1+ que vous préparez au Repos long. Vous disposez des emplacements de sort indiqués par votre niveau. Tous les emplacements se récupèrent au Repos long. Chaque niveau supérieur, ajoutez 2 sorts à votre grimoire et augmentez vos sorts préparés selon votre niveau.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Savoir rituel",
+        description: [
+          "Vous pouvez lancer n'importe quel sort comme Rituel s'il possède l'étiquette Rituel et figure dans votre grimoire, sans avoir besoin de le préparer.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Restauration magique",
+        description: [
+          "Lors d'un Repos court, vous pouvez récupérer des emplacements de sort dépensés. Le niveau combiné ne peut pas dépasser la moitié de votre niveau de magicien (arrondi supérieur), et aucun emplacement ne peut être de niveau 6+.",
+          "Une fois cette capacité utilisée, vous ne pouvez la réutiliser qu'après un Repos long.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -311,8 +458,11 @@ const rawClasses: Class[] = [
       SKILLS.Discrétion,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
+    weaponProficiencies: ["Armes simples", "Épée courte"],
     armorTraining: [],
+    toolProficiencies: [
+      "Un type d'outils d'artisan ou d'instrument de musique",
+    ],
     equipment: [
       [
         WEAPONS.Lance,
@@ -321,13 +471,29 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         WEAPONS.Dague,
         WEAPONS.Dague,
-        TOOLS["Outils de charpentier"], // Outils d'artisan ou instrument de musique au choix
+        { name: "Outils d'artisan ou instrument de musique au choix", category: "Autre" },
         ADVENTURING_GEAR["Sac d'explorateur"],
         createGold(11),
       ],
       [createGold(50)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Arts martiaux",
+        description: [
+          "Vous maîtrisez les arts martiaux utilisant vos Frappes à mains nues et vos armes de moine (armes courantes et armes de guerre légères). Bonus action pour une Frappe à mains nues supplémentaire.",
+          "Vous lancez 1d6 pour les dégâts de Frappes à mains nues ou armes de moine. Vous pouvez utiliser votre modificateur de Dextérité au lieu de Force pour les jets d'attaque et de dégâts, ainsi que pour les jets de sauvegarde de Lutte ou Bousculade.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Défense sans armure",
+        description: [
+          "Lorsque vous ne portez pas d'armure et ne maniez pas de bouclier, votre classe d'armure est égale à 10 plus vos modificateurs de Dextérité et de Sagesse.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -347,8 +513,9 @@ const rawClasses: Class[] = [
       SKILLS.Religion,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
+    weaponProficiencies: ["Armes simples"],
     armorTraining: [],
+    toolProficiencies: [],
     equipment: [
       [
         ARMORS.Cuir,
@@ -356,13 +523,30 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         WEAPONS.Dague,
         ADVENTURING_GEAR["Focaliseur arcanique - Orbe"],
-        ADVENTURING_GEAR.Livre, // Livre (savoir occulte)
+        ADVENTURING_GEAR.Livre,
         ADVENTURING_GEAR["Sac d'érudit"],
         createGold(15),
       ],
       [createGold(100)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Manifestations occultes",
+        description: [
+          "Vous avez découvert des Manifestations occultes, fragments de savoir interdit. Vous obtenez une manifestation de votre choix comme Pacte du grimoire.",
+          "Chaque fois que vous gagnez un niveau d'occultiste, vous pouvez remplacer l'une de vos manifestations par une autre pour laquelle vous remplissez les conditions.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Magie de pacte",
+        description: [
+          "Vous connaissez 2 sorts mineurs d'occultiste (modifiables en montant de niveau). Le Charisme est votre caractéristique d'incantation, les focaliseurs arcanique servent de focaliseur.",
+          "Vous préparez 2 sorts de niveau 1+ et avez des emplacements de sort selon votre niveau. Récupérez TOUS les emplacements au Repos court ou long. Chaque niveau, modifiez votre liste en remplaçant un sort par un autre du même niveau.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -382,8 +566,9 @@ const rawClasses: Class[] = [
       SKILLS.Religion,
     ],
     skillProficienciesNumber: 2,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: ["Armes simples", "Armes de guerre"],
+    armorTraining: ["Légères", "Intermédiaires", "Lourdes", "Boucliers"],
+    toolProficiencies: [],
     equipment: [
       [
         ARMORS["Cotte de mailles"],
@@ -395,13 +580,38 @@ const rawClasses: Class[] = [
         WEAPONS.Javeline,
         WEAPONS.Javeline,
         WEAPONS.Javeline,
-        ADVENTURING_GEAR["Symbole sacré - Amulette"], // Symbole sacré au choix
+        { name: "Symbole sacré au choix", category: "Autre" },
         ADVENTURING_GEAR["Sac d'ecclésiastique"],
         createGold(9),
       ],
       [createGold(150)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Imposition des mains",
+        description: [
+          "Vous disposez d'une réserve de pouvoir de guérison égale à 5 fois votre niveau de paladin. Par une action Bonus, touchez une créature et restaurez des points de vie de cette réserve.",
+          "Vous pouvez dépenser 5 points pour supprimer l'état Empoisonné d'une créature (sans restaurer de PV). La réserve se reconstitue au Repos long.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous préparez 2 sorts de niveau 1+ de votre choix. Le Charisme est votre caractéristique d'incantation, les symboles sacrés servent de focaliseur.",
+          "Vous avez des emplacements de sort selon votre niveau, tous récupérés au Repos long. Chaque Repos long, modifiez votre liste en remplaçant un sort par un autre du même niveau.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Bottes d'arme",
+        description: [
+          "Votre entraînement vous permet d'utiliser les propriétés Bottes de deux types d'armes de votre choix que vous maîtrisez.",
+          "Lorsque vous terminez un Repos long, vous pouvez changer les types d'armes choisis.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -423,8 +633,9 @@ const rawClasses: Class[] = [
       SKILLS.Survie,
     ],
     skillProficienciesNumber: 3,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: ["Armes simples", "Armes de guerre"],
+    armorTraining: ["Légères", "Intermédiaires", "Boucliers"],
+    toolProficiencies: [],
     equipment: [
       [
         ARMORS["Cuir clouté"],
@@ -439,7 +650,32 @@ const rawClasses: Class[] = [
       ],
       [createGold(150)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Sorts",
+        description: [
+          "Vous préparez 2 sorts de niveau 1+ de votre choix. La Sagesse est votre caractéristique d'incantation, les focaliseurs druidiques servent de focaliseur.",
+          "Vous avez des emplacements de sort selon votre niveau, tous récupérés au Repos long. Chaque Repos long, modifiez votre liste en remplaçant un sort par un autre du même niveau.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Ennemi juré",
+        description: [
+          "Le sort marque du chasseur est toujours préparé pour vous. Vous pouvez le lancer 2 fois sans dépenser d'emplacement de sort.",
+          "Toutes les utilisations se récupèrent au Repos long. Le nombre augmente avec votre niveau de rôdeur.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Bottes d'arme",
+        description: [
+          "Votre entraînement vous permet d'utiliser les propriétés Bottes de deux types d'armes que vous maîtrisez.",
+          "Lorsque vous terminez un Repos long, vous pouvez changer les types d'armes choisis.",
+        ],
+      },
+    ],
     subclasses: [],
   },
   {
@@ -463,8 +699,16 @@ const rawClasses: Class[] = [
       SKILLS.Discrétion,
     ],
     skillProficienciesNumber: 4,
-    weaponProficiencies: "",
-    armorTraining: [],
+    weaponProficiencies: [
+      "Arbalète de poing",
+      "Arbalète légère",
+      "Arc court",
+      "Dague",
+      "Épée courte",
+      "Rapière",
+    ],
+    armorTraining: ["Légères"],
+    toolProficiencies: ["Outils de voleur"],
     equipment: [
       [
         ARMORS.Cuir,
@@ -480,7 +724,40 @@ const rawClasses: Class[] = [
       ],
       [createGold(100)],
     ],
-    features: [],
+    features: [
+      {
+        level: 1,
+        name: "Expertise",
+        description: [
+          "Vous gagnez l'Expertise dans deux de vos maîtrises de compétences de votre choix (Escamotage et Discrétion recommandées).",
+          "Au niveau 6 de roublard, vous gagnez l'Expertise dans deux autres de vos maîtrises de compétences.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Attaque sournoise",
+        description: [
+          "Une fois par tour, vous infligez 1d6 points de dégâts supplémentaires avec un jet d'attaque (Finesse ou À distance) si vous avez Avantage, OU si un allié est à 1,5m de la cible (pas Incapable d'agir) et vous n'avez pas Désavantage.",
+          "Les dégâts supplémentaires augmentent avec votre niveau de roublard.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Argot des voleurs",
+        description: [
+          "Vous connaissez l'argot des voleurs et une autre langue de votre choix.",
+          "Vous pouvez laisser des messages cachés en argot que seuls les roublards et autres maîtres de l'argot comprennent.",
+        ],
+      },
+      {
+        level: 1,
+        name: "Bottes d'arme",
+        description: [
+          "Votre entraînement vous permet d'utiliser les propriétés Bottes de deux types d'armes que vous maîtrisez.",
+          "Lorsque vous terminez un Repos long, vous pouvez changer les types d'armes choisis.",
+        ],
+      },
+    ],
     subclasses: [],
   },
 ]

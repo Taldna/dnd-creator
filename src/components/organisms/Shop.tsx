@@ -1,4 +1,4 @@
-import { ADVENTURING_GEAR } from "../../data/adventuringGear"
+import { ADVENTURING_GEAR } from "../../data/adventuringGears"
 import { ARMORS } from "../../data/armors"
 import { BOATS } from "../../data/boats"
 import { MOUNTS } from "../../data/mounts"
@@ -6,19 +6,20 @@ import { TOOLS } from "../../data/tools"
 import { TRADE_GOODS } from "../../data/tradeGoods"
 import { VEHICLE_EQUIPMENT } from "../../data/vehicleEquipment"
 import { WEAPONS } from "../../data/weapons"
-import type { Money, Equipment } from "../../types/data/equipment"
+import type { Equipment } from "../../types/data/equipment"
 import Box from "../atoms/Box"
 import EquipmentCard from "../atoms/EquipmentCard"
 import PrimaryButton from "../atoms/PrimaryButton"
 import { useShop } from "../../hooks/useShop"
-import { formatEquipmentToString } from "../../types/utility/equipmentUtils"
 
 export default function Shop({
-  money,
+  baseEquipment,
+  shopPurchases,
   setShopPurchases,
   onClose,
 }: {
-  money: Money[] | undefined
+  baseEquipment: Equipment[]
+  shopPurchases: Equipment[]
   setShopPurchases: (purchases: Equipment[]) => void
   onClose: () => void
 }) {
@@ -29,7 +30,7 @@ export default function Shop({
     toggleCategory,
     canAfford,
     addItemToCart,
-  } = useShop(money)
+  } = useShop(baseEquipment, shopPurchases)
 
   const categories = [
     { key: "Weapons", label: "Armes", items: Object.values(WEAPONS) },
@@ -126,9 +127,7 @@ export default function Shop({
             <h3 className="text-xl font-semibold text-white mb-2">Panier :</h3>
             <div className="bg-gray-800 border-2 border-gray-600 rounded-lg p-4">
               {selectedEq && selectedEq.length > 0 ? (
-                <p className="text-white">
-                  {formatEquipmentToString(selectedEq)}
-                </p>
+                <EquipmentCard equipment={selectedEq} />
               ) : (
                 <p className="text-gray-400 italic">Aucun item sélectionné</p>
               )}

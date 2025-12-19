@@ -4,6 +4,7 @@ import type { Equipment } from "./equipment"
 import type { Feature } from "./feature"
 import type { Skill } from "./skill"
 import type { Subclass } from "./subclass"
+import type { weaponProficiency } from "./weaponProficiency"
 
 /**
  * Class (Classe)
@@ -17,8 +18,9 @@ export type Class = {
   savingThrows: [Ability, Ability]
   skillProficiencies: Skill[]
   skillProficienciesNumber: number
-  weaponProficiencies: string
+  weaponProficiencies: weaponProficiency[]
   armorTraining: ArmorTraining[]
+  toolProficiencies: string[]
   equipment: Equipment[][] 
   features: Feature[]
   subclasses: Subclass[]

@@ -2,8 +2,10 @@ import { useState } from "react"
 import type { Money, Equipment } from "../types/data/equipment"
 import { normalizeCurrency } from "../types/utility/equipmentUtils"
 
-export const useShop = (money: Money[] | undefined) => {
-  const [selectedEq, setSelectedEq] = useState<Equipment[] | null>(null)
+export const useShop = (baseEquipment: Equipment[], previousPurchases: Equipment[] = []) => {
+  const [selectedEq, setSelectedEq] = useState<Equipment[] | null>(
+    previousPurchases.length > 0 ? previousPurchases : null
+  )
   const [expandedCategories, setExpandedCategories] = useState<{
     [key: string]: boolean
   }>({
@@ -24,37 +26,49 @@ export const useShop = (money: Money[] | undefined) => {
     }))
   }
 
-  // Calculate available money including cart purchases
+  // Calculate available money based on base equipment minus shop purchases
   const calculateAvailableMoney = () => {
-    const initialMoney = {
-      po: money?.reduce((acc, curr) => acc + (curr.amount.po || 0), 0) || 0,
-      pa: money?.reduce((acc, curr) => acc + (curr.amount.pa || 0), 0) || 0,
-      pc: money?.reduce((acc, curr) => acc + (curr.amount.pc || 0), 0) || 0,
-    }
-
-    // Calculate total cart cost
-    const cartCost = selectedEq?.reduce(
-      (acc, item) => {
-        if (item.category === "Argent") {
+    // Get ALL money items from base equipment and sum them
+    const baseMoneyItems = baseEquipment.filter((item) => item.category === "Argent")
+    const initialMoney = baseMoneyItems.reduce(
+      (sum, item) => {
+        if ("amount" in item) {
           return {
-            po: acc.po + (item.amount.po || 0),
-            pa: acc.pa + (item.amount.pa || 0),
-            pc: acc.pc + (item.amount.pc || 0),
+            po: sum.po + (item.amount.po || 0),
+            pa: sum.pa + (item.amount.pa || 0),
+            pc: sum.pc + (item.amount.pc || 0),
           }
         }
-        return acc
+        return sum
       },
       { po: 0, pa: 0, pc: 0 }
-    ) || { po: 0, pa: 0, pc: 0 }
+    )
 
-    // Calculate remaining money and normalize it
-    const remaining = {
-      po: initialMoney.po + cartCost.po,
-      pa: initialMoney.pa + cartCost.pa,
-      pc: initialMoney.pc + cartCost.pc,
+    // Calculate total cost of items currently in shop cart (only non-Money items)
+    const cartCost = (selectedEq || [])
+      .filter((item) => item.category !== "Argent")
+      .reduce(
+        (sum, item) => {
+          if ("price" in item) {
+            return {
+              po: sum.po + (item.price.po || 0),
+              pa: sum.pa + (item.price.pa || 0),
+              pc: sum.pc + (item.price.pc || 0),
+            }
+          }
+          return sum
+        },
+        { po: 0, pa: 0, pc: 0 }
+      )
+
+    // Available money = initial money - cart cost
+    const available = {
+      po: initialMoney.po - cartCost.po,
+      pa: initialMoney.pa - cartCost.pa,
+      pc: initialMoney.pc - cartCost.pc,
     }
 
-    return normalizeCurrency(remaining)
+    return normalizeCurrency(available)
   }
 
   // Check if item is affordable

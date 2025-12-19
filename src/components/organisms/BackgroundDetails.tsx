@@ -69,7 +69,7 @@ export default function BackgroundDetails({
             <h3 className="text-xl font-semibold text-white mb-2">
               Maîtrise d'Outil
             </h3>
-            <p className="text-gray-300">{backgroundItem.toolProficiency}</p>
+            <p className="text-gray-300">{backgroundItem.toolProficiencies}</p>
           </div>
 
           <div>

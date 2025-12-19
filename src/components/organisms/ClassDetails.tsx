@@ -62,10 +62,7 @@ export default function ClassDetails({
                       <P>{dndClass.short_desc}</P>
                       <P>
                         <b>Caractéristique(s) principale(s) :</b>{" "}
-                        {dndClass.primaryAbility.map(
-                          (item, index, array) =>
-                            item.name + (index + 1 < array.length ? " et " : "")
-                        )}
+                        {dndClass.primaryAbility.join(" et ")}
                       </P>
                       <P>
                         <b>Dé de vie :</b> {dndClass.hitDice} par niveau de{" "}
@@ -78,23 +75,28 @@ export default function ClassDetails({
                       <P>
                         <b>Maîtrises de compétence :</b>{" "}
                         <span className="italic">2 au choix parmi :</span>{" "}
-                        {dndClass.skillProficiencies.map(
-                          (item, index, array) =>
-                            item.name + (index + 1 < array.length ? ", " : "")
-                        )}
+                        {dndClass.skillProficiencies.map(skill => skill.name).join(", ")}
                       </P>
                       <P>
-                        <b>Maîtrises d'arme :</b> {dndClass.weaponProficiencies}
+                        <b>Maîtrises d'arme :</b>{" "}
+                        {dndClass.weaponProficiencies && dndClass.weaponProficiencies.length > 0
+                          ? dndClass.weaponProficiencies.join(", ")
+                          : "aucune"}
                       </P>
                       <P>
                         <b>Formation aux armures :</b>{" "}
-                        {dndClass.armorTraining.map(
-                          (item, index, array) =>
-                            item + (index + 1 < array.length ? ", " : "")
-                        )}
+                        {dndClass.armorTraining && dndClass.armorTraining.length > 0
+                          ? dndClass.armorTraining.join(", ")
+                          : "aucune"}
+                      </P>
+                      <P>
+                        <b>Maîtrises d'outils :</b>{" "}
+                        {dndClass.toolProficiencies && dndClass.toolProficiencies.length > 0
+                          ? dndClass.toolProficiencies.join(", ")
+                          : "aucune"}
                       </P>
                       <div className="pl-4">
-                        <b>Équipement de départ :</b>{" "}
+                        <b>Équipement de départ :</b>
                         <EquipmentList equipmentOptions={dndClass.equipment} />
                       </div>
                     </>

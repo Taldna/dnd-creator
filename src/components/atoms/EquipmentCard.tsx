@@ -20,7 +20,14 @@ export default function EquipmentCard({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   // Format equipment for display with quantities
-  const items = formatEquipmentArray(equipment)
+  // Filter out money items with 0 amount
+  const filteredEquipment = equipment.filter((item) => {
+    if (item.category === "Argent" && "amount" in item) {
+      return item.amount.po > 0 || item.amount.pa > 0 || item.amount.pc > 0
+    }
+    return true
+  })
+  const items = formatEquipmentArray(filteredEquipment)
 
   const handleMouseEnter = (description: string | undefined) => {
     if (description) {
