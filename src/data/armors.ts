@@ -140,18 +140,8 @@ const rawArmors: Armor[] = [
   },
 ]
 
-export const ARMORS: Record<string, Armor> = {
-  Matelassée: rawArmors[0],
-  Cuir: rawArmors[1],
-  "Cuir clouté": rawArmors[2],
-  Peaux: rawArmors[3],
-  "Chemise de mailles": rawArmors[4],
-  Écailles: rawArmors[5],
-  Cuirasse: rawArmors[6],
-  "Demi-plate": rawArmors[7],
-  Broigne: rawArmors[8],
-  "Cotte de mailles": rawArmors[9],
-  Clibanion: rawArmors[10],
-  Harnois: rawArmors[11],
-  Bouclier: rawArmors[12],
-}
+export const ARMORS: Record<string, Armor> = {}
+
+rawArmors.forEach((armor) => {
+  ARMORS[armor.name] = armor
+})

@@ -118,28 +118,8 @@ const rawTradeGoods: TradeGood[] = [
   },
 ]
 
-export const TRADE_GOODS: Record<string, TradeGood> = {
-  "500 g de blé": rawTradeGoods[0],
-  "500 g de farine": rawTradeGoods[1],
-  "1 poulet": rawTradeGoods[2],
-  "500 g de sel": rawTradeGoods[3],
-  "500 g de fer": rawTradeGoods[4],
-  "1 m² de toile": rawTradeGoods[5],
-  "500 g de cuivre": rawTradeGoods[6],
-  "1 m² de tissu en coton": rawTradeGoods[7],
-  "500 g de gingembre": rawTradeGoods[8],
-  "1 chèvre": rawTradeGoods[9],
-  "500 g de cannelle": rawTradeGoods[10],
-  "500 g de poivre": rawTradeGoods[11],
-  "1 mouton": rawTradeGoods[12],
-  "500 g de clous de girofle": rawTradeGoods[13],
-  "1 cochon": rawTradeGoods[14],
-  "500 g d'argent": rawTradeGoods[15],
-  "1 m² de lin": rawTradeGoods[16],
-  "1 m² de soie": rawTradeGoods[17],
-  "1 vache": rawTradeGoods[18],
-  "500 g de safran": rawTradeGoods[19],
-  "1 boeuf": rawTradeGoods[20],
-  "500 g d'or": rawTradeGoods[21],
-  "500 g de platine": rawTradeGoods[22],
-}
+export const TRADE_GOODS: Record<string, TradeGood> = {}
+
+rawTradeGoods.forEach((good) => {
+  TRADE_GOODS[good.name] = good
+})

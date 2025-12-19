@@ -104,19 +104,8 @@ const rawVehicleEquipment: VehicleEquipment[] = [
   },
 ]
 
-export const VEHICLE_EQUIPMENT: Record<string, VehicleEquipment> = {
-  Barde: rawVehicleEquipment[0],
-  Carrosse: rawVehicleEquipment[1],
-  Char: rawVehicleEquipment[2],
-  Chariot: rawVehicleEquipment[3],
-  Charrette: rawVehicleEquipment[4],
-  Traîneau: rawVehicleEquipment[5],
-  "Selle d'équitation": rawVehicleEquipment[6],
-  "Selle de bât": rawVehicleEquipment[7],
-  "Selle exotique": rawVehicleEquipment[8],
-  "Selle militaire": rawVehicleEquipment[9],
-  "Écurie (par jour)": rawVehicleEquipment[10],
-  Fontes: rawVehicleEquipment[11],
-  "Fourrage (par jour)": rawVehicleEquipment[12],
-  "Mors et bride": rawVehicleEquipment[13],
-}
+export const VEHICLE_EQUIPMENT: Record<string, VehicleEquipment> = {}
+
+rawVehicleEquipment.forEach((equipment) => {
+  VEHICLE_EQUIPMENT[equipment.name] = equipment
+})

@@ -59,13 +59,8 @@ const rawMounts: Mount[] = [
   },
 ]
 
-export const MOUNTS: Record<string, Mount> = {
-  "Âne ou mule": rawMounts[0],
-  Chameau: rawMounts[1],
-  "Cheval de guerre": rawMounts[2],
-  "Cheval de selle": rawMounts[3],
-  "Cheval de trait": rawMounts[4],
-  Éléphant: rawMounts[5],
-  Molosse: rawMounts[6],
-  Poney: rawMounts[7],
-}
+export const MOUNTS: Record<string, Mount> = {}
+
+rawMounts.forEach((mount) => {
+  MOUNTS[mount.name] = mount
+})

@@ -57,11 +57,8 @@ const rawBoats: Boat[] = [
   },
 ]
 
-export const BOATS: Record<string, Boat> = {
-  Barque: rawBoats[0],
-  "Bateau à fond plat": rawBoats[1],
-  "Bateau à voiles": rawBoats[2],
-  Drakkar: rawBoats[3],
-  Galère: rawBoats[4],
-  "Navire de guerre": rawBoats[5],
-}
+export const BOATS: Record<string, Boat> = {}
+
+rawBoats.forEach((boat) => {
+  BOATS[boat.name] = boat
+})

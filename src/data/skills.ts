@@ -165,23 +165,8 @@ const rawSkills: Skill[] = [
   },
 ]
 
-export const SKILLS: Record<string, Skill> = {
-  Athlétisme: rawSkills[0],
-  Acrobaties: rawSkills[1],
-  Discrétion: rawSkills[2],
-  Escamotage: rawSkills[3],
-  Arcanes: rawSkills[4],
-  Histoire: rawSkills[5],
-  Investigation: rawSkills[6],
-  Nature: rawSkills[7],
-  Religion: rawSkills[8],
-  Dressage: rawSkills[9],
-  Intuition: rawSkills[10],
-  Médecine: rawSkills[11],
-  Perception: rawSkills[12],
-  Survie: rawSkills[13],
-  Intimidation: rawSkills[14],
-  Persuasion: rawSkills[15],
-  Représentation: rawSkills[16],
-  Tromperie: rawSkills[17],
-}
+export const SKILLS: Record<string, Skill> = {}
+
+rawSkills.forEach((skill) => {
+  SKILLS[skill.name] = skill
+})

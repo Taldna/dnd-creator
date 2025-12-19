@@ -267,42 +267,8 @@ const rawTools: Tool[] = [
   },
 ]
 
-export const TOOLS: Record<string, Tool> = {
-  Chalemie: rawTools[0],
-  Cor: rawTools[1],
-  Cornemuse: rawTools[2],
-  Flûte: rawTools[3],
-  "Flûte de pan": rawTools[4],
-  Luth: rawTools[5],
-  Lyre: rawTools[6],
-  Tambour: rawTools[7],
-  Tympanon: rawTools[8],
-  Viole: rawTools[9],
-  Dés: rawTools[10],
-  "Jeu d'échecs draconiques": rawTools[11],
-  "Jeu de cartes": rawTools[12],
-  "Jeu des Dragons": rawTools[13],
-  "Kit d'empoisonneur": rawTools[14],
-  "Kit d'herboriste": rawTools[15],
-  "Kit de contrefaçon": rawTools[16],
-  "Kit de déguisement": rawTools[17],
-  "Matériel d'alchimiste": rawTools[18],
-  "Matériel de brasseur": rawTools[19],
-  "Matériel de calligraphe": rawTools[20],
-  "Matériel de peintre": rawTools[21],
-  "Outils de bijoutier": rawTools[22],
-  "Outils de bricoleur": rawTools[23],
-  "Outils de cartographe": rawTools[24],
-  "Outils de charpentier": rawTools[25],
-  "Outils de cordonnier": rawTools[26],
-  "Outils de forgeron": rawTools[27],
-  "Outils de maçon": rawTools[28],
-  "Outils de menuisier": rawTools[29],
-  "Outils de potier": rawTools[30],
-  "Outils de souffleur de verre": rawTools[31],
-  "Outils de tanneur": rawTools[32],
-  "Outils de tisserand": rawTools[33],
-  "Ustensiles de cuisinier": rawTools[34],
-  "Outils de navigateur": rawTools[35],
-  "Outils de voleur": rawTools[36],
-}
+export const TOOLS: Record<string, Tool> = {}
+
+rawTools.forEach((tool) => {
+  TOOLS[tool.name] = tool
+})

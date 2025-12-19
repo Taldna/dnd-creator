@@ -179,15 +179,8 @@ const rawFeats: Feat[] = [
   },
 ]
 
-export const FEATS: Record<string, Feat> = {
-  "Bagarreur de tavernes": rawFeats[0],
-  Chanceux: rawFeats[1],
-  Doué: rawFeats[2],
-  Façonneur: rawFeats[3],
-  Guérisseur: rawFeats[4],
-  "Initié à la magie": rawFeats[5],
-  Musicien: rawFeats[6],
-  Robuste: rawFeats[7],
-  "Sauvagerie martiale": rawFeats[8],
-  Vigilant: rawFeats[9],
-}
+export const FEATS: Record<string, Feat> = {}
+
+rawFeats.forEach((feat) => {
+  FEATS[feat.name] = feat
+})

@@ -181,9 +181,6 @@ export default function DownloadPDF({
       const allTools = [...backgroundTools, ...classTools]
 
       set("tools", allTools.length > 0 ? allTools.join(", ") : "aucune")
-      //champs à vérifier
-      // set("alignment", )
-      // set("languages", )
 
       //champs relatifs à l'espèce
       set("species", species?.name)
@@ -319,6 +316,8 @@ export default function DownloadPDF({
       set("size", personalization?.height.toFixed(2) + "m")
       set("charactername", personalization?.characterName, 14)
       set("backstory", personalization?.backstory)
+      set("alignment", personalization?.alignment.name)
+      set("languages", personalization?.languages.join(", "))
 
       const out = await pdfDoc.save()
       const blob = new Blob([out as BlobPart], { type: "application/pdf" })

@@ -160,11 +160,8 @@ export const CLASS_ABILITY_ARCHETYPES: Record<
   },
 }
 
-export const ABILITIES: Record<string, Ability> = {
-  Force: rawAbilities[0],
-  Dextérité: rawAbilities[1],
-  Constitution: rawAbilities[2],
-  Intelligence: rawAbilities[3],
-  Sagesse: rawAbilities[4],
-  Charisme: rawAbilities[5],
-}
+export const ABILITIES: Record<string, Ability> = {}
+
+rawAbilities.forEach((ability) => {
+  ABILITIES[ability.name] = ability
+})

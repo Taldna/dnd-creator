@@ -345,42 +345,8 @@ const rawWeapons: Weapon[] = [
   },
 ]
 
-export const WEAPONS: Record<string, Weapon> = {
-  Bâton: rawWeapons[0],
-  Dague: rawWeapons[1],
-  Gourdin: rawWeapons[2],
-  Hachette: rawWeapons[3],
-  Javeline: rawWeapons[4],
-  Lance: rawWeapons[5],
-  "Marteau léger": rawWeapons[6],
-  "Masse d'armes": rawWeapons[7],
-  Massue: rawWeapons[8],
-  Serpe: rawWeapons[9],
-  "Arbalète légère": rawWeapons[10],
-  "Arc court": rawWeapons[11],
-  Fléchette: rawWeapons[12],
-  Fronde: rawWeapons[13],
-  Cimeterre: rawWeapons[14],
-  Coutille: rawWeapons[15],
-  "Épée à deux mains": rawWeapons[16],
-  "Épée courte": rawWeapons[17],
-  "Épée longue": rawWeapons[18],
-  "Fléau d'armes": rawWeapons[19],
-  Fouet: rawWeapons[20],
-  "Hache à deux mains": rawWeapons[21],
-  "Hache d'armes": rawWeapons[22],
-  Hallebarde: rawWeapons[23],
-  "Lance d'arçon": rawWeapons[24],
-  Maillet: rawWeapons[25],
-  "Marteau de guerre": rawWeapons[26],
-  Morgenstern: rawWeapons[27],
-  "Pic de guerre": rawWeapons[28],
-  Pique: rawWeapons[29],
-  Rapière: rawWeapons[30],
-  Trident: rawWeapons[31],
-  "Arbalète de poing": rawWeapons[32],
-  "Arbalète lourde": rawWeapons[33],
-  "Arc long": rawWeapons[34],
-  Filet: rawWeapons[35],
-  Sarbacane: rawWeapons[36],
-}
+export const WEAPONS: Record<string, Weapon> = {}
+
+rawWeapons.forEach((weapon) => {
+  WEAPONS[weapon.name] = weapon
+})
