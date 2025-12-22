@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import type { Class } from "../types/data/class"
 import type { Background } from "../types/data/background"
-import type { Species } from "../types/data/species"
+import type { Specie } from "../types/data/specie"
 
 import ClassSelection from "../components/templates/ClassSelection"
 import BackgroundSelection from "../components/templates/BackgroundSelection"
@@ -22,7 +22,7 @@ import DownloadPDF from "../components/templates/DownloadPDF"
 export default function CharacterBuilder() {
   const [dndClass, setDndClass] = useState<Class | null>(null)
   const [background, setBackground] = useState<Background | null>(null)
-  const [species, setSpecies] = useState<Species | null>(null)
+  const [specie, setSpecie] = useState<Specie | null>(null)
   const [abilities, setAbilities] = useState<Record<string, Ability> | null>(
     null
   )
@@ -38,7 +38,7 @@ export default function CharacterBuilder() {
   const handleReturnToHome = () => {
     setDndClass(null)
     setBackground(null)
-    setSpecies(null)
+    setSpecie(null)
     setAbilities(null)
     setEquipment(null)
     setProficiencies(null)
@@ -52,8 +52,8 @@ export default function CharacterBuilder() {
     return <ClassSelection setDndClass={setDndClass} />
   } else if (background === null) {
     return <BackgroundSelection setBackground={setBackground} />
-  } else if (species === null) {
-    return <SpeciesSelection setSpecies={setSpecies} />
+  } else if (specie === null) {
+    return <SpeciesSelection setSpecies={setSpecie} />
   } else if (abilities === null || !showProficiencies) {
     return (
       <AbilitiesSelection
@@ -87,14 +87,14 @@ export default function CharacterBuilder() {
     )
   } else if (equipment !== null && personalization === null) {
     return (
-      <PersonalizationCompletion setPersonalization={setPersonalization} />
+      <PersonalizationCompletion setPersonalization={setPersonalization} specie={specie} />
     )
   } else if (personalization !== null) {
     return (
       <DownloadPDF
         dndClass={dndClass}
         background={background}
-        species={species}
+        species={specie}
         abilities={abilities}
         equipment={equipment}
         proficiencies={proficiencies}
@@ -108,7 +108,7 @@ export default function CharacterBuilder() {
     <div className="text-black">
       <div>Class selected: {dndClass.name}</div>
       <div>Background selected: {background.name}</div>
-      <div>Species selected: {species.name}</div>
+      <div>Species selected: {specie.name}</div>
       <div>Abilities selected:</div>
       {abilities &&
         Object.values(abilities).map((ability, index) => (

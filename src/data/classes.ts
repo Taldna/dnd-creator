@@ -82,7 +82,11 @@ const rawClasses: Class[] = [
     name: "Barde",
     short_desc:
       "Interprétez des sorts qui inspirent et soignent vos alliés, ou envoûtent vos adversaires.",
-    description: [""],
+    description: [
+      "Les bardes sont des maîtres de la magie invoquée par la musique, la danse et la poésie, experts dans l'art d'inspirer les autres, apaiser les blessures, décourager les ennemis et créer des illusions. Ils croient que le multivers a été créé par la parole et que la magie bardique exploite les vestiges du Verbe de la Création.",
+      "Fascinés par presque tout, les bardes maîtrisent de nombreux domaines, notamment la musique, la magie et la plaisanterie. Leur soif inextinguible de connaissances les pousse à voyager et à recueillir des histoires de tous les coins du monde.",
+      "La vie d'un barde se résume à raconter des histoires et à inspirer par l'art. Bien que semblables aux artistes ordinaires qui vivent de la gratitude du public, les bardes se distinguent par la profondeur de leurs connaissances et leur maîtrise authentique de la magie.",
+    ],
     primaryAbility: [ABILITIES.Charisme],
     hitDice: "d8",
     savingThrows: [ABILITIES.Dextérité, ABILITIES.Charisme],
@@ -132,7 +136,11 @@ const rawClasses: Class[] = [
     name: "Clerc",
     short_desc:
       "Invoquez la magie divine pour soigner, galvaniser ou châtier autrui.",
-    description: [""],
+    description: [
+      "Les clercs puisent leur pouvoir dans les royaumes des dieux et l'exploitent pour accomplir des miracles. Bénis par une divinité, un panthéon ou autre entité immortelle, ils canalisent la magie divine des plans Extérieurs pour soutenir leur peuple et combattre ses ennemis.",
+      "Généralement attachés aux temples dédiés à leur divinité, les clercs apprennent les prières et les rites qui les aident à puiser dans le pouvoir divin. Bien que tous les membres d'un temple ne soient pas des clercs, ceux qui le sont possèdent une connexion authentique et vérifiable au divin.",
+      "Rares sont les mortels qui peuvent vraiment maîtriser le pouvoir des dieux comme le fait un clerc. Ces champions du divin canalisent leur foi en actions concrètes, guérissant les blessures et châtiant les ennemis au nom de ce qu'ils servent.",
+    ],
     primaryAbility: [ABILITIES.Sagesse],
     hitDice: "d8",
     savingThrows: [ABILITIES.Charisme, ABILITIES.Sagesse],
@@ -181,7 +189,11 @@ const rawClasses: Class[] = [
     name: "Druide",
     short_desc:
       "Canalisez la magie sauvage pour soigner, changer de forme ou contrôler les éléments.",
-    description: [""],
+    description: [
+      "Les druides appartiennent à des ordres ancestraux qui invoquent les forces de la nature. Exploitant la magie des animaux, des plantes et des quatre éléments, ils soignent, se transforment en animaux et contrôlent la destruction élémentaire.",
+      "Vénérant la nature avant tout, les druides tirent leur magie directement de la nature ou d'une divinité de la nature. Ils s'unissent généralement à d'autres druides pour accomplir les rites sacrés marquant les saisons et les cycles naturels fondamentaux.",
+      "Les druides se préoccupent de l'équilibre écologique précaire qui préserve la vie végétale et animale, et de l'harmonie entre les humains et la nature. Ils protègent les sites sacrés et les régions préservées, mais n'hésitent pas à devenir des aventuriers combattants face aux menaces qui pèsent sur le monde naturel.",
+    ],
     primaryAbility: [ABILITIES.Sagesse],
     hitDice: "d8",
     savingThrows: [ABILITIES.Intelligence, ABILITIES.Sagesse],
@@ -251,7 +263,11 @@ const rawClasses: Class[] = [
     name: "Ensorceleur",
     short_desc:
       "Exploitez votre magie intrinsèque en la façonnant à votre guise.",
-    description: [""],
+    description: [
+      "Les ensorceleurs exercent une magie innée, gravée dans leur être. Cette magie brute est souvent l'héritage d'une bénédiction divine, d'une exposition à la magie d'autres plans, ou d'étranges événements marquant leur histoire personnelle ou familiale. Le résultat laisse une marque indélébile, une magie bouillonnante qui peut se transmettre de génération en génération.",
+      "Contrairement aux autres lanceurs de sorts, les ensorceleurs n'apprennent pas la magie; leur pouvoir brut est inné. L'art essentiel consiste à maîtriser et canaliser cette magie innée, découvrant de nouvelles et étonnantes façons de libérer ce pouvoir. À mesure qu'ils progressent, les ensorceleurs se lient davantage à leur origine, développant des capacités distinctes qui reflètent sa source.",
+      "Les ensorceleurs sont rares, le pouvoir magique apparaissant souvent de façon spontanée sans ligne familiale établie. Ceux qui possèdent ce don découvrent vite qu'il ne reste pas silencieux longtemps; la magie d'un ensorceleur ne demande qu'à être exercée et libérée dans le monde.",
+    ],
     primaryAbility: [ABILITIES.Charisme],
     hitDice: "d6",
     savingThrows: [ABILITIES.Charisme, ABILITIES.Constitution],
@@ -301,7 +317,11 @@ const rawClasses: Class[] = [
   {
     name: "Guerrier",
     short_desc: "Maîtrisez toutes les armes et armures.",
-    description: [""],
+    description: [
+      "Les guerriers dominent sur de nombreux champs de bataille, qu'ils soient chevaliers en quête, champions royaux, soldats d'élite ou mercenaires aguerris. Ils partagent tous une maîtrise inégalée des armes et armures, et connaissent bien la mort, l'ayant donnée et défiée.",
+      "Les guerriers maîtrisent diverses armes et techniques, disposant toujours de l'outil adéquat pour chaque situation de combat. Cette connaissance étendue des armes et armures leur permet de s'adapter à n'importe quel défi, et chaque guerrier se spécialise dans un ou plusieurs styles de combat distincts.",
+      "Qu'ils se spécialisent dans le tir à l'arc, le combat à deux armes ou l'amélioration de leurs talents martiaux grâce à la magie, cette combinaison de solides compétences fondamentales et de spécialisation poussée fait des guerriers d'excellents combattants, redoutables en toute situation.",
+    ],
     primaryAbility: [ABILITIES.Force, ABILITIES.Dextérité],
     hitDice: "d10",
     savingThrows: [ABILITIES.Constitution, ABILITIES.Constitution],
@@ -379,7 +399,11 @@ const rawClasses: Class[] = [
     name: "Magicien",
     short_desc:
       "Étudiez la magie arcanique et maîtrisez des sorts en tout genre.",
-    description: [""],
+    description: [
+      "Les magiciens se distinguent par leur étude approfondie des mécanismes internes de la magie. Ils lancent des sorts de feu explosif, d'éclairs fulgurants, de tromperies subtiles et de transformations spectaculaires. Leur magie invoque des créatures d'autres plans, entrevoit l'avenir, forme des barrières protectrices et ouvre des portails vers d'autres mondes.",
+      "La plupart des magiciens partagent une approche érudite de la magie, examinant ses fondements théoriques et les écoles de magie. Leurs études approfondies leur permettent d'inventer des sorts emblématiques utilisés dans tout le multivers, construisant sur les connaissances accumulées au fil des siècles par les grands magiciens.",
+      "Bien que beaucoup travaillent comme sages, professeurs ou conseillers, l'attrait du savoir pousse même les magiciens les plus intrépides à quitter la sécurité de leurs bibliothèques pour explorer des ruines et des cités perdues. Convaincus que les civilisations antiques détenaient des secrets de magie oubliés, ils cherchent à découvrir un pouvoir encore plus grand que toute magie actuelle.",
+    ],
     primaryAbility: [ABILITIES.Intelligence],
     hitDice: "d6",
     savingThrows: [ABILITIES.Intelligence, ABILITIES.Sagesse],
@@ -445,7 +469,11 @@ const rawClasses: Class[] = [
     name: "Moine",
     short_desc:
       "Foncez dans la mêlée en esquivant les coups, pour frapper vite et fort.",
-    description: [""],
+    description: [
+      "Les moines utilisent un entraînement au combat rigoureux et une discipline mentale pour s'aligner avec le multivers et puiser dans leur réserve de puissance intérieure. Qu'il soit canalisé dans une démonstration éclatante de prouesse martiale ou par une manifestation plus subtile de défense et de vitesse, ce pouvoir imprègne tout ce qu'un moine fait.",
+      "Les moines concentrent leur puissance intérieure pour créer des effets extraordinaires et surnaturels. Ils canalisent une vitesse et une force surhumaines dans leurs attaques, avec ou sans armes. Entre les mains d'un moine, même les armes les plus basiques deviennent des instruments sophistiqués de maîtrise du combat.",
+      "Qu'ils suivent une vie ascétique structurée ou s'immergent dans les tumultes du monde, les moines considèrent les aventures comme des tests de leur développement physique et mental. Guidés par le désir d'accomplir une mission transcendant la simple quête de trésor, ils s'efforcent de se transformer en véritables armes vivantes.",
+    ],
     primaryAbility: [ABILITIES.Dextérité, ABILITIES.Sagesse],
     hitDice: "d8",
     savingThrows: [ABILITIES.Dextérité, ABILITIES.Force],
@@ -471,7 +499,10 @@ const rawClasses: Class[] = [
         WEAPONS.Dague,
         WEAPONS.Dague,
         WEAPONS.Dague,
-        { name: "Outils d'artisan ou instrument de musique au choix", category: "Autre" },
+        {
+          name: "Outils d'artisan ou instrument de musique au choix",
+          category: "Autre",
+        },
         ADVENTURING_GEAR["Sac d'explorateur"],
         createGold(11),
       ],
@@ -499,7 +530,11 @@ const rawClasses: Class[] = [
   {
     name: "Occultiste",
     short_desc: "Lancez des sorts issus d'un savoir occulte.",
-    description: [""],
+    description: [
+      "Les occultistes sont en quête du savoir caché dans la trame du multivers. Ils commencent souvent leur quête en fouillant dans des livres de savoir interdit, en s'adonnant à des invocations destinées à attirer le pouvoir d'êtres extraplanaires, ou en recherchant des lieux de pouvoir. En un rien de temps, chaque occultiste est lié par un pacte avec un puissant protecteur.",
+      "S'appuyant sur le savoir ancestral d'êtres tels que les anges, archifées, démons, diables et entités extraterrestres, les occultistes rassemblent des secrets arcaniques pour renforcer leur propre pouvoir. Ils considèrent leurs protecteurs comme des ressources et des moyens d'acquérir des pouvoirs magiques, les respectant, les servant ou cherchant à les affaiblir selon leur perspective personnelle.",
+      "Une fois le pacte conclu, la soif de savoir et de pouvoir d'un occultiste ne peut être étanchée par de simples études. Ils consacrent leurs jours à rechercher un pouvoir accru et un savoir plus approfondi, ce qui implique généralement une forme d'aventure constante à la poursuite de nouveaux secrets.",
+    ],
     primaryAbility: [ABILITIES.Charisme],
     hitDice: "d8",
     savingThrows: [ABILITIES.Charisme, ABILITIES.Sagesse],
@@ -553,7 +588,11 @@ const rawClasses: Class[] = [
     name: "Paladin",
     short_desc:
       "Par les armes et le divin, châtiez l'adversaire et protégez vos alliés.",
-    description: [""],
+    description: [
+      "Les paladins sont unis par leur serment pour lutter contre les forces de l'annihilation et de la corruption. Qu'il soit prêté devant un autel divin, dans une clairière sacrée ou dans un moment de désespoir avec les morts pour témoins, le serment d'un paladin est un lien puissant qui transforme un combattant dévoué en un véritable champion béni.",
+      "Les paladins s'entraînent au combat et maîtrisent une variété d'armes et d'armures avec excellence. Pourtant, leurs compétences martiales ne sont que le fondement de leur véritable pouvoir : leurs capacités magiques qui leur permettent de guérir les blessés, de frapper les ennemis et de protéger les faibles et leurs alliés.",
+      "Par définition, la vie d'un paladin est une vie d'aventurier, car chaque paladin vit en première ligne de la lutte cosmique contre l'annihilation. Quand ils reçoivent cet appel sacré, ces êtres bénis abandonnent leurs anciennes occupations pour prendre les armes et utiliser la magie divine au service de leur serment.",
+    ],
     primaryAbility: [ABILITIES.Force, ABILITIES.Charisme],
     hitDice: "d10",
     savingThrows: [ABILITIES.Charisme, ABILITIES.Sagesse],
@@ -618,7 +657,11 @@ const rawClasses: Class[] = [
     name: "Rôdeur",
     short_desc:
       "Conjuguez l'excellence martiale, la magie sauvage et les facultés de survie.",
-    description: [""],
+    description: [
+      "Loin des villes animées, au cœur de forêts impénétrables ou de vastes plaines, les rôdeurs exercent une surveillance constante sur la nature. Ils traquent leur proie comme le ferait un prédateur, se déplaçant furtivement dans les étendues sauvages et se cachant dans les broussailles et les décombres.",
+      "Grâce à leur connexion authentique avec la nature, les rôdeurs canalisent la magie primitive et maîtrisent des talents martiaux affinés avec une précision redoutable. Cette union unique de compétences de combat et de pouvoirs naturels en fait des guerriers polyvalents du monde sauvage.",
+      "Consacrés à la protection du monde des ravages des monstres et des tyrans, les rôdeurs mènent une existence d'aventuriers errants. Leur vigilance constante et leur dévouement envers la nature naturelle les conduisent à parcourir les terres frontières où d'autres ne s'aventurent pas.",
+    ],
     primaryAbility: [ABILITIES.Dextérité, ABILITIES.Sagesse],
     hitDice: "d10",
     savingThrows: [ABILITIES.Dextérité, ABILITIES.Force],
@@ -682,7 +725,11 @@ const rawClasses: Class[] = [
     name: "Roublard",
     short_desc:
       "Assénez de meurtrières attaques sournoises tout en évitant adroitement les coups.",
-    description: [""],
+    description: [
+      "Les roublards comptent sur leur ruse, leur discrétion et les vulnérabilités de leurs ennemis pour prendre le dessus en toute situation. Experts dans la résolution de problèmes, certains apprennent même des tours de magie pour compléter leurs capacités exceptionnelles et leur intelligence vive.",
+      "Au combat, les roublards privilégient les coups subtils et précis à la force brute. Se concentrant sur la discrétion et la tromperie, ils perfectionnent leurs compétences—escalade, recherche et désamorçage de pièges, crochetage de serrures—portant des coups calculés plutôt que d'épuiser leurs adversaires sous un déluge de coups.",
+      "Certains roublards ont débuté leur carrière en tant que criminels, tandis que d'autres ont utilisé leur ruse pour combattre le crime. Quel que soit leur rapport à la loi, aucun criminel ou représentant de la loi ne peut égaler l'intelligence subtile et la capacité d'adaptation des plus grands roublards.",
+    ],
     primaryAbility: [ABILITIES.Dextérité],
     hitDice: "d8",
     savingThrows: [ABILITIES.Dextérité, ABILITIES.Intelligence],

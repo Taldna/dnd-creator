@@ -103,7 +103,7 @@ export default function EquipmentSelection({
                 <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
                   Équipement choisi
                 </h2>
-                <div className="flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4">
+                <div className="flex-1 bg-black border-2 border-white rounded-lg p-4">
                   {selectedEq && selectedEq.length > 0 ? (
                     <EquipmentCard equipment={selectedEq} />
                   ) : (
@@ -117,60 +117,112 @@ export default function EquipmentSelection({
                 <h2 className="text-xl font-bold text-center border-b-2 border-gray-600 pb-2">
                   Équipement équipé
                 </h2>
-                <div className="flex-1 bg-gray-800 border-2 border-gray-600 rounded-lg p-4">
-                  {selectedEq && selectedEq.length > 0 ? (
-                    <div className="space-y-3">
-                      {selectedEq
-                        .filter((item) => item.category === "Armures")
-                        .reduce((uniqueItems: Equipment[], item) => {
-                          // Only add if not already present by name
-                          if (!uniqueItems.some((existing) => existing.name === item.name)) {
-                            uniqueItems.push(item)
-                          }
-                          return uniqueItems
-                        }, [])
-                        .map((item, index) => (
-                          <label key={index} className="flex items-center gap-2 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={"isEquipped" in item ? item.isEquipped : false}
-                              onChange={(e) => {
-                                if ("isEquipped" in item && selectedEq) {
-                                  const isShield = "armorClass" in item && item.armorClass.type === "shield"
+                <div className="flex gap-4 h-full">
+                  {/* Armures */}
+                  <div className="flex-1 bg-black border-2 border-white rounded-lg p-4">
+                    <h3 className="text-lg font-bold mb-3">Armures</h3>
+                    {selectedEq && selectedEq.length > 0 ? (
+                      <div className="space-y-3">
+                        {selectedEq
+                          .filter((item) => item.category === "Armures" && !("armorClass" in item && item.armorClass.type === "shield"))
+                          .reduce((uniqueItems: Equipment[], item) => {
+                            if (!uniqueItems.some((existing) => existing.name === item.name)) {
+                              uniqueItems.push(item)
+                            }
+                            return uniqueItems
+                          }, [])
+                          .map((item, index) => (
+                            <label key={index} className="flex items-center gap-2 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={"isEquipped" in item ? item.isEquipped : false}
+                                onChange={(e) => {
+                                  if ("isEquipped" in item && selectedEq) {
+                                    const isShield = "armorClass" in item && item.armorClass.type === "shield"
 
-                                  // If checking the item
-                                  if (e.target.checked) {
-                                    // Uncheck other items of the same type (armor or shield)
-                                    selectedEq.forEach((otherItem) => {
-                                      if (
-                                        otherItem.category === "Armures" &&
-                                        "isEquipped" in otherItem &&
-                                        otherItem !== item &&
-                                        "armorClass" in otherItem
-                                      ) {
-                                        const otherIsShield = otherItem.armorClass.type === "shield"
-                                        // If same type as current item, uncheck it
-                                        if (otherIsShield === isShield) {
-                                          otherItem.isEquipped = false
+                                    if (e.target.checked) {
+                                      selectedEq.forEach((otherItem) => {
+                                        if (
+                                          otherItem.category === "Armures" &&
+                                          "isEquipped" in otherItem &&
+                                          otherItem !== item &&
+                                          "armorClass" in otherItem
+                                        ) {
+                                          const otherIsShield = otherItem.armorClass.type === "shield"
+                                          if (otherIsShield === isShield) {
+                                            otherItem.isEquipped = false
+                                          }
                                         }
-                                      }
-                                    })
-                                  }
+                                      })
+                                    }
 
-                                  // Update the current item
-                                  item.isEquipped = e.target.checked
-                                  setShopPurchases([...shopPurchases])
-                                }
-                              }}
-                              className="w-4 h-4 accent-primary"
-                            />
-                            <span className="text-white">{item.name}</span>
-                          </label>
-                        ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-400 italic">Aucun équipement à équiper</p>
-                  )}
+                                    item.isEquipped = e.target.checked
+                                    setShopPurchases([...shopPurchases])
+                                  }
+                                }}
+                                className="w-4 h-4 accent-primary"
+                              />
+                              <span className="text-white">{item.name}</span>
+                            </label>
+                          ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-400 italic">Aucune armure</p>
+                    )}
+                  </div>
+
+                  {/* Boucliers */}
+                  <div className="flex-1 bg-black border-2 border-white rounded-lg p-4">
+                    <h3 className="text-lg font-bold mb-3">Boucliers</h3>
+                    {selectedEq && selectedEq.length > 0 ? (
+                      <div className="space-y-3">
+                        {selectedEq
+                          .filter((item) => item.category === "Armures" && "armorClass" in item && item.armorClass.type === "shield")
+                          .reduce((uniqueItems: Equipment[], item) => {
+                            if (!uniqueItems.some((existing) => existing.name === item.name)) {
+                              uniqueItems.push(item)
+                            }
+                            return uniqueItems
+                          }, [])
+                          .map((item, index) => (
+                            <label key={index} className="flex items-center gap-2 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={"isEquipped" in item ? item.isEquipped : false}
+                                onChange={(e) => {
+                                  if ("isEquipped" in item && selectedEq) {
+                                    const isShield = "armorClass" in item && item.armorClass.type === "shield"
+
+                                    if (e.target.checked) {
+                                      selectedEq.forEach((otherItem) => {
+                                        if (
+                                          otherItem.category === "Armures" &&
+                                          "isEquipped" in otherItem &&
+                                          otherItem !== item &&
+                                          "armorClass" in otherItem
+                                        ) {
+                                          const otherIsShield = otherItem.armorClass.type === "shield"
+                                          if (otherIsShield === isShield) {
+                                            otherItem.isEquipped = false
+                                          }
+                                        }
+                                      })
+                                    }
+
+                                    item.isEquipped = e.target.checked
+                                    setShopPurchases([...shopPurchases])
+                                  }
+                                }}
+                                className="w-4 h-4 accent-primary"
+                              />
+                              <span className="text-white">{item.name}</span>
+                            </label>
+                          ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-400 italic">Aucun bouclier</p>
+                    )}
+                  </div>
                 </div>
               </div>
 

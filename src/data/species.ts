@@ -1,6 +1,6 @@
-import type { Species } from "../types/data/species"
+import type { Specie } from "../types/data/specie"
 
-const rawSpecies: Species[] = [
+const rawSpecies: Specie[] = [
   {
     name: "Aasimar",
     description: [
@@ -9,6 +9,7 @@ const rawSpecies: Species[] = [
     ],
     features: [],
     speed: 6,
+    height: { min: 1.5, max: 2.0 },
   },
 
   {
@@ -16,6 +17,7 @@ const rawSpecies: Species[] = [
     description: [],
     features: [],
     speed: 6,
+    height: { min: 1.5, max: 2.15 },
   },
 
   {
@@ -24,6 +26,7 @@ const rawSpecies: Species[] = [
     features: [],
     lineage: [],
     speed: 6,
+    height: { min: 1.5, max: 1.85 },
   },
 
   {
@@ -32,6 +35,7 @@ const rawSpecies: Species[] = [
     features: [],
     lineage: [],
     speed: 6,
+    height: { min: 0.9, max: 1.2 },
   },
 
   {
@@ -39,6 +43,7 @@ const rawSpecies: Species[] = [
     description: [],
     features: [],
     speed: 7,
+    height: { min: 2.15, max: 2.45 },
   },
 
   {
@@ -46,6 +51,7 @@ const rawSpecies: Species[] = [
     description: [],
     features: [],
     speed: 6,
+    height: { min: 0.6, max: 0.9 },
   },
 
   {
@@ -71,6 +77,7 @@ const rawSpecies: Species[] = [
       },
     ],
     speed: 6,
+    height: { min: 0.6, max: 2.15 },
   },
 
   {
@@ -78,6 +85,7 @@ const rawSpecies: Species[] = [
     description: [],
     features: [],
     speed: 6,
+    height: { min: 1.2, max: 1.5 },
   },
 
   {
@@ -85,6 +93,7 @@ const rawSpecies: Species[] = [
     description: [],
     features: [],
     speed: 6,
+    height: { min: 1.8, max: 2.15 },
   },
 
   {
@@ -93,6 +102,7 @@ const rawSpecies: Species[] = [
     features: [],
     lineage: [],
     speed: 6,
+    height: { min: 0.9, max: 2.15 },
   },
 ]
 

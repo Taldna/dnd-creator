@@ -6,7 +6,7 @@ import type { Class } from "../../types/data/class"
 import type { Equipment } from "../../types/data/equipment"
 import type { Personalization } from "../../types/data/personalization"
 import type { Skill } from "../../types/data/skill"
-import type { Species } from "../../types/data/species"
+import type { Specie } from "../../types/data/specie"
 import D20 from "../atoms/D20"
 import PrimaryButton from "../atoms/PrimaryButton"
 import { PDFDocument, StandardFonts } from "pdf-lib"
@@ -16,7 +16,7 @@ import { SKILLS } from "../../data/skills"
 type DownloadPDFType = {
   dndClass: Class | null
   background: Background | null
-  species: Species | null
+  species: Specie | null
   abilities: Record<string, Ability> | null
   equipment: Equipment[] | null
   proficiencies: Skill[] | null
@@ -170,7 +170,12 @@ export default function DownloadPDF({
 
       //champs relatifs au background
       set("background", background?.name)
-      set("feats", background?.feat.name)
+      set("feats",
+        "- " + background?.feat.name + ": " + background?.feat.description +
+        (background?.feat.benefits && background.feat.benefits.length > 0
+          ? "\n" + background.feat.benefits.map((benefit) => "  • " + benefit.name + ": " + benefit.description).join("\n")
+          : "")
+      )
 
       const backgroundTools = background?.toolProficiencies && background.toolProficiencies.length > 0
         ? background.toolProficiencies
@@ -184,6 +189,11 @@ export default function DownloadPDF({
 
       //champs relatifs à l'espèce
       set("species", species?.name)
+      set("traits",
+        species?.features && species.features.length > 0
+          ? species.features.map((feature) => "- " + feature.name + ": " + feature.description).join("\n\n")
+          : "aucune"
+      )
 
       //champs relatifs aux caractéristiques
       set("str", abilities?.["Force"].finalValue)

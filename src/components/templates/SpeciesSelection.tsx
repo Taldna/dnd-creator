@@ -1,6 +1,6 @@
 "use client";
 
-import type { Species } from "../../types/data/species";
+import type { Specie } from "../../types/data/specie";
 
 import { SPECIES } from "../../data/species";
 
@@ -13,14 +13,14 @@ import PrimaryButton from "../atoms/PrimaryButton";
 export default function SpeciesSelection({
   setSpecies,
 }: {
-  setSpecies: (species: Species) => void;
+  setSpecies: (species: Specie) => void;
 }) {
 
-  const [selectedSpecies, setSelectedSpecies] = useState<Species>(SPECIES[0]);
+  const [selectedSpecies, setSelectedSpecies] = useState<Specie>(SPECIES[0]);
 
   return (
     <main className="h-screen w-screen flex flex-col items-center text-white p-4 bg-[url(/background_scale.png)] bg-cover overflow-auto">
-      <Title name="Sélection de l'espèce" className="pb-5"/>
+      <Title name="Sélection de l'espèce" className="pb-5" />
       <div className="size-9/10 flex flex-row gap-8 justify-center box-border">
         <Box className="w-2/5 relative">
           <div className="w-full grid grid-cols-4 gap-4">
@@ -37,10 +37,10 @@ export default function SpeciesSelection({
             ))}
           </div>
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <PrimaryButton text="Choisir cette espèce" onClick={() => setSpecies(selectedSpecies)}/>
+            <PrimaryButton text="Choisir cette espèce" onClick={() => setSpecies(selectedSpecies)} />
           </div>
         </Box>
-        
+
         <Box className="w-3/5 flex flex-col gap-4 overflow-hidden">
           <div className="size-full overflow-auto rounded-lg">
             <img

@@ -8,6 +8,7 @@ import PrimaryButton from "../atoms/PrimaryButton"
 import { ALIGNMENTS } from "../../data/alignments"
 import { BACKSTORIES } from "../../data/backstories"
 import HoverDescription from "../atoms/HoverDescription"
+import type { Specie } from "../../types/data/specie"
 
 const ALL_LANGUAGES: Language[] = [
   "Commun",
@@ -28,7 +29,7 @@ const ALL_LANGUAGES: Language[] = [
   "Profond",
 ]
 
-export default function PersonalizationCompletion({ setPersonalization }: { setPersonalization?: (value: Personalization) => void }) {
+export default function PersonalizationCompletion({ setPersonalization, specie }: { setPersonalization?: (value: Personalization) => void, specie?: Specie }) {
   const [characterName, setCharacterName] = useState("")
   const [appearance, setAppearance] = useState("")
   const [backstory, setBackstory] = useState("")
@@ -59,24 +60,6 @@ export default function PersonalizationCompletion({ setPersonalization }: { setP
     if (h <= 4.9) return "Grand"
     if (h <= 9.8) return "Énorme"
     return "Colossal"
-  }
-
-  // Convertit la valeur du slider (0-100) en hauteur réelle avec une échelle non linéaire
-  const sliderToHeight = (sliderValue: number): number => {
-    // Pour 0-60 du slider : hauteur 0-3m (précis)
-    if (sliderValue <= 60) {
-      return (sliderValue / 60) * 3
-    }
-    // Pour 60-100 du slider : hauteur 3-20m (moins précis)
-    return 3 + ((sliderValue - 60) / 40) * 17
-  }
-
-  // Convertit la hauteur réelle en valeur du slider
-  const heightToSlider = (heightValue: number): number => {
-    if (heightValue <= 3) {
-      return (heightValue / 3) * 60
-    }
-    return 60 + ((heightValue - 3) / 17) * 40
   }
 
   return (
@@ -114,12 +97,12 @@ export default function PersonalizationCompletion({ setPersonalization }: { setP
                 <input
                   id="height"
                   type="range"
-                  min="0"
-                  max="100"
-                  step="0.1"
-                  value={heightToSlider(height)}
+                  min={`${specie?.height.min ?? 0}`}
+                  max={`${specie?.height.max ?? 20}`}
+                  step="0.01"
+                  value={height}
                   onChange={(e) => {
-                    const newHeight = sliderToHeight(Number(e.target.value))
+                    const newHeight = Number(e.target.value)
                     setHeight(newHeight)
                     setHeightInput(newHeight.toFixed(2))
                   }}
@@ -128,8 +111,8 @@ export default function PersonalizationCompletion({ setPersonalization }: { setP
                 <div className="flex items-center gap-0">
                   <input
                     type="number"
-                    min="0"
-                    max="20"
+                    min={`${specie?.height.min ?? 0}`}
+                    max={`${specie?.height.max ?? 20}`}
                     step="0.01"
                     value={heightInput}
                     onChange={(e) => {
@@ -140,9 +123,9 @@ export default function PersonalizationCompletion({ setPersonalization }: { setP
                       }
                     }}
                     onBlur={() => setHeightInput(height.toFixed(2))}
-                    className="text-white text-xl text-right w-12 bg-transparent hover:bg-gray-800 border-none focus:outline-none p-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="text-white text-xl w-17 bg-transparent hover:bg-gray-800 border border-white focus:outline-none p-1 text-left"
                   />
-                  <span className="text-white text-xl">m - {getHeightCategory(height)}</span>
+                  <span className="text-white text-xl pl-2">m - {getHeightCategory(height)}</span>
                 </div>
               </div>
 

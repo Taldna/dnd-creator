@@ -43,12 +43,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Artisan",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Force,
+      ABILITIES.Dextérité,
+      ABILITIES.Intelligence,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Façonneur,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Investigation, SKILLS.Persuasion],
+    toolProficiencies: ["Choisir un outil d'artisan"],
     equipment: [
       [
         { name: "Outillage artisanal au choix", category: "Autre" },
@@ -62,12 +66,12 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Artiste",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Force, ABILITIES.Dextérité, ABILITIES.Charisme],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Musicien,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Acrobaties, SKILLS["Art dramatique"]],
+    toolProficiencies: ["Choisir un instrument de musique"],
     equipment: [
       [
         { name: "Instrument de musique au choix", category: "Autre" },
@@ -83,12 +87,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Charlatan",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Dextérité,
+      ABILITIES.Constitution,
+      ABILITIES.Charisme,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Tromperie, SKILLS.Discrétion],
+    toolProficiencies: [TOOLS["Kit de contrefaçon"].name],
     equipment: [
       [
         TOOLS["Kit de contrefaçon"],
@@ -101,12 +109,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Criminel",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Dextérité,
+      ABILITIES.Constitution,
+      ABILITIES.Intelligence,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Vigilant,
-    proficiencies: [],
-    toolProficiencies: ["Outils de voleur"],
+    proficiencies: [SKILLS.Discrétion, SKILLS.Discrétion],
+    toolProficiencies: [TOOLS["Outils de voleur"].name],
     equipment: [
       [
         WEAPONS.Dague,
@@ -123,12 +135,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Ermite",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Constitution,
+      ABILITIES.Sagesse,
+      ABILITIES.Charisme,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Guérisseur,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Médecine, SKILLS.Religion],
+    toolProficiencies: [TOOLS["Kit d'herboriste"].name],
     equipment: [
       [
         TOOLS["Kit d'herboriste"],
@@ -140,12 +156,12 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Fermier",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Force, ABILITIES.Constitution, ABILITIES.Sagesse],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Robuste,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS["Dressage d'animaux"], SKILLS.Nature],
+    toolProficiencies: ["Outils de charpentier"],
     equipment: [
       [
         { name: "Outillage artisanal au choix", category: "Autre" },
@@ -157,11 +173,11 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Garde",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Force, ABILITIES.Intelligence, ABILITIES.Sagesse],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Vigilant,
-    proficiencies: [],
+    proficiencies: [SKILLS.Athlétisme, SKILLS.Perception],
     toolProficiencies: [],
     equipment: [
       [WEAPONS.Lance, ADVENTURING_GEAR["Vêtements, voyage"], createGold(18)],
@@ -170,12 +186,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Guide",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Dextérité,
+      ABILITIES.Constitution,
+      ABILITIES.Sagesse,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Initié à la magie"],
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Discrétion, SKILLS.Survie],
+    toolProficiencies: ["Outils de cartographe"],
     equipment: [
       [
         TOOLS["Outils de cartographe"],
@@ -187,12 +207,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Marchand",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Constitution,
+      ABILITIES.Intelligence,
+      ABILITIES.Charisme,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Chanceux,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS["Dressage d'animaux"], SKILLS.Persuasion],
+    toolProficiencies: [TOOLS["Outils de navigateur"].name],
     equipment: [
       [
         TOOLS["Outils de navigateur"],
@@ -206,12 +230,12 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Marin",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Force, ABILITIES.Dextérité, ABILITIES.Sagesse],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Bagarreur de tavernes"],
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Acrobaties, SKILLS.Perception],
+    toolProficiencies: [TOOLS["Outils de navigateur"].name],
     equipment: [
       [
         WEAPONS.Dague,
@@ -225,12 +249,12 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Noble",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Force, ABILITIES.Intelligence, ABILITIES.Charisme],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Histoire, SKILLS.Persuasion],
+    toolProficiencies: ["Choisir un jeu de société"],
     equipment: [
       [
         { name: "Jeu au choix", category: "Autre" },
@@ -243,11 +267,15 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Sage",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Constitution,
+      ABILITIES.Intelligence,
+      ABILITIES.Sagesse,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Initié à la magie"],
-    proficiencies: [],
+    proficiencies: [SKILLS.Arcanes, SKILLS.Histoire],
     toolProficiencies: [TOOLS["Matériel de calligraphe"].name],
     equipment: [
       [
@@ -279,7 +307,7 @@ const rawBackgrounds: Background[] = [
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Doué,
     proficiencies: [SKILLS.Investigation, SKILLS.Perception],
-    toolProficiencies: ["Un type de jeu"],
+    toolProficiencies: ["Choisir un jeu de société"],
     equipment: [
       [
         TOOLS["Matériel de calligraphe"],
@@ -307,12 +335,16 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Soldat",
-    abilityScore: [],
+    abilityScore: [
+      ABILITIES.Force,
+      ABILITIES.Dextérité,
+      ABILITIES.Constitution,
+    ],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS["Sauvagerie martiale"],
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Athlétisme, SKILLS.Intimidation],
+    toolProficiencies: ["Choisir un jeu de société"],
     equipment: [
       [
         WEAPONS.Lance,
@@ -329,12 +361,12 @@ const rawBackgrounds: Background[] = [
   },
   {
     name: "Voyageur",
-    abilityScore: [],
+    abilityScore: [ABILITIES.Dextérité, ABILITIES.Sagesse, ABILITIES.Charisme],
     description:
       "Cupcake ipsum dolor sit amet. Tiramisu chupa chups halvah brownie gingerbread. Jelly beans tart ice cream donut marzipan cheesecake. Pie cake chupa chups lemon drops sweet roll pastry sweet caramels. Lollipop tiramisu sweet roll I love cotton candy marzipan. Wafer muffin gummi bears bonbon sugar plum cake soufflé cake. Gingerbread biscuit pastry jelly beans pie. Topping I love gummi bears chocolate I love sesame snaps cookie cotton candy.",
     feat: FEATS.Chanceux,
-    proficiencies: [],
-    toolProficiencies: [],
+    proficiencies: [SKILLS.Perspicacité, SKILLS.Discrétion],
+    toolProficiencies: [TOOLS["Outils de voleur"].name],
     equipment: [
       [
         WEAPONS.Dague,
