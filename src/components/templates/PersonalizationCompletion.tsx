@@ -130,12 +130,12 @@ export default function PersonalizationCompletion({ setPersonalization, specie }
               </div>
 
               <div className="flex flex-col pb-4 gap-2">
-                <label htmlFor="backstory" className="text-2xl font-semibold text-center">Backstory</label>
+                <label htmlFor="backstory" className="text-2xl font-semibold text-center">Passé</label>
                 <textarea
                   id="backstory"
                   value={backstory}
                   onChange={(e) => setBackstory(e.target.value)}
-                  placeholder="Racontez l'histoire de votre personnage"
+                  placeholder="Racontez le passé de votre personnage"
                   className="py-2 px-4 text-white text-center border border-white h-32 resize-none"
                 />
                 <div className="flex flex-wrap gap-2 justify-center max-h-64 overflow-y-auto">
