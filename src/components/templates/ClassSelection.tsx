@@ -1,0 +1,47 @@
+"use client"
+import { useState } from "react"
+
+import type { Class } from "../../types/data/class"
+
+import { CLASSES } from "../../data/classes"
+
+import Title from "../atoms/Title"
+import ClassesGrid from "../molecules/ClassesGrid"
+import ClassDetails from "../organisms/ClassDetails"
+import PrimaryButton from "../atoms/PrimaryButton"
+
+export default function ClassSelection({
+  setDndClass,
+}: {
+  setDndClass: (dndClass: Class | null) => void
+}) {
+  const [selectedClass, setSelectedClass] = useState<Class | null>(null)
+
+  return (
+    <main className="h-screen w-screen flex flex-col items-center text-white p-6 bg-[url(/background_scale.png)] bg-cover overflow-hidden gap-6">
+      <Title name="Sélection de la Classe" />
+
+      {selectedClass === null ? (
+        <ClassesGrid handleSelect={setSelectedClass} classList={CLASSES} />
+      ) : (
+        <>
+          <div className="flex-1 w-full overflow-hidden">
+            <ClassDetails
+              dndClass={selectedClass!}
+              handleClick={setSelectedClass}
+            />
+          </div>
+          <div className="flex-shrink-0">
+            <PrimaryButton
+              onClick={() => {
+                console.info(`Classe "${selectedClass!.name}" sélectionnée !`)
+                setDndClass(selectedClass)
+              }}
+              text="Choisir"
+            ></PrimaryButton>
+          </div>
+        </>
+      )}
+    </main>
+  )
+}
