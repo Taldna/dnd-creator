@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 
 import type { Class } from "../types/data/class"
 import type { Background } from "../types/data/background"
@@ -20,6 +21,9 @@ import type { Personalization } from "../types/data/personalization"
 import DownloadPDF from "../components/templates/DownloadPDF"
 
 export default function CharacterBuilder() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const [dndClass, setDndClass] = useState<Class | null>(null)
   const [background, setBackground] = useState<Background | null>(null)
   const [specie, setSpecie] = useState<Specie | null>(null)
@@ -35,6 +39,16 @@ export default function CharacterBuilder() {
   const [isAbilitiesSelectionValid, setIsAbilitiesSelectionValid] =
     useState(false)
 
+  // Obtenir la page actuelle à partir de l'URL
+  const currentPath = location.pathname.replace('/builder/', '')
+
+  // Naviguer vers classselection si on est sur /builder
+  useEffect(() => {
+    if (location.pathname === '/builder' || location.pathname === '/builder/') {
+      navigate('/builder/classselection')
+    }
+  }, [location.pathname, navigate])
+
   const handleReturnToHome = () => {
     setDndClass(null)
     setBackground(null)
@@ -46,50 +60,120 @@ export default function CharacterBuilder() {
     setShowProficiencies(false)
     setShowEquipment(false)
     setIsAbilitiesSelectionValid(false)
+    navigate('/')
   }
 
-  if (dndClass === null) {
-    return <ClassSelection setDndClass={setDndClass} />
-  } else if (background === null) {
-    return <BackgroundSelection setBackground={setBackground} />
-  } else if (specie === null) {
-    return <SpeciesSelection setSpecies={setSpecie} />
-  } else if (abilities === null || !showProficiencies) {
+  // ClassSelection step
+  if (dndClass === null || currentPath === 'classselection') {
+    return (
+      <ClassSelection
+        setDndClass={(selectedClass) => {
+          setDndClass(selectedClass)
+          navigate('/builder/backgroundselection')
+        }}
+      />
+    )
+  }
+
+  // BackgroundSelection step
+  if (background === null || currentPath === 'backgroundselection') {
+    return (
+      <BackgroundSelection
+        setBackground={(selectedBackground) => {
+          setBackground(selectedBackground)
+          navigate('/builder/speciesselection')
+        }}
+      />
+    )
+  }
+
+  // SpeciesSelection step
+  if (specie === null || currentPath === 'speciesselection') {
+    return (
+      <SpeciesSelection
+        setSpecies={(selectedSpecie) => {
+          setSpecie(selectedSpecie)
+          navigate('/builder/abilitiesselection')
+        }}
+      />
+    )
+  }
+
+  // AbilitiesSelection step
+  if (abilities === null || !showProficiencies || currentPath === 'abilitiesselection') {
     return (
       <AbilitiesSelection
-        setAbilities={setAbilities}
+        setAbilities={(selectedAbilities) => {
+          setAbilities(selectedAbilities)
+          setShowProficiencies(true)
+          navigate('/builder/proficienciesselection')
+        }}
         abilities={abilities}
         dndClass={dndClass}
         background={background}
-        onNext={() => setShowProficiencies(true)}
+        onNext={() => {
+          setShowProficiencies(true)
+          navigate('/builder/proficienciesselection')
+        }}
         setIsAbilitiesSelectionValid={setIsAbilitiesSelectionValid}
       />
     )
-  } else if (showProficiencies && !showEquipment && equipment === null) {
+  }
+
+  // ProficienciesSelection step
+  if (showProficiencies && !showEquipment && equipment === null || currentPath === 'proficienciesselection') {
     return (
       <ProficienciesSelection
-        setProficiencies={setProficiencies}
+        setProficiencies={(selectedProficiencies) => {
+          setProficiencies(selectedProficiencies)
+          setShowEquipment(true)
+          navigate('/builder/equipmentselection')
+        }}
         proficiencies={proficiencies}
         dndClass={dndClass}
         background={background}
         isAbilitiesSelectionValid={isAbilitiesSelectionValid}
-        onBack={() => setShowProficiencies(false)}
-        onNext={() => setShowEquipment(true)}
+        onBack={() => {
+          setShowProficiencies(false)
+          navigate('/builder/abilitiesselection')
+        }}
+        onNext={() => {
+          setShowEquipment(true)
+          navigate('/builder/equipmentselection')
+        }}
       />
     )
-  } else if (showEquipment && equipment === null && proficiencies !== null) {
+  }
+
+  // EquipmentSelection step
+  if (showEquipment && equipment === null || currentPath === 'equipmentselection') {
     return (
       <EquipmentSelection
         dndClass={dndClass}
         background={background}
-        setEquipment={setEquipment}
+        setEquipment={(selectedEquipment) => {
+          setEquipment(selectedEquipment)
+          navigate('/builder/personalization')
+        }}
       />
     )
-  } else if (equipment !== null && personalization === null) {
+  }
+
+  // PersonalizationCompletion step
+  if (equipment !== null && personalization === null || currentPath === 'personalization') {
     return (
-      <PersonalizationCompletion setPersonalization={setPersonalization} specie={specie} />
+      <PersonalizationCompletion
+        setPersonalization={(selectedPersonalization) => {
+          setPersonalization(selectedPersonalization)
+          navigate('/builder/download')
+        }}
+        specie={specie}
+      />
     )
-  } else if (personalization !== null) {
+  }
+
+  // DownloadPDF step
+  if (personalization !== null || currentPath === 'download') {
     return (
       <DownloadPDF
         dndClass={dndClass}
@@ -106,9 +190,9 @@ export default function CharacterBuilder() {
 
   return (
     <div className="text-black">
-      <div>Class selected: {dndClass.name}</div>
-      <div>Background selected: {background.name}</div>
-      <div>Species selected: {specie.name}</div>
+      <div>Class selected: {dndClass?.name}</div>
+      <div>Background selected: {background?.name}</div>
+      <div>Species selected: {specie?.name}</div>
       <div>Abilities selected:</div>
       {abilities &&
         Object.values(abilities).map((ability, index) => (
